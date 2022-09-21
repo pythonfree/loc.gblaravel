@@ -8,9 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<?php
-    include_once 'menu.php';
-?>
+<?php include_once 'menu.php'; ?>
 <h2>
     Приветствую на агрегаторе новостей!
 </h2>
