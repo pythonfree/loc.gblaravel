@@ -19,8 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::
-    prefix('news')
+Route::prefix('news')
     ->group(function () {
         Route::get('/', [NewsController::class, 'index'])->name('news');
         Route::get('/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('article');
@@ -28,8 +27,7 @@ Route::
 
 Route::view('/about', 'about')->name('about');
 
-Route::
-    name('admin.')
+Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
         Route::get('/', [IndexController::class, 'index'])->name('index');
@@ -38,14 +36,12 @@ Route::
         Route::get('/test2', [IndexController::class, 'test2'])->name('test2');
     });
 
-Route::
-    prefix('news/categories')
+Route::prefix('news/categories')
     ->group(function() {
         Route::get('/', [CategoriesController::class, 'index'])->name('categories');
     });
 
-Route::
-    prefix('news/category')
+Route::prefix('news/category')
     ->group(function() {
         Route::get('/{id}', [CategoriesController::class, 'show'])->where('id', '[0-9]+')->name('category');
     });
