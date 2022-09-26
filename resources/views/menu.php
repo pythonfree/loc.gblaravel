@@ -1,11 +1,7 @@
-<ul>
-    <li>
-        <a href="/"><p>Главная</p></a>
-    </li>
-    <li>
-        <a href="/about"><p>О проекте</p></a>
-    </li>
-    <li>
-        <a href="/news"><p>Новости</p></a>
-    </li>
-</ul>
+<a href="<?=route('home')?>">Главная</a>
+<a href="<?=route('news')?>">Новости</a>
+<a href="<?=route('categories')?>">Категории</a>
+<a href="<?=route('about')?>">О проекте</a>
+<a href="<?=route('admin.index')?>">Админка</a>
+<a href="<?=route('auth')?>">Авторизация</a>
+<br>
