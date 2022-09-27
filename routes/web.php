@@ -23,6 +23,8 @@ Route::prefix('news')
     ->group(function () {
         Route::get('/', [NewsController::class, 'index'])->name('news');
         Route::get('/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('article');
+        Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
+        Route::get('/category/{name}', [CategoriesController::class, 'show'])->name('category');
     });
 
 Route::view('/about', 'about')->name('about');
@@ -34,16 +36,6 @@ Route::name('admin.')
         Route::get('/add_article', [IndexController::class, 'addArticle'])->name('add_article');
         Route::get('/test1', [IndexController::class, 'test1'])->name('test1');
         Route::get('/test2', [IndexController::class, 'test2'])->name('test2');
-    });
-
-Route::prefix('news/categories')
-    ->group(function() {
-        Route::get('/', [CategoriesController::class, 'index'])->name('categories');
-    });
-
-Route::prefix('news/category')
-    ->group(function() {
-        Route::get('/{name}', [CategoriesController::class, 'show'])->name('category');
     });
 
 Route::view('/auth', 'auth')->name('auth');
