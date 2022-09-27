@@ -18,16 +18,17 @@ use App\Http\Controllers\News\NewsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::view('/about', 'about')->name('about');
+Route::view('/auth', 'auth')->name('auth');
 
 Route::prefix('news')
     ->group(function () {
         Route::get('/', [NewsController::class, 'index'])->name('news');
-        Route::get('/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('article');
+        Route::get('/{id}', [NewsController::class, 'show'])->where(['id' => '[0-9]+'])->name('article');
         Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
-        Route::get('/category/{name}', [CategoriesController::class, 'show'])->name('category');
+        Route::get('/category/{name}', [CategoriesController::class, 'show'])->where(['name' => '[a-z]+'])->name('category');
     });
 
-Route::view('/about', 'about')->name('about');
 
 Route::name('admin.')
     ->prefix('admin')
@@ -37,5 +38,3 @@ Route::name('admin.')
         Route::get('/test1', [IndexController::class, 'test1'])->name('test1');
         Route::get('/test2', [IndexController::class, 'test2'])->name('test2');
     });
-
-Route::view('/auth', 'auth')->name('auth');
