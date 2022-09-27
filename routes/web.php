@@ -25,8 +25,8 @@ Route::prefix('news')
     ->group(function () {
         Route::get('/', [NewsController::class, 'index'])->name('news');
         Route::get('/{id}', [NewsController::class, 'show'])->where(['id' => '[0-9]+'])->name('article');
-        Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
-        Route::get('/category/{name}', [CategoriesController::class, 'show'])->where(['name' => '[a-z]+'])->name('category');
+        Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
+        Route::get('/category/{name}', [CategoriesController::class, 'show'])->where(['name' => '[a-z]+'])->name('category.show');
     });
 
 

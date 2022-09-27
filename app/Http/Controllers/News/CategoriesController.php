@@ -17,7 +17,7 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Categories::getCategories();
-        return view('categories')->with('categories', $categories);
+        return view('news.categories')->with('categories', $categories);
     }
 
     /**
