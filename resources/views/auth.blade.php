@@ -1,4 +1,4 @@
-<?php include_once 'menu.php'; ?>
+@include('menu')
 <h2>
    Авторизация:
 </h2>

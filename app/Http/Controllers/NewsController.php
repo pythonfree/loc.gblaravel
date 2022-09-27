@@ -15,7 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::getNews();
+        $news = News::getNews() ?: [];
         return view('news.index')->with('news', $news);
     }
 
@@ -26,12 +26,6 @@ class NewsController extends Controller
     public function show(int $id)
     {
         $article = News::getArticleById($id);
-        if (is_null($article)) {
-            $article = [
-                'title' => 'Упс...',
-                'text' => 'А эта новость уже не новость =(...',
-            ];
-        }
         return view('news.article')->with('article', $article);
     }
 }

@@ -1,5 +1,5 @@
 <h2>Админка</h2>
-<?php include_once 'menu.php' ?>
+@include('admin.menu')
 <h2>Добавление новости:</h2>
 <label for="title">Название</label>
 <input type="password" id="title">

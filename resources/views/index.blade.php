@@ -1,4 +1,4 @@
-<?php include_once 'menu.php'; ?>
+@include('menu')
 <h2>
     Приветствую на агрегаторе новостей!
 </h2>

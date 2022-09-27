@@ -26,14 +26,7 @@ class CategoriesController extends Controller
      */
     public function show(int $id)
     {
-        $news = News::getNewsByCategoryId($id);
-        if (is_null($news)) {
-            $news[] = [
-                'id' => '#',
-                'title' => "Нет новостей для категории - {$id}.",
-            ];
-        }
-
+        $news = News::getNewsByCategoryId($id) ?: [];
         return view('news.index')->with('news', $news);
     }
 }
