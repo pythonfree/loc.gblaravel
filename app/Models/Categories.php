@@ -7,15 +7,18 @@ class Categories
     private static $categories = [
         [
             'id' => 1,
-            'title' => 'Наука'
+            'title' => 'Наука',
+            'name' => 'science'
         ],
         [
             'id' => 2,
-            'title' => 'Спорт'
+            'title' => 'Спорт',
+            'name' => 'sport',
         ],
         [
             'id' => 3,
-            'title' => 'Культура'
+            'title' => 'Культура',
+            'name' => 'culture',
         ]
     ];
 
@@ -25,5 +28,16 @@ class Categories
     public static function getCategories(): array
     {
         return static::$categories;
+    }
+
+    /**
+     * @param string $name
+     * @return int|null
+     */
+    public static function getCategoryIdByName(string $name): ?int
+    {
+        $collection = collect(static::$categories);
+        $id = $collection->groupBy('name')->get($name);
+        return $id ? $id->first()['id'] : null;
     }
 }

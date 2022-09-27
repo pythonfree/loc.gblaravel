@@ -1,12 +1,19 @@
-@include('menu')
-<h2>Новости:</h2>
+@extends('layouts.main')
 
-<ul>
-@forelse($news as $article)
-    <li>
-        <a href="{{ route('article', $article['id']) }}">{{ $article['title'] }}</a>
-    </li>
-@empty
-    Нет новостей
-@endforelse
-</ul>
+@section('title')
+    @parent | Новости
+@endsection
+
+@section('menu')
+    @include('menu')
+@endsection
+
+@section('content')
+    <h2>Новости:</h2>
+        @forelse($news as $article)
+            <a href="{{ route('article', $article['id']) }}">{{ $article['title'] }}</a>
+            <hr>
+        @empty
+            Нет новостей
+        @endforelse
+@endsection
