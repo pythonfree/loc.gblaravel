@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    @parent | Новости категории:
+    @parent | Новости по категориям
 @endsection
 
 @section('menu')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <h2>Новости:</h2>
+    <h2>Новости по категориям:</h2>
         @foreach ($categories as $category)
             <a href="{{ route('category.show', $category['name']) }}">{{ $category['title'] }}</a>
             <hr>

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    @parent | Новости категории
+    @parent | Новости категории - {{ $news[0]['category']['title'] }}
 @endsection
 
 @section('menu')
@@ -9,9 +9,9 @@
 @endsection
 
 @section('content')
-    <h2>Новости:</h2>
+    <h2>Новости категории - {{ $news[0]['category']['title'] }} :</h2>
         @forelse($news as $article)
-            <a href="{{ route('article', $article['id']) }}">{{ $article['title'] }}</a>
+            <a href="{{ route('article', [$article['category']['name'], $article['id']]) }}">{{ $article['title'] }}</a>
             <hr>
         @empty
             Нет новостей
