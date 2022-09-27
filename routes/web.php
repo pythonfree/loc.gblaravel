@@ -12,9 +12,9 @@
 */
 
 use App\Http\Controllers\Admin\IndexController;
-use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\News\CategoriesController;
+use App\Http\Controllers\News\NewsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -43,7 +43,7 @@ Route::prefix('news/categories')
 
 Route::prefix('news/category')
     ->group(function() {
-        Route::get('/{id}', [CategoriesController::class, 'show'])->where('id', '[0-9]+')->name('category');
+        Route::get('/{name}', [CategoriesController::class, 'show'])->name('category');
     });
 
 Route::view('/auth', 'auth')->name('auth');

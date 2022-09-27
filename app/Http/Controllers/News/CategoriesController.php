@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\News;
 
+use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\News;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CategoriesController extends Controller
@@ -21,12 +21,12 @@ class CategoriesController extends Controller
     }
 
     /**
-     * @param int $id
+     * @param string $name
      * @return Application|Factory|View
      */
-    public function show(int $id)
+    public function show(string $name)
     {
-        $news = News::getNewsByCategoryId($id) ?: [];
-        return view('news.index')->with('news', $news);
+        $news = News::getNewsByCategoryName($name) ?: [];
+        return view('news.category')->with('news', $news);
     }
 }

@@ -95,13 +95,23 @@ class News
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return array|null
      */
-    public static function getNewsByCategoryId($id): ?array
+    public static function getNewsByCategoryId(int $id): ?array
     {
         $collection = collect(static::getNews());
         $news = $collection->groupBy('category_id')->get($id);
         return $news ? $news->all() : null;
+    }
+
+    /**
+     * @param string $name
+     * @return array|null
+     */
+    public static function getNewsByCategoryName(string $name): ?array
+    {
+        $id = Categories::getCategoryIdByName($name);
+        return static::getNewsByCategoryId($id);
     }
 }
