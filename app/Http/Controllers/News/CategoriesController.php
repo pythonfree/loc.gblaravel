@@ -34,6 +34,6 @@ class CategoriesController extends Controller
         $categories = $category->getCategories();
         $news = $news->getNewsByCategoryName($name, $category) ?: [];
         ControllerHelper::addCategoryInfo($news, $categories);
-        return view('categories.one')->with('news', $news);
+        return view('categories.show')->with('news', $news);
     }
 }
