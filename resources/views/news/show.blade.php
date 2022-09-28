@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    @parent | Новость
+    @parent | Новость из категории - {{ $title }}
 @endsection
 
 @section('menu')
