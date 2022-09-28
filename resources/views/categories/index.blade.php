@@ -11,7 +11,7 @@
 @section('content')
     <h2>Новости по категориям:</h2>
         @foreach ($categories as $category)
-            <a href="{{ route('categories.one', $category['name']) }}">{{ $category['title'] }}</a>
+            <a href="{{ route('categories.show', $category['name']) }}">{{ $category['title'] }}</a>
             <hr>
         @endforeach
 @endsection
