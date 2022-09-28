@@ -15,8 +15,10 @@ final class Controller
         $categoriesCollection = collect($categories);
         $newsCollection->each(function ($article, $key) use (&$news, $categoriesCollection) {
             $category = $categoriesCollection->firstWhere('id', $article['category_id']);
-            $news[$key]['category']['slug'] = $category['slug'];
-            $news[$key]['category']['title'] = $category['title'];
+            $news[$key]['category'] = [
+                'slug' => $category['slug'],
+                'title' => $category['title'],
+            ];
         });
     }
 }
