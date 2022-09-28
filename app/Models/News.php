@@ -4,7 +4,7 @@ namespace App\Models;
 
 class News
 {
-    private static $news = [
+    private array $news = [
         [
             'id' => 1,
             'title' => 'На нацпроект "Наука и университеты" направят 145 миллиардов рублей',
@@ -78,18 +78,18 @@ class News
     /**
      * @return array[]
      */
-    public static function getNews(): array
+    public function getNews(): array
     {
-        return static::$news;
+        return $this->news;
     }
 
     /**
      * @param $id
      * @return array|null
      */
-    public static function getArticleById($id): ?array
+    public function getArticleById($id): ?array
     {
-        $collection = collect(static::getNews());
+        $collection = collect($this->getNews());
         $article = $collection->groupBy('id')->get($id);
         return $article ? $article->first() : null;
     }
@@ -98,20 +98,21 @@ class News
      * @param int $id
      * @return array|null
      */
-    public static function getNewsByCategoryId(int $id): ?array
+    public function getNewsByCategoryId(int $id): ?array
     {
-        $collection = collect(static::getNews());
+        $collection = collect($this->getNews());
         $news = $collection->groupBy('category_id')->get($id);
         return $news ? $news->all() : null;
     }
 
     /**
      * @param string $name
+     * @param Category $category
      * @return array|null
      */
-    public static function getNewsByCategoryName(string $name): ?array
+    public function getNewsByCategoryName(string $name, Category $category): ?array
     {
-        $id = Categories::getCategoryIdByName($name);
-        return static::getNewsByCategoryId($id);
+        $id = $category->getCategoryIdByName($name);
+        return $this->getNewsByCategoryId($id);
     }
 }

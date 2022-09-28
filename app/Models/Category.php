@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-class Categories
+class Category
 {
-    private static $categories = [
+    private array $categories = [
         [
             'id' => 1,
             'title' => 'Наука',
@@ -25,18 +25,18 @@ class Categories
     /**
      * @return array[]
      */
-    public static function getCategories(): array
+    public function getCategories(): array
     {
-        return static::$categories;
+        return $this->categories;
     }
 
     /**
      * @param string $name
      * @return int|null
      */
-    public static function getCategoryIdByName(string $name): ?int
+    public function getCategoryIdByName(string $name): ?int
     {
-        $collection = collect(static::$categories);
+        $collection = collect($this->categories);
         $id = $collection->groupBy('name')->get($name);
         return $id ? $id->first()['id'] : null;
     }
