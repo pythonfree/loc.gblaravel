@@ -18,10 +18,11 @@ use App\Http\Controllers\News\NewsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])    ->name('home');
-Route::view('/about', 'about')                  ->name('about');
-Route::view('/auth', 'auth')                    ->name('auth');
-Route::view('/vue', 'vue')->name('vue');
+Route::get('/', [HomeController::class, 'index'])        ->name('home');
+Route::view('/about', 'about')                      ->name('about');
+Route::view('/auth', 'auth')                        ->name('auth');
+Route::view('/vue', 'vue')                          ->name('vue');
+Route::get('/home', [HomeController::class, 'index'])    ->name('home');
 
 Route::name('news.')
     ->prefix('news')
@@ -47,5 +48,3 @@ Route::name('admin.')
     });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
