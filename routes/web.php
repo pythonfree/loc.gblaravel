@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\News\CategoriesController;
 use App\Http\Controllers\News\NewsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])    ->name('home');
@@ -43,3 +44,7 @@ Route::name('admin.')
         Route::get('/test1', [IndexController::class, 'test1'])             ->name('test1');
         Route::get('/test2', [IndexController::class, 'test2'])             ->name('test2');
     });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

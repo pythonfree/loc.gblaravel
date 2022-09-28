@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class HomeController extends Controller
 {
     /**
-     * @param Request $request
-     * @return Application|Factory|View
+     * Create a new controller instance.
+     *
+     * @return void
      */
-    function index(Request $request)
+    public function __construct()
+    {
+//        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return Renderable
+     */
+    public function index(): Renderable
     {
         return view('index');
     }
