@@ -32,6 +32,6 @@ class CategoriesController extends Controller
     {
         $news = $news->getNewsByCategorySlug($slug, $category) ?: [];
         ControllerHelper::addCategoryInfo($news, $category->getCategories());
-        return view('categories.show')->with('news', $news);
+        return view('categories.show')->with(['news' => $news, 'title' => $category->getTitleBySlug($slug)]);
     }
 }

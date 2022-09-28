@@ -40,4 +40,15 @@ class Category
         $id = $collection->groupBy('slug')->get($slug);
         return $id ? $id->first()['id'] : null;
     }
+
+    /**
+     * @param string $slug
+     * @return string|null
+     */
+    public function getTitleBySlug(string $slug): ?string
+    {
+        $collection = collect($this->getCategories());
+        $title = $collection->groupBy('slug')->get($slug);
+        return $title ? $title->first()['title'] : null;
+    }
 }
