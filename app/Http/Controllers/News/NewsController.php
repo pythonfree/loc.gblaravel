@@ -6,7 +6,7 @@ namespace App\Http\Controllers\News;
 use App\Helpers\Controller as ControllerHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\News;
+use App\Models\Article;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -14,11 +14,11 @@ use Illuminate\View\View;
 class NewsController extends Controller
 {
     /**
-     * @param News $news
+     * @param Article $news
      * @param Category $category
      * @return Application|Factory|View
      */
-    public function index(News $news, Category $category)
+    public function index(Article $news, Category $category): Factory|View|Application
     {
         $news = $news->getNews() ?: [];
         ControllerHelper::addCategoryInfo($news, $category->get());
@@ -28,12 +28,15 @@ class NewsController extends Controller
     /**
      * @param string $slug
      * @param int $id
-     * @param News $news
+     * @param Article $news
+     * @param Category $category
      * @return Application|Factory|View
      */
-    public function show(string $slug, int $id, News $news, Category $category)
+    public function show(string $slug, int $id, Article $news, Category $category): Factory|View|Application
     {
-
-        return view('news.show')->with(['article' => $news->getArticleById($id), 'title' => $category->getTitleBySlug($slug)]);
+        return view('news.show')->with([
+            'article' => $news->getArticleById($id),
+            'title' => $category->getTitleBySlug($slug)
+        ]);
     }
 }
