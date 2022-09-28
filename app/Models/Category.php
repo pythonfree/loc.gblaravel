@@ -25,7 +25,7 @@ class Category
     /**
      * @return array[]
      */
-    public function getCategories(): array
+    public function get(): array
     {
         return $this->categories;
     }
@@ -34,7 +34,7 @@ class Category
      * @param string $slug
      * @return int|null
      */
-    public function getCategoryIdBySlug(string $slug): ?int
+    public function getIdBySlug(string $slug): ?int
     {
         $collection = collect($this->categories);
         $id = $collection->groupBy('slug')->get($slug);
@@ -47,7 +47,7 @@ class Category
      */
     public function getTitleBySlug(string $slug): ?string
     {
-        $collection = collect($this->getCategories());
+        $collection = collect($this->get());
         $title = $collection->groupBy('slug')->get($slug);
         return $title ? $title->first()['title'] : null;
     }

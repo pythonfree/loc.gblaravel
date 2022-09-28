@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+    <h2>Новость из категории - {{ $title }}:</h2>
     @if($article)
         <h2>{{ $article['title'] }}</h2>
         <p>{{ $article['text'] }}</p>

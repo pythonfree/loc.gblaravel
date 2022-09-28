@@ -21,18 +21,19 @@ class NewsController extends Controller
     public function index(News $news, Category $category)
     {
         $news = $news->getNews() ?: [];
-        ControllerHelper::addCategoryInfo($news, $category->getCategories());
+        ControllerHelper::addCategoryInfo($news, $category->get());
         return view('news.index')->with('news', $news);
     }
 
     /**
-     * @param string $name
+     * @param string $slug
      * @param int $id
      * @param News $news
      * @return Application|Factory|View
      */
-    public function show(string $name, int $id, News $news)
+    public function show(string $slug, int $id, News $news, Category $category)
     {
-        return view('news.show')->with(['article' => $news->getArticleById($id)]);
+
+        return view('news.show')->with(['article' => $news->getArticleById($id), 'title' => $category->getTitleBySlug($slug)]);
     }
 }

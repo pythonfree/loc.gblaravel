@@ -98,7 +98,7 @@ class News
      * @param int $id
      * @return array|null
      */
-    public function getNewsByCategoryId(int $id): ?array
+    public function getByCategoryId(int $id): ?array
     {
         $collection = collect($this->getNews());
         $news = $collection->groupBy('category_id')->get($id);
@@ -110,9 +110,9 @@ class News
      * @param Category $category
      * @return array|null
      */
-    public function getNewsByCategorySlug(string $slug, Category $category): ?array
+    public function getByCategorySlug(string $slug, Category $category): ?array
     {
-        $id = $category->getCategoryIdBySlug($slug);
-        return $this->getNewsByCategoryId($id);
+        $id = $category->getIdBySlug($slug);
+        return $this->getByCategoryId($id);
     }
 }
