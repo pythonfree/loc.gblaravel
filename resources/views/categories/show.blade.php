@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <h2>Новости категории - {{ $news[0]['category']['title'] }} :</h2>
+    <h2>Новости категории - {{ $news[0]['category']['title'] }}:</h2>
         @forelse($news as $article)
             <a href="{{ route('news.show', [$article['category']['name'], $article['id']]) }}">{{ $article['title'] }}</a>
             <hr>

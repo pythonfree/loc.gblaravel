@@ -10,8 +10,10 @@
 
 @section('content')
     <h2>Новости по категориям:</h2>
-        @foreach ($categories as $category)
+        @forelse ($categories as $category)
             <a href="{{ route('news.categories.show', $category['name']) }}">{{ $category['title'] }}</a>
             <hr>
-        @endforeach
+        @empty
+            Нет категорий
+        @endforelse
 @endsection
