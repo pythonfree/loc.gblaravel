@@ -11,7 +11,7 @@
 @section('content')
     <h2>Новости по категориям:</h2>
         @forelse ($categories as $category)
-            <a href="{{ route('news.categories.show', $category['name']) }}">{{ $category['title'] }}</a>
+            <a href="{{ route('news.categories.show', $category['slug']) }}">{{ $category['title'] }}</a>
             <hr>
         @empty
             Нет категорий

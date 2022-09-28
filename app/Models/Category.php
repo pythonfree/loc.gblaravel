@@ -8,17 +8,17 @@ class Category
         [
             'id' => 1,
             'title' => 'Наука',
-            'name' => 'science'
+            'slug' => 'science'
         ],
         [
             'id' => 2,
             'title' => 'Спорт',
-            'name' => 'sport',
+            'slug' => 'sport',
         ],
         [
             'id' => 3,
             'title' => 'Культура',
-            'name' => 'culture',
+            'slug' => 'culture',
         ]
     ];
 
@@ -31,13 +31,13 @@ class Category
     }
 
     /**
-     * @param string $name
+     * @param string $slug
      * @return int|null
      */
-    public function getCategoryIdByName(string $name): ?int
+    public function getCategoryIdBySlug(string $slug): ?int
     {
         $collection = collect($this->categories);
-        $id = $collection->groupBy('name')->get($name);
+        $id = $collection->groupBy('slug')->get($slug);
         return $id ? $id->first()['id'] : null;
     }
 }

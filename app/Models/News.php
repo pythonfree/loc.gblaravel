@@ -106,13 +106,13 @@ class News
     }
 
     /**
-     * @param string $name
+     * @param string $slug
      * @param Category $category
      * @return array|null
      */
-    public function getNewsByCategoryName(string $name, Category $category): ?array
+    public function getNewsByCategorySlug(string $slug, Category $category): ?array
     {
-        $id = $category->getCategoryIdByName($name);
+        $id = $category->getCategoryIdBySlug($slug);
         return $this->getNewsByCategoryId($id);
     }
 }

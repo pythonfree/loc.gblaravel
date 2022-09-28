@@ -24,15 +24,15 @@ class CategoriesController extends Controller
     }
 
     /**
-     * @param string $name
+     * @param string $slug
      * @param News $news
      * @param Category $category
      * @return Application|Factory|View
      */
-    public function show(string $name, News $news, Category $category)
+    public function show(string $slug, News $news, Category $category)
     {
         $categories = $category->getCategories();
-        $news = $news->getNewsByCategoryName($name, $category) ?: [];
+        $news = $news->getNewsByCategorySlug($slug, $category) ?: [];
         ControllerHelper::addCategoryInfo($news, $categories);
         return view('categories.show')->with('news', $news);
     }

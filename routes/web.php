@@ -25,12 +25,12 @@ Route::name('news.')
     ->prefix('news')
     ->group(function () {
         Route::get('/', [NewsController::class, 'index'])                                                   ->name('index');
-        Route::get('/{name}/{id}', [NewsController::class, 'show'])
-            ->where(['name' => '[a-z]+', 'id' => '[0-9]+'])                                                     ->name('show');
+        Route::get('/{slug}/{id}', [NewsController::class, 'show'])
+            ->where(['slug' => '[a-z]+', 'id' => '[0-9]+'])                                                     ->name('show');
         Route::name('categories.')
             ->group(function () {
                 Route::get('/categories', [CategoriesController::class, 'index'])                           ->name('index');
-                Route::get('/{name}', [CategoriesController::class, 'show'])->where(['name' => '[a-z]+'])   ->name('show');
+                Route::get('/{slug}', [CategoriesController::class, 'show'])->where(['slug' => '[a-z]+'])   ->name('show');
             });
     });
 
