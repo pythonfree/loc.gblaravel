@@ -11,14 +11,12 @@ final class Controller
      */
     public static function addCategoryInfo(array &$news, array $categories): void
     {
-        foreach ($news as &$article) {
-            foreach ($categories as $category) {
-                if ($article['category_id'] == $category['id']) {
-                    $article['category']['slug'] = $category['slug'];
-                    $article['category']['title'] = $category['title'];
-                    break;
-                }
-            }
-        }
+        $newsCollection = collect($news);
+        $categoriesCollection = collect($categories);
+        $newsCollection->each(function ($article, $key) use (&$news, $categoriesCollection) {
+            $category = $categoriesCollection->firstWhere('id', $article['category_id']);
+            $news[$key]['category']['slug'] = $category['slug'];
+            $news[$key]['category']['title'] = $category['title'];
+        });
     }
 }
