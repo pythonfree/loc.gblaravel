@@ -19,8 +19,7 @@ class CategoriesController extends Controller
      */
     public function index(Category $category)
     {
-        $categories = $category->getCategories();
-        return view('categories.index')->with('categories', $categories);
+        return view('categories.index')->with('categories', $category->getCategories());
     }
 
     /**
@@ -31,9 +30,8 @@ class CategoriesController extends Controller
      */
     public function show(string $slug, News $news, Category $category)
     {
-        $categories = $category->getCategories();
         $news = $news->getNewsByCategorySlug($slug, $category) ?: [];
-        ControllerHelper::addCategoryInfo($news, $categories);
+        ControllerHelper::addCategoryInfo($news, $category->getCategories());
         return view('categories.show')->with('news', $news);
     }
 }
