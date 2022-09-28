@@ -35,6 +35,6 @@ class NewsController extends Controller
     public function show(string $name, int $id, News $news) // TODO как избавиться от $name?
     {
         $article = $news->getArticleById($id);
-        return view('news.article')->with(['article' => $article]);
+        return view('news.one')->with(['article' => $article]);
     }
 }
