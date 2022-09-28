@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title')
     @parent | Новости по категориям
@@ -11,8 +11,7 @@
 @section('content')
     <h2>Новости по категориям:</h2>
         @forelse ($categories as $category)
-            <a href="{{ route('news.categories.show', $category['slug']) }}">{{ $category['title'] }}</a>
-            <hr>
+            <p><a href="{{ route('news.categories.show', $category['slug']) }}">{{ $category['title'] }}</a></p>
         @empty
             Нет категорий
         @endforelse

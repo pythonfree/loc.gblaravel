@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    @parent | Главная
+    @parent | Vue demo
 @endsection
 
 @section('menu')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<h2>
-    Приветствую на агрегаторе новостей!
-</h2>
+    <div id="app">
+        <example-component></example-component>
+    </div>
 @endsection
