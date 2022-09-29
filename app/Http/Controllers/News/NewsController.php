@@ -20,8 +20,8 @@ class NewsController extends Controller
      */
     public function index(Article $news, Category $category): Factory|View|Application
     {
-        $news = $news->get() ?: [];
-        ControllerHelper::addCategoryInfo($news, $category->get());
+        $news = $news->getAll() ?: [];
+        ControllerHelper::addCategoryInfo($news, $category->getAll());
         return view('news.index')->with('news', $news);
     }
 
@@ -35,7 +35,7 @@ class NewsController extends Controller
     public function show(string $slug, int $id, Article $news, Category $category): Factory|View|Application
     {
         return view('news.show')->with([
-            'article' => $news->getArticleById($id),
+            'article' => $news->getById($id),
             'title' => $category->getTitleBySlug($slug)
         ]);
     }

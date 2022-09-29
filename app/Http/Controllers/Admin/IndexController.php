@@ -31,7 +31,7 @@ class IndexController extends Controller
             dump($request);
         }
         return view('admin.create', [
-            'categories' => $category->get(),
+            'categories' => $category->getAll(),
         ]);
     }
 

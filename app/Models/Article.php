@@ -78,7 +78,7 @@ class Article
     /**
      * @return array[]
      */
-    public function get(): array
+    public function getAll(): array
     {
         return $this->news;
     }
@@ -87,9 +87,9 @@ class Article
      * @param $id
      * @return array|null
      */
-    public function getArticleById($id): ?array
+    public function getById($id): ?array
     {
-        $collection = collect($this->get());
+        $collection = collect($this->getAll());
         $article = $collection->groupBy('id')->get($id);
         return $article ? $article->first() : null;
     }
@@ -100,7 +100,7 @@ class Article
      */
     public function getByCategoryId(int $id): ?array
     {
-        $collection = collect($this->get());
+        $collection = collect($this->getAll());
         $news = $collection->groupBy('category_id')->get($id);
         return $news ? $news->all() : null;
     }

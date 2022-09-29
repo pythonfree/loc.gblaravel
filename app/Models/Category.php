@@ -25,7 +25,7 @@ class Category
     /**
      * @return array[]
      */
-    public function get(): array
+    public function getAll(): array
     {
         return $this->categories;
     }
@@ -47,7 +47,7 @@ class Category
      */
     public function getTitleBySlug(string $slug): ?string
     {
-        $collection = collect($this->get());
+        $collection = collect($this->getAll());
         $title = $collection->groupBy('slug')->get($slug);
         return $title ? $title->first()['title'] : null;
     }

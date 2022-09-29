@@ -19,7 +19,7 @@ class CategoriesController extends Controller
      */
     public function index(Category $category): Factory|View|Application
     {
-        return view('categories.index')->with('categories', $category->get());
+        return view('categories.index')->with('categories', $category->getAll());
     }
 
     /**
@@ -31,7 +31,7 @@ class CategoriesController extends Controller
     public function show(string $slug, Article $news, Category $category): Factory|View|Application
     {
         $news = $news->getByCategorySlug($slug, $category) ?: [];
-        ControllerHelper::addCategoryInfo($news, $category->get());
+        ControllerHelper::addCategoryInfo($news, $category->getAll());
         return view('categories.show')->with(['news' => $news, 'title' => $category->getTitleBySlug($slug)]);
     }
 }
