@@ -1,8 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
-@section('title')
-    @parent | Vue demo
-@endsection
+@section('title', "Vue demo")
 
 @section('menu')
     @include('menu')

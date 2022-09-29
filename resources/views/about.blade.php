@@ -1,13 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
-@section('title')
-    @parent | О проекте
-@endsection
+@section('title', "О проекте")
 
 @section('menu')
     @include('menu')
 @endsection
 
 @section('content')
-    <h2>Это учебный проект, здесь будут самые интересные новости.</h2>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-body">
+                        <p>Это учебный проект, здесь будут самые интересные новости.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

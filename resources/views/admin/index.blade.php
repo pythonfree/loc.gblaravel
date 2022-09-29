@@ -1,15 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
-@section('title')
-    @parent | Админка
-@endsection
+@section('title', 'Админка')
 
 @section('menu')
     @include('admin.menu')
 @endsection
 
 @section('content')
-    <h2>
-        Админка
-    </h2>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-body">
+                        <p>Админка</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -1,15 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
-@section('title')
-    @parent | Главная
-@endsection
+@section('title', "Главная")
 
 @section('menu')
     @include('menu')
 @endsection
 
 @section('content')
-<h2>
-    Приветствую на агрегаторе новостей!
-</h2>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-body">
+                        <p2>Приветствую на агрегаторе новостей!</p2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
