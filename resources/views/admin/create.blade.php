@@ -9,14 +9,46 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Dashboard') }}</div>
                     <div class="card-body">
-                        <form method="post" action="">
+                        <form method="post" action="{{ route('admin.create') }}">
+                            @csrf
                             <div class="mb-3">
                                 <label for="newsTitle" class="form-label">Название новости</label>
-                                <input type="text" name="title" class="form-control" id="newsTitle" value="">
+                                <input type="text" name="title" class="form-control" id="newsTitle" value="{{ old('title') }}">
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="newsCategory" class="form-label">Категория новости</label>
+                                <select name="category" class="form-select" id="newsCategory">
+                                        <option selected>Open this select menu</option>
+                                    @forelse($categories as $category)
+                                        <option
+                                            {{ old('category')==$category['id']?'selected':'' }}
+                                            value="{{ $category['id'] }}"
+                                        >
+                                            {{ $category['title'] }}
+                                        </option>
+                                    @empty
+                                        <h2>No categories!</h2>
+                                    @endforelse
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="articleText">Текст новости</label>
+                                <textarea class="form-control" id="articleText" name="text">{{ old('text') }}</textarea>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="articlePrivate"
+                                    name="isPrivate"
+                                    value="checked"
+                                    {{ old('isPrivate')?:'' }}
+                                >
+                                <label class="form-check-label" for="articlePrivate">Новость private?</label>
                             </div>
                             <div class="mb-3">
                                 <input type="submit" class="btn btn-outline-primary" id="addArticle" value="Добавить новость">

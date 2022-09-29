@@ -42,8 +42,7 @@ Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
         Route::get('/', [IndexController::class, 'index'])->name('index');
-        Route::get('/add_article', [IndexController::class, 'addArticle'])->name('add_article');
-        Route::get('/create', [IndexController::class, 'create'])->name('create');
+        Route::match(['get', 'post'], '/create', [IndexController::class, 'create'])->name('create');
         Route::get('/test2', [IndexController::class, 'test2'])->name('test2');
     });
 
