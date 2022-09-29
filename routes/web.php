@@ -43,7 +43,7 @@ Route::name('admin.')
     ->group(function () {
         Route::get('/', [IndexController::class, 'index'])->name('index');
         Route::get('/add_article', [IndexController::class, 'addArticle'])->name('add_article');
-        Route::get('/test1', [IndexController::class, 'test1'])->name('test1');
+        Route::get('/create', [IndexController::class, 'create'])->name('create');
         Route::get('/test2', [IndexController::class, 'test2'])->name('test2');
     });
 
