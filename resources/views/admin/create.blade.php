@@ -21,11 +21,10 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <label for="newsCategory" class="form-label">Категория новости</label>
-                                <select name="category" class="form-select" id="newsCategory">
-                                        <option selected>Open this select menu</option>
+                                <select name="category_id" class="form-select" id="newsCategory">
                                     @forelse($categories as $category)
                                         <option
-                                            {{ old('category')==$category['id']?'selected':'' }}
+                                            {{ old('category_id')==$category['id']?'selected':'' }}
                                             value="{{ $category['id'] }}"
                                         >
                                             {{ $category['title'] }}
