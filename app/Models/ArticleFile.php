@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\File;
 
 class ArticleFile
 {
-    private array $news = [];
+    private ?array $news = [];
+    private ?string $path = __DIR__ . '/../../storage/news.json';
 
     public function __construct()
     {
@@ -19,8 +20,10 @@ class ArticleFile
      */
     public function readFile(): ?array
     {
-        $path = realpath(__DIR__ . '/../../storage/news.json');
-        $jsonString = File::get($path);
+        if (!File::isReadable($this->path)) {
+            File::put($this->path, '');
+        }
+        $jsonString = File::get($this->path);
         return json_decode($jsonString, true);
     }
 
@@ -66,14 +69,13 @@ class ArticleFile
     }
 
     /**
-     * @param string $path
      * @param array $requestData
      * @return void
      */
-    public function save(string $path, array $requestData): void
+    public function save(array $requestData): void
     {
         $this->news[] = array_merge(['id' => $this->news ? count($this->news) + 1 : 1], $requestData);
         $newJsonString = json_encode($this->news, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        File::put($path, $newJsonString);
+        File::put($this->path, $newJsonString);
     }
 }

@@ -31,13 +31,10 @@ class IndexController extends Controller
     {
         if ($request->isMethod('post')) {
             $request->flash();
-            $path = realpath(__DIR__ . '/../../../../storage/news.json');
             $requestData = $request->all([
                 'title', 'category_id', 'text', 'isPrivate'
             ]);
-
-            $article->save($path, $requestData);
-
+            $article->save($requestData);
         }
         return view('admin.create', [
             'categories' => $category->getAll(),
