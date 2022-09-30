@@ -15,6 +15,17 @@ class CategoryFile implements ICategory
     }
 
     /**
+     * @param int $id
+     * @return string|null
+     */
+    public function getSlugById(int $id): ?string
+    {
+        $collection = collect($this->categories);
+        $slug = $collection->firstWhere('id', $id);
+        return $slug ? $slug['slug'] : null;
+    }
+
+    /**
      * @return array|null
      */
     public function readFile(): ?array

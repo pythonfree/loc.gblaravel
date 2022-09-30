@@ -34,7 +34,14 @@ class IndexController extends Controller
             $requestData = $request->all([
                 'title', 'category_id', 'text', 'isPrivate'
             ]);
-            $article->save($requestData);
+            if ($article->save($requestData)) {
+                $lastId = $article->getLastId();
+                $categoryId = (int)$requestData['category_id'];
+                return view('news.show')->with([
+                    'article' => $article->getById($lastId),
+                    'title' => $category->getTitleBySlug($category->getSlugById($categoryId)),
+                ]);
+            }
         }
         return view('admin.create', [
             'categories' => $category->getAll(),

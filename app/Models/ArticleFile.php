@@ -9,6 +9,7 @@ class ArticleFile
 {
     private ?array $news = [];
     private ?string $path = __DIR__ . '/../../storage/news.json';
+    private ?int $lastId = null;
 
     public function __construct()
     {
@@ -70,12 +71,23 @@ class ArticleFile
 
     /**
      * @param array $requestData
-     * @return void
+     * @return bool
      */
-    public function save(array $requestData): void
+    public function save(array $requestData): bool
     {
-        $this->news[] = array_merge(['id' => $this->news ? count($this->news) + 1 : 1], $requestData);
+        $this->lastId = $this->news ? count($this->news) + 1 : 1;
+        $this->news[] = array_merge([
+            'id' => $this->lastId
+        ], $requestData);
         $newJsonString = json_encode($this->news, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        File::put($this->path, $newJsonString);
+        return File::put($this->path, $newJsonString);
+    }
+
+    /**
+     * @return int
+     */
+    public function getLastId(): int
+    {
+        return $this->lastId;
     }
 }
