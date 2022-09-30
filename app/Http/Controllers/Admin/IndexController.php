@@ -24,6 +24,7 @@ class IndexController extends Controller
     /**
      * @param Request $request
      * @param CategoryFile $category
+     * @param ArticleFile $article
      * @return Factory|View|Application
      */
     public function create(Request $request, CategoryFile $category, ArticleFile $article): Factory|View|Application
@@ -35,7 +36,7 @@ class IndexController extends Controller
                 'title', 'category_id', 'text', 'isPrivate'
             ]);
 
-            $article->addArticle($path, $requestData);
+            $article->save($path, $requestData);
 
         }
         return view('admin.create', [

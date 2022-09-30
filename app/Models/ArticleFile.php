@@ -70,7 +70,7 @@ class ArticleFile
      * @param array $requestData
      * @return void
      */
-    public function addArticle(string $path, array $requestData): void
+    public function save(string $path, array $requestData): void
     {
         $this->news[] = array_merge(['id' => $this->news ? count($this->news) + 1 : 1], $requestData);
         $newJsonString = json_encode($this->news, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
