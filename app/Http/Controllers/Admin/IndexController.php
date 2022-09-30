@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ArticleFile;
-use App\Models\Category;
+use App\Models\CategoryFile;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -23,10 +23,10 @@ class IndexController extends Controller
 
     /**
      * @param Request $request
-     * @param Category $category
+     * @param CategoryFile $category
      * @return Factory|View|Application
      */
-    public function create(Request $request, Category $category, ArticleFile $articleFile): Factory|View|Application
+    public function create(Request $request, CategoryFile $category, ArticleFile $article): Factory|View|Application
     {
         if ($request->isMethod('post')) {
             $request->flash();
@@ -35,7 +35,7 @@ class IndexController extends Controller
                 'title', 'category_id', 'text', 'isPrivate'
             ]);
 
-            $articleFile->addArticle($path, $requestData);
+            $article->addArticle($path, $requestData);
 
         }
         return view('admin.create', [

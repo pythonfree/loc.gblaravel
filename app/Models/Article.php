@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Contract\ICategory;
+
 class Article
 {
     private array $news = [
@@ -110,7 +112,7 @@ class Article
      * @param Category $category
      * @return array|null
      */
-    public function getByCategorySlug(string $slug, Category $category): ?array
+    public function getByCategorySlug(string $slug, ICategory $category): ?array
     {
         $id = $category->getIdBySlug($slug);
         return $this->getByCategoryId($id);

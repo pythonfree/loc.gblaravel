@@ -3,26 +3,26 @@
 namespace App\Models;
 
 use App\Contract\ICategory;
+use Illuminate\Support\Facades\File;
 
-class Category implements ICategory
+class CategoryFile implements ICategory
 {
-    private array $categories = [
-        [
-            'id' => 1,
-            'title' => 'Наука (из массива)',
-            'slug' => 'science'
-        ],
-        [
-            'id' => 2,
-            'title' => 'Спорт (из массива)',
-            'slug' => 'sport',
-        ],
-        [
-            'id' => 3,
-            'title' => 'Культура (из массива)',
-            'slug' => 'culture',
-        ]
-    ];
+    private array $categories = [];
+
+    public function __construct()
+    {
+        $this->categories = $this->readFile();
+    }
+
+    /**
+     * @return array|null
+     */
+    public function readFile(): ?array
+    {
+        $path = realpath(__DIR__ . '/../../storage/categories.json');
+        $jsonString = File::get($path);
+        return json_decode($jsonString, true);
+    }
 
     /**
      * @return array[]

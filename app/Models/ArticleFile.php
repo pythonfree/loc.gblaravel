@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Contract\ICategory;
 use Illuminate\Support\Facades\File;
 
 class ArticleFile
@@ -58,7 +59,7 @@ class ArticleFile
      * @param Category $category
      * @return array|null
      */
-    public function getByCategorySlug(string $slug, Category $category): ?array
+    public function getByCategorySlug(string $slug, ICategory $category): ?array
     {
         $id = $category->getIdBySlug($slug);
         return $this->getByCategoryId($id);
