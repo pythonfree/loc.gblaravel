@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\FromArray;
 
 class NewsExport implements FromArray
 {
-    protected $news;
+    protected array $news;
 
     public function __construct(array $news)
     {

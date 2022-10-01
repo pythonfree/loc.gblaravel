@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Contract\ICategory;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleFile
