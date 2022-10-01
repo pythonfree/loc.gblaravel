@@ -37,6 +37,7 @@
                                         <select name="file_format" class="form-select" id="file_format">
                                                 <option value="json" {{ old('file_format')=='json'?'selected':'' }}>json</option>
                                                 <option value="excel" {{ old('file_format')=='excel'?'selected':'' }}>excel</option>
+                                                <option value="pdf" {{ old('file_format')=='pdf'?'selected':'' }}>pdf</option>
                                         </select>
                                     </div>
                                 </div>

@@ -16,6 +16,16 @@ class CategoryFile implements ICategory
     }
 
     /**
+     * @param int $categoryId
+     * @return string|null
+     */
+    public function getTitleByCategoryId(int $categoryId): ?string
+    {
+        $slug = $this->getSlugById($categoryId);
+        return $this->getTitleBySlug($slug);
+    }
+
+    /**
      * @param int $id
      * @return string|null
      */

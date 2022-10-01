@@ -16,6 +16,9 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <title>@yield('title')</title>
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

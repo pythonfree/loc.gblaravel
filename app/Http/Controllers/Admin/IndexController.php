@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contract\ICategory;
 use App\Exports\NewsExport;
+use App\Helpers\Model as ModelHelper;
 use App\Http\Controllers\Controller;
 use App\Models\ArticleFile;
 use App\Models\CategoryFile;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -63,9 +67,9 @@ class IndexController extends Controller
      * @param Request $request
      * @param ArticleFile $article
      * @param CategoryFile $category
-     * @return Application|Factory|View|JsonResponse|BinaryFileResponse
+     * @return Application|Factory|View|JsonResponse|Response|BinaryFileResponse|null
      */
-    public function download(Request $request, ArticleFile $article, CategoryFile $category): View|Factory|BinaryFileResponse|JsonResponse|Application
+    public function download(Request $request, ArticleFile $article, CategoryFile $category): Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
     {
         if ($request->isMethod('post')) {
             $request->flash();
@@ -73,9 +77,12 @@ class IndexController extends Controller
                 'category_id',
                 'file_format',
             ]);
-            $news = $article->getByCategoryId((int)$requestData['category_id']);
+            $categoryId = (int)$requestData['category_id'];
             $fileFormat = $requestData['file_format'];
-            return static::exportFile($fileFormat, $news);
+            $news = $article->getByCategoryId($categoryId);
+            $title = $category->getTitleByCategoryId($categoryId);
+            $categories = $category->getAll();
+            return static::exportFile($fileFormat, $news, $title, $categories);
         }
         return view('admin.download', [
             'categories' => $category->getAll(),
@@ -85,9 +92,11 @@ class IndexController extends Controller
     /**
      * @param string $fileFormat
      * @param array $news
-     * @return JsonResponse|BinaryFileResponse|null
+     * @param string $title
+     * @param array $categories
+     * @return Response|BinaryFileResponse|JsonResponse|null
      */
-    private function exportFile(string $fileFormat, array $news): BinaryFileResponse|JsonResponse|null
+    private function exportFile(string $fileFormat, array $news, string $title, array $categories): Response|BinaryFileResponse|JsonResponse|null
     {
         if ($fileFormat == 'json') {
             return response()
@@ -106,6 +115,14 @@ class IndexController extends Controller
                 $news,
             ]);
             return Excel::download($newsExport, 'news.xlsx');
+        }
+        if ($fileFormat == 'pdf') {
+            ModelHelper::addCategoryInfo($news, $categories);
+            $pdf = Pdf::loadView('categories.pdf', [
+                'news' => $news,
+                'title' => $title,
+            ]);
+            return $pdf->download('news.pdf');
         }
         return null;
     }
