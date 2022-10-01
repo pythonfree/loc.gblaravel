@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-final class Controller
+final class Model
 {
     /**
      * @param array $news

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\News;
 
 
-use App\Helpers\Controller as ControllerHelper;
+use App\Helpers\Model as ModelHelper;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryFile;
 use App\Models\ArticleFile;
@@ -21,8 +21,8 @@ class NewsController extends Controller
     public function index(ArticleFile $news, CategoryFile $category): Factory|View|Application
     {
         $news = $news->getAll() ?: [];
-        ControllerHelper::addCategoryInfo($news, $category->getAll());
-        return view('news.index')->with('news', $news);
+        ModelHelper::addCategoryInfo($news, $category->getAll());
+        return view('news.index', ['news' => $news]);
     }
 
     /**
