@@ -8,6 +8,7 @@ use App\Models\CategoryFile;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -56,8 +57,11 @@ class IndexController extends Controller
         return response()->download('photo.jpg');
     }
 
-
-    public function imageJson(ArticleFile $article)
+    /**
+     * @param ArticleFile $article
+     * @return JsonResponse
+     */
+    public function imageJson(ArticleFile $article): JsonResponse
     {
         return response()
             ->json($article->getAll())
