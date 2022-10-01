@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contract\ICategory;
-use App\Exports\NewsExport;
-use App\Helpers\Model as ModelHelper;
+use App\Entity\ExcelFile;
+use App\Entity\JsonFile;
+use App\Entity\PdfFile;
 use App\Http\Controllers\Controller;
 use App\Models\ArticleFile;
 use App\Models\CategoryFile;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,7 +15,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Maatwebsite\Excel\Facades\Excel;
 
 class IndexController extends Controller
 {
@@ -98,31 +96,15 @@ class IndexController extends Controller
      */
     private function exportFile(string $fileFormat, array $news, string $title, array $categories): Response|BinaryFileResponse|JsonResponse|null
     {
-        if ($fileFormat == 'json') {
-            return response()
-                ->json($news)
-                ->header('Content-Disposition', 'attachment; filename = "news.txt"')
-                ->setEncodingOptions(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        }
-        if ($fileFormat == 'excel') {
-            $newsExport = new NewsExport([
-                [
-                    'ID новости',
-                    'Заголовок',
-                    'Текст',
-                    'ID категории'
-                ],
-                $news,
-            ]);
-            return Excel::download($newsExport, 'news.xlsx');
-        }
-        if ($fileFormat == 'pdf') {
-            ModelHelper::addCategoryInfo($news, $categories);
-            $pdf = Pdf::loadView('categories.pdf', [
-                'news' => $news,
-                'title' => $title,
-            ]);
-            return $pdf->download('news.pdf');
+        $exportEntities = [
+            'json' => JsonFile::class,
+            'excel' => ExcelFile::class,
+            'pdf' => PdfFile::class,
+        ];
+        if (array_key_exists($fileFormat, $exportEntities)) {
+            /** @var JsonFile|ExcelFile|PdfFile $exportEntity */
+            $exportEntity = new $exportEntities[$fileFormat];
+            return $exportEntity->export($news, $title, $categories);
         }
         return null;
     }
