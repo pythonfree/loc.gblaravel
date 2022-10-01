@@ -94,7 +94,7 @@ class IndexController extends Controller
      * @param array $categories
      * @return Response|BinaryFileResponse|JsonResponse|null
      */
-    private function exportFile(string $fileFormat, array $news, string $title, array $categories): Response|BinaryFileResponse|JsonResponse|null
+    private static function exportFile(string $fileFormat, array $news, string $title, array $categories): Response|BinaryFileResponse|JsonResponse|null
     {
         $exportEntities = [
             'json' => JsonFile::class,
