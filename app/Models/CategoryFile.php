@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Contract\ICategory;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryFile implements ICategory
 {
@@ -30,8 +31,7 @@ class CategoryFile implements ICategory
      */
     public function readFile(): ?array
     {
-        $path = realpath(__DIR__ . '/../../storage/categories.json');
-        $jsonString = File::get($path);
+        $jsonString = Storage::disk('public')->get('categories.json');
         return json_decode($jsonString, true);
     }
 

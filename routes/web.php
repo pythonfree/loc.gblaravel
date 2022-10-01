@@ -43,7 +43,8 @@ Route::name('admin.')
     ->group(function () {
         Route::get('/', [IndexController::class, 'index'])->name('index');
         Route::match(['get', 'post'], '/create', [IndexController::class, 'create'])->name('create');
-        Route::get('/test2', [IndexController::class, 'test2'])->name('test2');
+        Route::get('/image', [IndexController::class, 'imageDownload'])->name('image');
+        Route::get('/json', [IndexController::class, 'imageJson'])->name('json');
     });
 
 Auth::routes();

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class IndexController extends Controller
 {
@@ -49,11 +49,20 @@ class IndexController extends Controller
     }
 
     /**
-     * @return Factory|View|Application
+     * @return BinaryFileResponse
      */
-    public function test2(): Factory|View|Application
+    public function imageDownload(): BinaryFileResponse
     {
-        return view('admin.test2');
+        return response()->download('photo.jpg');
+    }
+
+
+    public function imageJson(ArticleFile $article)
+    {
+        return response()
+            ->json($article->getAll())
+            ->header('Content-Disposition', 'attachment; filename = "json.txt"')
+            ->setEncodingOptions(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
 }

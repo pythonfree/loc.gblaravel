@@ -30,7 +30,7 @@
                                             {{ $category['title'] }}
                                         </option>
                                     @empty
-                                        <h2>No categories!</h2>
+                                        <option value="0" selected>Нет категории</option>
                                     @endforelse
                                 </select>
                             </div>

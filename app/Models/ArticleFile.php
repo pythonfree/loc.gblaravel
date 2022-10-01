@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Contract\ICategory;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleFile
 {
@@ -21,17 +22,14 @@ class ArticleFile
      */
     public function readFile(): ?array
     {
-        if (!File::isReadable($this->path)) {
-            File::put($this->path, '');
-        }
-        $jsonString = File::get($this->path);
+        $jsonString = Storage::disk('public')->get('news.json');
         return json_decode($jsonString, true);
     }
 
     /**
-     * @return array[]
+     * @return array|null
      */
-    public function getAll(): array
+    public function getAll(): ?array
     {
         return $this->news;
     }
@@ -80,7 +78,7 @@ class ArticleFile
             'id' => $this->lastId
         ], $requestData);
         $newJsonString = json_encode($this->news, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        return File::put($this->path, $newJsonString);
+        return Storage::disk('public')->put('news.json', $newJsonString);
     }
 
     /**
