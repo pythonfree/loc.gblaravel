@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\NewsExport;
 use App\Http\Controllers\Controller;
 use App\Models\ArticleFile;
 use App\Models\CategoryFile;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IndexController extends Controller
 {
@@ -58,15 +60,53 @@ class IndexController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param ArticleFile $article
-     * @return JsonResponse
+     * @param CategoryFile $category
+     * @return Application|Factory|View|JsonResponse|BinaryFileResponse
      */
-    public function imageJson(ArticleFile $article): JsonResponse
+    public function download(Request $request, ArticleFile $article, CategoryFile $category): View|Factory|BinaryFileResponse|JsonResponse|Application
     {
-        return response()
-            ->json($article->getAll())
-            ->header('Content-Disposition', 'attachment; filename = "json.txt"')
-            ->setEncodingOptions(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        if ($request->isMethod('post')) {
+            $request->flash();
+            $requestData = $request->all([
+                'category_id',
+                'file_format',
+            ]);
+            $news = $article->getByCategoryId((int)$requestData['category_id']);
+            $fileFormat = $requestData['file_format'];
+            return static::exportFile($fileFormat, $news);
+        }
+        return view('admin.download', [
+            'categories' => $category->getAll(),
+        ]);
     }
 
+    /**
+     * @param string $fileFormat
+     * @param array $news
+     * @return JsonResponse|BinaryFileResponse|null
+     */
+    private function exportFile(string $fileFormat, array $news): BinaryFileResponse|JsonResponse|null
+    {
+        if ($fileFormat == 'json') {
+            return response()
+                ->json($news)
+                ->header('Content-Disposition', 'attachment; filename = "news.txt"')
+                ->setEncodingOptions(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        }
+        if ($fileFormat == 'excel') {
+            $newsExport = new NewsExport([
+                [
+                    'ID новости',
+                    'Заголовок',
+                    'Текст',
+                    'ID категории'
+                ],
+                $news,
+            ]);
+            return Excel::download($newsExport, 'news.xlsx');
+        }
+        return null;
+    }
 }

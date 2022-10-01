@@ -44,7 +44,7 @@ Route::name('admin.')
         Route::get('/', [IndexController::class, 'index'])->name('index');
         Route::match(['get', 'post'], '/create', [IndexController::class, 'create'])->name('create');
         Route::get('/image', [IndexController::class, 'imageDownload'])->name('image');
-        Route::get('/json', [IndexController::class, 'imageJson'])->name('json');
+        Route::match(['get', 'post'],'/download', [IndexController::class, 'download'])->name('download');
     });
 
 Auth::routes();
