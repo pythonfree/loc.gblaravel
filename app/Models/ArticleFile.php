@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 class ArticleFile
 {
     private ?array $news = [];
-    private ?string $path = __DIR__ . '/../../storage/news.json';
     private ?int $lastId = null;
 
     public function __construct()
