@@ -12,6 +12,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -30,9 +31,9 @@ class IndexController extends Controller
      * @param Request $request
      * @param CategoryFile $category
      * @param ArticleFile $article
-     * @return Factory|View|Application
+     * @return Application|Factory|View|RedirectResponse
      */
-    public function create(Request $request, CategoryFile $category, ArticleFile $article): Factory|View|Application
+    public function create(Request $request, CategoryFile $category, ArticleFile $article): Application|Factory|View|RedirectResponse
     {
         if ($request->isMethod('post')) {
             $request->flash();
@@ -41,11 +42,16 @@ class IndexController extends Controller
             ]);
             if ($article->save($requestData)) {
                 $lastId = $article->getLastId();
-                $categoryId = (int)$requestData['category_id'];
-                return view('news.show')->with([
-                    'article' => $article->getById($lastId),
-                    'title' => $category->getTitleBySlug($category->getSlugById($categoryId)),
-                ]);
+
+                if ($lastId) {
+                    return redirect()->route('admin.create')->with('success', "Новость успешно добавлена (ID - {$lastId})");
+                }
+
+//                $categoryId = (int)$requestData['category_id'];
+//                return view('news.show')->with([
+//                    'article' => $article->getById($lastId),
+//                    'title' => $category->getTitleBySlug($category->getSlugById($categoryId)),
+//                ]);
             }
         }
         return view('admin.create', [
