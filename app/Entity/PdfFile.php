@@ -15,7 +15,7 @@ class PdfFile implements IExportFile
      * @param array $categories
      * @return Response
      */
-    public function export(array $news, string $title, array $categories): Response
+    public function export(array $news = [], string $title = '', array $categories = []): Response
     {
         ModelHelper::addCategoryInfo($news, $categories);
         $pdf = Pdf::loadView('categories.pdf', [

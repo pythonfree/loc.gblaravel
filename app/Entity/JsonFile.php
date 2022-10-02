@@ -9,11 +9,9 @@ class JsonFile implements IExportFile
 {
     /**
      * @param array $news
-     * @param string $title
-     * @param array $categories
      * @return JsonResponse
      */
-    public function export(array $news, string $title = '', array $categories = []): JsonResponse
+    public function export(array $news = []): JsonResponse
     {
         return response()
             ->json($news)

@@ -11,11 +11,9 @@ class ExcelFile implements IExportFile
 {
     /**
      * @param array $news
-     * @param string $title
-     * @param array $categories
      * @return BinaryFileResponse
      */
-    public function export(array $news, string $title = '', array $categories = []): BinaryFileResponse
+    public function export(array $news = []): BinaryFileResponse
     {
         $newsExport = new NewsExport([
             [
