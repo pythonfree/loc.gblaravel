@@ -42,16 +42,9 @@ class IndexController extends Controller
             ]);
             if ($article->save($requestData)) {
                 $lastId = $article->getLastId();
-
                 if ($lastId) {
                     return redirect()->route('admin.create')->with('success', "Новость успешно добавлена (ID - {$lastId})");
                 }
-
-//                $categoryId = (int)$requestData['category_id'];
-//                return view('news.show')->with([
-//                    'article' => $article->getById($lastId),
-//                    'title' => $category->getTitleBySlug($category->getSlugById($categoryId)),
-//                ]);
             }
         }
         return view('admin.create', [
