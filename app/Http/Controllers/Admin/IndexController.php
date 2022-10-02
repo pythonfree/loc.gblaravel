@@ -43,7 +43,7 @@ class IndexController extends Controller
             if ($article->save($requestData)) {
                 $lastId = $article->getLastId();
                 if ($lastId) {
-                    return redirect()->route('admin.create')->with('success', "Новость успешно добавлена (ID - {$lastId})");
+                    return redirect()->route('admin.create')->with('success', "Новость успешно добавлена (ID - {$lastId}).");
                 }
             }
         }
