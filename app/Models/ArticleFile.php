@@ -69,14 +69,62 @@ class ArticleFile
      * @param array $requestData
      * @return bool
      */
-    public function save(array $requestData): bool
+    public function save(array &$requestData): bool
     {
-        $this->lastId = $this->news ? count($this->news) + 1 : 1;
+        $this->saveNews($requestData);
+        $newJsonString = json_encode($this->news, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        return Storage::disk('public')->put('news.json', $newJsonString);
+    }
+
+    /**
+     * @param $requestData
+     * @return void
+     */
+    private function saveNews(&$requestData): void
+    {
+        $this->setImageUrl($requestData);
+        $this->setLastId();
+        $this->setNews($requestData);
+    }
+
+    /**
+     * @param $requestData
+     * @return void
+     */
+    private function setNews($requestData): void
+    {
         $this->news[] = array_merge([
             'id' => $this->lastId
         ], $requestData);
-        $newJsonString = json_encode($this->news, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        return Storage::disk('public')->put('news.json', $newJsonString);
+    }
+
+    /**
+     * @return void
+     */
+    private function setLastId(): void
+    {
+        $maxId = 1;
+        foreach ($this->news as $article) {
+            if ($article['id'] > $maxId) {
+                $maxId = $article['id'];
+            }
+        }
+        $maxId++;
+        $this->lastId = $maxId;
+    }
+
+    /**
+     * @param $requestData
+     * @return void
+     */
+    private function setImageUrl(&$requestData): void
+    {
+        $img = $requestData['image'] ?? null;
+        if ($img) {
+            $path = Storage::putFile('public/images', $img);
+            $url = Storage::url($path);
+            $requestData['image'] = $url;
+        }
     }
 
     /**

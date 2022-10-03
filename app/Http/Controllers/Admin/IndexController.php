@@ -38,7 +38,11 @@ class IndexController extends Controller
         if ($request->isMethod('post')) {
             $request->flash();
             $requestData = $request->all([
-                'title', 'category_id', 'text', 'isPrivate'
+                'title',
+                'category_id',
+                'text',
+                'isPrivate',
+                'image',
             ]);
             if ($article->save($requestData)) {
                 $lastId = $article->getLastId();

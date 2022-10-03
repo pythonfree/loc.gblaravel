@@ -15,7 +15,15 @@
                     <div class="card-body">
                         <p>Новости:</p>
                         @forelse($news as $article)
-                            <p><a href="{{ route('news.show', [$article['category']['slug'], $article['id']]) }}">{{ $article['title'] }}</a></p>
+                            <div class="card-img" style="background-image: url(
+                                {{ $article['image'] ?? asset('assets/img/default-news.png') }}
+                            )">
+                            </div>
+                            <p>
+                                <a href="{{ route('news.show', [$article['category']['slug'], $article['id']]) }}">
+                                    {{ $article['title'] }}
+                                </a>
+                            </p>
                         @empty
                             Нет новостей
                         @endforelse

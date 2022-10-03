@@ -16,6 +16,10 @@
                         <p>Новость из категории - {{ $title }}:</p>
                         @if($article)
                             <h2>{{ $article['title'] }}</h2>
+                                <div class="card-img" style="background-image: url(
+                                    {{ $article['image'] ?? asset('assets/img/default-news.png') }}
+                                )">
+                                </div>
                             <p>{{ $article['text'] }}</p>
                         @else
                             Нет такой новости!

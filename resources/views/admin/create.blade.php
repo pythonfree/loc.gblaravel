@@ -13,14 +13,14 @@
                 <div class="card">
                     <div class="card-header">Добавить новость</div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('admin.create') }}">
+                        <form enctype="multipart/form-data" method="post" action="{{ route('admin.create') }}">
                             @csrf
                             <div class="mb-3">
-                                <label for="newsTitle" class="form-label">Название новости</label>
+                                <label for="newsTitle" class="form-label">Заголовок новости:</label>
                                 <input type="text" name="title" class="form-control" id="newsTitle" value="{{ old('title') }}">
                             </div>
                             <div class="mb-3 col-md-4">
-                                <label for="newsCategory" class="form-label">Категория новости</label>
+                                <label for="newsCategory" class="form-label">Категория новости:</label>
                                 <select name="category_id" class="form-select" id="newsCategory">
                                     @forelse($categories as $category)
                                         <option
@@ -35,8 +35,12 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="articleText">Текст новости</label>
+                                <label for="articleText">Текст новости:</label>
                                 <textarea class="form-control" id="articleText" name="text">{{ old('text') }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Картинка:</label>
+                                <input type="file" name="image" class="form-control" id="image">
                             </div>
                             <div class="mb-3 form-check">
                                 <input

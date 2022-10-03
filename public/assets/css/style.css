@@ -1,0 +1,7 @@
+.card-img {
+    height: 100px;
+    width: 100px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
