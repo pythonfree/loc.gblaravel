@@ -5,20 +5,20 @@ namespace App\Http\Controllers\News;
 
 use App\Helpers\Model as ModelHelper;
 use App\Http\Controllers\Controller;
-use App\Models\CategoryFile;
-use App\Models\ArticleFile;
+use App\Models\ArticleDb;
+use App\Models\CategoryDb;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
-class NewsController extends Controller
+class IndexController extends Controller
 {
     /**
-     * @param ArticleFile $news
-     * @param CategoryFile $category
-     * @return Application|Factory|View
+     * @param ArticleDb $news
+     * @param CategoryDb $category
+     * @return Factory|View|Application
      */
-    public function index(ArticleFile $news, CategoryFile $category): Factory|View|Application
+    public function index(ArticleDb $news, CategoryDb $category): Factory|View|Application
     {
         $news = $news->getAll() ?: [];
         ModelHelper::addCategoryInfo($news, $category->getAll());
@@ -28,11 +28,11 @@ class NewsController extends Controller
     /**
      * @param string $slug
      * @param int $id
-     * @param ArticleFile $news
-     * @param CategoryFile $category
-     * @return Application|Factory|View
+     * @param ArticleDb $news
+     * @param CategoryDb $category
+     * @return Factory|View|Application
      */
-    public function show(string $slug, int $id, ArticleFile $news, CategoryFile $category): Factory|View|Application
+    public function show(string $slug, int $id, ArticleDb $news, CategoryDb $category): Factory|View|Application
     {
         return view('news.show')->with([
             'article' => $news->getById($id),

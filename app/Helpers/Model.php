@@ -14,7 +14,7 @@ final class Model
         $newsCollection = collect($news);
         $categoriesCollection = collect($categories);
         $newsCollection->each(function ($article, $key) use (&$news, $categoriesCollection) {
-            $category = $categoriesCollection->firstWhere('id', $article['category_id']);
+            $category = $categoriesCollection->firstWhere('id', $article['categoryId']);
             $news[$key]['category'] = [
                 'slug' => $category['slug'],
                 'title' => $category['title'],

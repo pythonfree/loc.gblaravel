@@ -11,9 +11,8 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">Новости категории - {{ $title }}:</div>
                     <div class="card-body">
-                        <p>Новости категории - {{ $title }}:</p>
                         @forelse($news as $article)
                             <div class="card-img" style="background-image: url(
                                 {{ $article['image'] ?? asset('assets/img/default-news.png') }}

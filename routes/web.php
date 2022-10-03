@@ -11,10 +11,10 @@
 |
 */
 
-use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\News\CategoriesController;
-use App\Http\Controllers\News\NewsController;
+use App\Http\Controllers\News\IndexController as NewsIndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +27,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::name('news.')
     ->prefix('news')
     ->group(function () {
-        Route::get('/', [NewsController::class, 'index'])->name('index');
-        Route::get('/{slug}/{id}', [NewsController::class, 'show'])
+        Route::get('/', [NewsIndexController::class, 'index'])->name('index');
+        Route::get('/{slug}/{id}', [NewsIndexController::class, 'show'])
             ->where(['slug' => '[a-z]+', 'id' => '[0-9]+'])->name('show');
         Route::name('categories.')
             ->group(function () {
@@ -41,10 +41,10 @@ Route::name('news.')
 Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
-        Route::get('/', [IndexController::class, 'index'])->name('index');
-        Route::match(['get', 'post'], '/create', [IndexController::class, 'create'])->name('create');
-        Route::get('/image', [IndexController::class, 'imageDownload'])->name('image');
-        Route::match(['get', 'post'],'/download', [IndexController::class, 'download'])->name('download');
+        Route::get('/', [AdminIndexController::class, 'index'])->name('index');
+        Route::match(['get', 'post'], '/create', [AdminIndexController::class, 'create'])->name('create');
+        Route::get('/image', [AdminIndexController::class, 'imageDownload'])->name('image');
+        Route::match(['get', 'post'],'/download', [AdminIndexController::class, 'download'])->name('download');
     });
 
 Auth::routes();

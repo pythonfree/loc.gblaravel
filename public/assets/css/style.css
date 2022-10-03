@@ -5,3 +5,10 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+.card-img-show {
+    height: 200px;
+    width: 200px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
