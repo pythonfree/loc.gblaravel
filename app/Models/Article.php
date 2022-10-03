@@ -39,9 +39,10 @@ class Article
      */
     public function getByCategoryId(int $categoryId): ?array
     {
-        $collection = collect($this->getNews());
-        $news = $collection->groupBy('categoryId')->get($categoryId);
-        return $news ? $news->all() : null;
+        return DB::table($this->tableName)
+            ->where('categoryId', $categoryId)
+            ->get()
+            ->all();
     }
 
     /**
