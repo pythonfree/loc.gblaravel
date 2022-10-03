@@ -15,12 +15,29 @@ class Category
     }
 
     /**
-     * @param int $categoryId
+     * @return array|null
+     */
+    public function getCategories(): ?array
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getById($id): mixed
+    {
+        return DB::table($this->tableName)->find($id);
+    }
+
+    /**
+     * @param int $id
      * @return string|null
      */
-    public function getTitleByCategoryId(int $categoryId): ?string
+    public function getTitleById(int $id): ?string
     {
-        $slug = $this->getSlugById($categoryId);
+        $slug = $this->getSlugById($id);
         return $this->getTitleBySlug($slug);
     }
 
@@ -30,17 +47,9 @@ class Category
      */
     public function getSlugById(int $id): ?string
     {
-        $collection = collect($this->categories);
+        $collection = collect($this->getCategories());
         $slug = $collection->firstWhere('id', $id);
         return $slug ? $slug->slug : null;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getCategories(): ?array
-    {
-        return $this->categories;
     }
 
     /**
@@ -49,7 +58,7 @@ class Category
      */
     public function getIdBySlug(string $slug): ?int
     {
-        $collection = collect($this->categories);
+        $collection = collect($this->getCategories());
         $id = $collection->groupBy('slug')->get($slug);
         return $id ? $id->first()->id : null;
     }

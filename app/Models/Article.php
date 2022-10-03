@@ -30,19 +30,17 @@ class Article
      */
     public function getById($id): mixed
     {
-        $collection = collect($this->getNews());
-        $article = $collection->groupBy('id')->get($id);
-        return $article ? $article->first() : null;
+        return DB::table($this->tableName)->find($id);
     }
 
     /**
-     * @param int $id
+     * @param int $categoryId
      * @return array|null
      */
-    public function getByCategoryId(int $id): ?array
+    public function getByCategoryId(int $categoryId): ?array
     {
         $collection = collect($this->getNews());
-        $news = $collection->groupBy('categoryId')->get($id);
+        $news = $collection->groupBy('categoryId')->get($categoryId);
         return $news ? $news->all() : null;
     }
 

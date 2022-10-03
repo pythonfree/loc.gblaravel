@@ -81,7 +81,7 @@ class IndexController extends Controller
             $categoryId = (int)$requestData['category_id'];
             $fileFormat = $requestData['file_format'];
             $news = $article->getByCategoryId($categoryId);
-            $title = $category->getTitleByCategoryId($categoryId);
+            $title = $category->getTitleById($categoryId);
             $categories = $category->getCategories();
             return static::exportFile($fileFormat, $news, $title, $categories);
         }
