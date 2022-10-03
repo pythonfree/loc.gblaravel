@@ -2,32 +2,43 @@
 
 namespace App\Models;
 
-use App\Contract\ICategory;
+use Illuminate\Support\Facades\DB;
 
-class Category implements ICategory
+class Category
 {
-    private array $categories = [
-        [
-            'id' => 1,
-            'title' => 'Наука (из массива)',
-            'slug' => 'science'
-        ],
-        [
-            'id' => 2,
-            'title' => 'Спорт (из массива)',
-            'slug' => 'sport',
-        ],
-        [
-            'id' => 3,
-            'title' => 'Культура (из массива)',
-            'slug' => 'culture',
-        ]
-    ];
+    private ?array $categories;
+    private string $tableName = 'categories';
+
+    public function __construct()
+    {
+        $this->categories = DB::table($this->tableName)->get()->all();
+    }
 
     /**
-     * @return array[]
+     * @param int $categoryId
+     * @return string|null
      */
-    public function getAll(): array
+    public function getTitleByCategoryId(int $categoryId): ?string
+    {
+        $slug = $this->getSlugById($categoryId);
+        return $this->getTitleBySlug($slug);
+    }
+
+    /**
+     * @param int $id
+     * @return string|null
+     */
+    public function getSlugById(int $id): ?string
+    {
+        $collection = collect($this->categories);
+        $slug = $collection->firstWhere('id', $id);
+        return $slug ? $slug->slug : null;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCategories(): ?array
     {
         return $this->categories;
     }
@@ -40,7 +51,7 @@ class Category implements ICategory
     {
         $collection = collect($this->categories);
         $id = $collection->groupBy('slug')->get($slug);
-        return $id ? $id->first()['id'] : null;
+        return $id ? $id->first()->id : null;
     }
 
     /**
@@ -49,8 +60,8 @@ class Category implements ICategory
      */
     public function getTitleBySlug(string $slug): ?string
     {
-        $collection = collect($this->getAll());
+        $collection = collect($this->getCategories());
         $title = $collection->groupBy('slug')->get($slug);
-        return $title ? $title->first()['title'] : null;
+        return $title ? $title->first()->title : null;
     }
 }

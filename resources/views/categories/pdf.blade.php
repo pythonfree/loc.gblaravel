@@ -15,7 +15,7 @@
                         <p>Новости категории - {{ $title }}:</p>
                         @forelse($news as $article)
                             <p>
-                                <a href="{{ route('news.show', [$article['category']['slug'], $article['id']]) }}">{{ $article['title'] }}</a>
+                                <a href="{{ route('news.show', [$article->categorySlug, $article->id]) }}">{{ $article->title }}</a>
                             </p>
                         @empty
                             Нет новостей

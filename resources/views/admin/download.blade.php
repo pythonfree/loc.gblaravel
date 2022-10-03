@@ -21,10 +21,10 @@
                                     <select name="category_id" class="form-select" id="newsCategory">
                                         @forelse($categories as $category)
                                             <option
-                                                {{ old('category_id')==$category['id']?'selected':'' }}
-                                                value="{{ $category['id'] }}"
+                                                {{ old('category_id') == $category->id ?' selected' : '' }}
+                                                value="{{ $category->id }}"
                                             >
-                                                {{ $category['title'] }}
+                                                {{ $category->title }}
                                             </option>
                                         @empty
                                             <option value="0" selected>Нет категории</option>

@@ -14,14 +14,14 @@
                     <div class="card-header">Новость из категории - {{ $title }}:</div>
                     <div class="card-body">
                         @if($article)
-                            @if(!$article['isPrivate'])
+                            @if(!$article->isPrivate)
                                 <div class="d-flex flex-column align-items-center">
                                     <div class="card-img-show" style="background-image: url(
-                                        {{ $article['image'] ?? asset('assets/img/default-news.png') }}
+                                        {{ $article->image ?? asset('assets/img/default-news.png') }}
                                     )">
                                     </div>
-                                    <h2>{{ $article['title'] }}</h2>
-                                    <p>{{ $article['text'] }}</p>
+                                    <h2>{{ $article->title }}</h2>
+                                    <p>{{ $article->text }}</p>
                                 </div>
                             @else
                                 Новость приватная...

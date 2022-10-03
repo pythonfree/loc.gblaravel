@@ -6,8 +6,8 @@ use App\Entity\ExcelFile;
 use App\Entity\JsonFile;
 use App\Entity\PdfFile;
 use App\Http\Controllers\Controller;
-use App\Models\ArticleFile;
-use App\Models\CategoryFile;
+use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -29,11 +29,11 @@ class IndexController extends Controller
 
     /**
      * @param Request $request
-     * @param CategoryFile $category
-     * @param ArticleFile $article
+     * @param Category $category
+     * @param Article $article
      * @return Application|Factory|View|RedirectResponse
      */
-    public function create(Request $request, CategoryFile $category, ArticleFile $article): Application|Factory|View|RedirectResponse
+    public function create(Request $request, Category $category, Article $article): Application|Factory|View|RedirectResponse
     {
         if ($request->isMethod('post')) {
             $request->flash();
@@ -52,7 +52,7 @@ class IndexController extends Controller
             }
         }
         return view('admin.create', [
-            'categories' => $category->getAll(),
+            'categories' => $category->getCategories(),
         ]);
     }
 
@@ -66,11 +66,11 @@ class IndexController extends Controller
 
     /**
      * @param Request $request
-     * @param ArticleFile $article
-     * @param CategoryFile $category
-     * @return Application|Factory|View|JsonResponse|Response|BinaryFileResponse|null
+     * @param Article $article
+     * @param Category $category
+     * @return Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
      */
-    public function download(Request $request, ArticleFile $article, CategoryFile $category): Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
+    public function download(Request $request, Article $article, Category $category): Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
     {
         if ($request->isMethod('post')) {
             $request->flash();
@@ -82,11 +82,11 @@ class IndexController extends Controller
             $fileFormat = $requestData['file_format'];
             $news = $article->getByCategoryId($categoryId);
             $title = $category->getTitleByCategoryId($categoryId);
-            $categories = $category->getAll();
+            $categories = $category->getCategories();
             return static::exportFile($fileFormat, $news, $title, $categories);
         }
         return view('admin.download', [
-            'categories' => $category->getAll(),
+            'categories' => $category->getCategories(),
         ]);
     }
 

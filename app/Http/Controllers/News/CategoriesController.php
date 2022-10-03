@@ -5,8 +5,8 @@ namespace App\Http\Controllers\News;
 
 use App\Helpers\Model as ModelHelper;
 use App\Http\Controllers\Controller;
-use App\Models\ArticleDb;
-use App\Models\CategoryDb;
+use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -14,24 +14,24 @@ use Illuminate\View\View;
 class CategoriesController extends Controller
 {
     /**
-     * @param CategoryDb $category
+     * @param Category $category
      * @return Factory|View|Application
      */
-    public function index(CategoryDb $category): Factory|View|Application
+    public function index(Category $category): Factory|View|Application
     {
-        return view('categories.index', ['categories' => $category->getAll()]);
+        return view('categories.index', ['categories' => $category->getCategories()]);
     }
 
     /**
      * @param string $slug
-     * @param ArticleDb $news
-     * @param CategoryDb $category
+     * @param Article $news
+     * @param Category $category
      * @return Factory|View|Application
      */
-    public function show(string $slug, ArticleDb $news, CategoryDb $category): Factory|View|Application
+    public function show(string $slug, Article $news, Category $category): Factory|View|Application
     {
-        $news = $news->getByCategorySlug($slug, $category) ?: [];
-        ModelHelper::addCategoryInfo($news, $category->getAll());
+        $news = $news->getByCategorySlug($slug, $category);
+        ModelHelper::addCategoryInfo($news, $category->getCategories());
         return view('categories.show', [
             'news' => $news,
             'title' => $category->getTitleBySlug($slug)

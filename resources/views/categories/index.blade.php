@@ -16,7 +16,7 @@
                         @forelse ($categories as $key => $category)
                             <p>
                                 {{ ++$key }}
-                                <a href="{{ route('news.categories.show', $category['slug']) }}">{{ $category['title'] }}</a>
+                                <a href="{{ route('news.categories.show', $category->slug) }}">{{ $category->title }}</a>
                             </p>
                         @empty
                             Нет категорий
