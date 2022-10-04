@@ -12,10 +12,7 @@ class Category
 
     public function __construct()
     {
-        $this->categories = collect(DB::table($this->tableName)
-            ->get()
-            ->all()
-        );
+        $this->categories = DB::table($this->tableName)->get();
     }
 
     /**

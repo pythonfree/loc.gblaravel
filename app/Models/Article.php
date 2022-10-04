@@ -14,16 +14,14 @@ class Article
 
     public function __construct()
     {
-        $this->news = collect(DB::table($this->tableName)
+        $this->news = DB::table($this->tableName)
             ->join('categories', 'news.categoryId', '=', 'categories.id')
             ->select(
                 'news.*',
                 'categories.slug as categorySlug',
                 'categories.title as categoryTitle'
             )
-            ->get()
-            ->all()
-        );
+            ->get();
     }
 
     /**
