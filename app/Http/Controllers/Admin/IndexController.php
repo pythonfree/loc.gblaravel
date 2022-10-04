@@ -74,41 +74,37 @@ class IndexController extends Controller
     {
         if ($request->isMethod('post')) {
             $request->flash();
-            $requestData = $request->all([
-                'category_id',
-                'file_format',
-            ]);
-            $categoryId = (int)$requestData['category_id'];
-            $fileFormat = $requestData['file_format'];
-            $news = $article->getByCategoryId($categoryId);
-            $title = $category->getTitleById($categoryId);
-            $categories = $category->getCategories();
-            return static::exportFile($fileFormat, $news, $title, $categories);
+            return $this->exportFile($request, $article);
         }
-        return view('admin.download', [
-            'categories' => $category->getCategories(),
-        ]);
+        return view('admin.download')->with(
+            'categories', $category->getCategories()
+        );
     }
 
     /**
-     * @param string $fileFormat
-     * @param array $news
-     * @param string $title
-     * @param array $categories
-     * @return Response|BinaryFileResponse|JsonResponse|null
+     * @param Request $request
+     * @param Article $article
+     * @return mixed|null
      */
-    private static function exportFile(string $fileFormat, array $news, string $title, array $categories): Response|BinaryFileResponse|JsonResponse|null
+    public function exportFile(Request $request, Article $article): mixed
     {
+        $requestData = $request->all([
+            'category_id',
+            'file_format',
+        ]);
         $exportEntities = [
             'json' => JsonFile::class,
             'excel' => ExcelFile::class,
             'pdf' => PdfFile::class,
         ];
+        $fileFormat = (string)$requestData['file_format'];
         if (array_key_exists($fileFormat, $exportEntities)) {
-            /** @var JsonFile|ExcelFile|PdfFile $exportEntity */
             $exportEntity = new $exportEntities[$fileFormat];
-            return $exportEntity->export($news, $title, $categories);
+            return $exportEntity->export(
+                $article->getByCategoryId((int)$requestData['category_id'])
+            );
         }
+
         return null;
     }
 }

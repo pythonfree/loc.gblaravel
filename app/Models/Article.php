@@ -2,24 +2,34 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class Article
 {
-    private ?array $news;
+    private Collection $news;
     private ?int $lastId = null;
     private string $tableName = 'news';
 
     public function __construct()
     {
-        $this->news = DB::table($this->tableName)->get()->all();
+        $this->news = collect(DB::table($this->tableName)
+            ->join('categories', 'news.categoryId', '=', 'categories.id')
+            ->select(
+                'news.*',
+                'categories.slug as categorySlug',
+                'categories.title as categoryTitle'
+            )
+            ->get()
+            ->all()
+        );
     }
 
     /**
-     * @return array|null
+     * @return Collection
      */
-    public function getNews(): ?array
+    public function getNews(): Collection
     {
         return $this->news;
     }
@@ -30,7 +40,7 @@ class Article
      */
     public function getById($id): mixed
     {
-        return DB::table($this->tableName)->find($id);
+        return $this->getNews()->firstWhere('id', $id);
     }
 
     /**
@@ -39,21 +49,16 @@ class Article
      */
     public function getByCategoryId(int $categoryId): ?array
     {
-        return DB::table($this->tableName)
-            ->where('categoryId', $categoryId)
-            ->get()
-            ->all();
+        return $this->getNews()->where('categoryId', $categoryId)->all();
     }
 
     /**
      * @param string $slug
-     * @param Category $category
      * @return array|null
      */
-    public function getByCategorySlug(string $slug, Category $category): ?array
+    public function getByCategorySlug(string $slug): ?array
     {
-        $id = $category->getIdBySlug($slug);
-        return $this->getByCategoryId($id);
+        return $this->getNews()->where('categorySlug', $slug)->all();
     }
 
     /**

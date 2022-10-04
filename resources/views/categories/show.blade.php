@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', "Новости категории - $title")
+@section('title', "Новости категории - $category->title")
 
 @section('menu')
     @include('menu')
@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Новости категории - {{ $title }}:</div>
+                    <div class="card-header">Новости категории - {{ $category->title }}:</div>
                     <div class="card-body">
                         @forelse($news as $article)
                             <div class="card-img" style="background-image: url(

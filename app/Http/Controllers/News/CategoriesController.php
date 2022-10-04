@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\News;
 
 
-use App\Helpers\Model as ModelHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Category;
@@ -19,7 +18,8 @@ class CategoriesController extends Controller
      */
     public function index(Category $category): Factory|View|Application
     {
-        return view('categories.index', ['categories' => $category->getCategories()]);
+        return view('categories.index')
+            ->with('categories', $category->getCategories());
     }
 
     /**
@@ -30,11 +30,9 @@ class CategoriesController extends Controller
      */
     public function show(string $slug, Article $news, Category $category): Factory|View|Application
     {
-        $news = $news->getByCategorySlug($slug, $category);
-        ModelHelper::addCategoryInfo($news, $category->getCategories());
-        return view('categories.show', [
-            'news' => $news,
-            'title' => $category->getTitleBySlug($slug)
-        ]);
+        return view('categories.show')
+            ->with('news', $news->getByCategorySlug($slug))
+            ->with('category', $category->getBySlug($slug));
+
     }
 }
