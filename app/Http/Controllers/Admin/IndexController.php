@@ -15,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class IndexController extends Controller
@@ -39,21 +40,42 @@ class IndexController extends Controller
             $request->flash();
             $requestData = $request->all([
                 'title',
-                'category_id',
+                'categoryId',
                 'text',
                 'isPrivate',
                 'image',
             ]);
+            $this->validateData($requestData);
             if ($article->save($requestData)) {
                 $lastId = $article->getLastId();
-                if ($lastId) {
-                    return redirect()->route('admin.create')->with('success', "Новость успешно добавлена (ID - {$lastId}).");
-                }
+                return redirect()->route('admin.create')->with('success', "Новость успешно добавлена (ID - {$lastId}).");
             }
         }
         return view('admin.create', [
             'categories' => $category->getCategories(),
         ]);
+    }
+
+    /**
+     * @param array $requestData
+     * @return void
+     */
+    private function validateData(array &$requestData): void
+    {
+        foreach ($requestData as  $name => &$value) {
+            switch ($name) {
+                case 'isPrivate':
+                        $value = (bool)$value;
+                    break;
+                case 'image':
+                    $img = $value ?? null;
+                    if ($img) {
+                        $path = Storage::putFile('public/images', $img);
+                        $value = Storage::url($path);
+                    }
+                    break;
+            }
+        }
     }
 
     /**

@@ -21,13 +21,13 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <label for="newsCategory" class="form-label">Категория новости:</label>
-                                <select name="category_id" class="form-select" id="newsCategory">
+                                <select name="categoryId" class="form-select" id="newsCategory">
                                     @forelse($categories as $category)
                                         <option
-                                            {{ old('category_id')==$category['id']?'selected':'' }}
-                                            value="{{ $category['id'] }}"
+                                            {{ old('categoryId') == $category->id ? 'selected' : '' }}
+                                            value="{{ $category->id }}"
                                         >
-                                            {{ $category['title'] }}
+                                            {{ $category->title }}
                                         </option>
                                     @empty
                                         <option value="0" selected>Нет категории</option>
