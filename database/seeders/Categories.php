@@ -26,17 +26,14 @@ class Categories extends Seeder
     {
         return  [
             [
-                'id' => 1,
                 'title' => 'Наука (из базы)',
                 'slug' => 'science'
             ],
             [
-                'id' => 2,
                 'title' => 'Спорт (из базы)',
                 'slug' => 'sport',
             ],
             [
-                'id' => 3,
                 'title' => 'Культура (из базы)',
                 'slug' => 'culture',
             ]
