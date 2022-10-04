@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Добавить новость</div>
+                    <div class="card-header text-center">Добавить новость</div>
                     <div class="card-body">
                         <form enctype="multipart/form-data" method="post" action="{{ route('admin.create') }}">
                             @csrf
@@ -60,9 +60,9 @@
                         </form>
                     </div>
                 </div>
-                <hr>
+                <div class="mb-1"></div>
                 <div class="card">
-                    <div class="card-header">Добавить категорию</div>
+                    <div class="card-header  text-center">Добавить категорию</div>
                     <div class="card-body">
                         <form enctype="multipart/form-data" method="post" action="{{ route('admin.create') }}">
                             @csrf

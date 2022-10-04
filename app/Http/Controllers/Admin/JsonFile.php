@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Http\Controllers\Admin;
 
 use App\Contract\IExportFile;
 use Illuminate\Http\JsonResponse;

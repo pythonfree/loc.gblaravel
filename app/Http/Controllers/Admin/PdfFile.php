@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Http\Controllers\Admin;
 
 use App\Contract\IExportFile;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -14,7 +14,7 @@ class PdfFile implements IExportFile
      */
     public function export(array $news = []): Response
     {
-        $title = $news[0]->categoryTitle;
+        $title = $news[array_key_first($news)]->categoryTitle;
         $pdf = Pdf::loadView('categories.pdf', [
             'news' => $news,
             'title' => $title,
