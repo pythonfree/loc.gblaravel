@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Добавить новость')
+@section('title', 'Добавить: новость | категорию')
 
 @section('menu')
     @include('admin.menu')
@@ -15,6 +15,7 @@
                     <div class="card-body">
                         <form enctype="multipart/form-data" method="post" action="{{ route('admin.create') }}">
                             @csrf
+                            <input type="hidden" name="createArticle" value="createArticle">
                             <div class="mb-3">
                                 <label for="newsTitle" class="form-label">Заголовок новости:</label>
                                 <input type="text" name="title" class="form-control" id="newsTitle" value="{{ old('title') }}">
@@ -55,6 +56,23 @@
                             </div>
                             <div class="mb-3">
                                 <input type="submit" class="btn btn-outline-primary" id="addArticle" value="Добавить новость">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <div class="card">
+                    <div class="card-header">Добавить категорию</div>
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" method="post" action="{{ route('admin.create') }}">
+                            @csrf
+                            <input type="hidden" name="createCategory" value="createCategory">
+                            <div class="mb-3 col-md-4">
+                                <label for="title" class="form-label">Название категории:</label>
+                                <input type="text" name="title" class="form-control" id="title" value="">
+                            </div>
+                            <div class="mb-3">
+                                <input type="submit" class="btn btn-outline-primary" id="addCategory" value="Добавить категорию">
                             </div>
                         </form>
                     </div>

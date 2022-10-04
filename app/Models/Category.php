@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Category
 {
     private Collection $categories;
+    private int $lastId;
     private string $tableName = 'categories';
 
     public function __construct()
@@ -33,12 +34,20 @@ class Category
     }
 
     /**
-     * @param int $id
-     * @return string|null
+     * @param array $requestData
+     * @return bool
      */
-    public function getTitleById(int $id): ?string
+    public function save(array $requestData): bool
     {
-        return $this->getCategories()->firstWhere('id', $id)->title;
+        return (bool)$this->lastId = DB::table($this->tableName)->insertGetId($requestData);
+    }
+
+    /**
+     * @return int
+     */
+    public function getLastId(): int
+    {
+        return $this->lastId;
     }
 
 }
