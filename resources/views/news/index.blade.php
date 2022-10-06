@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Новости:</div>
@@ -20,13 +20,16 @@
                                     {{ $article->image ?? asset('assets/img/default-news.png') }}
                                 )">
                                 </div>
-                                <a href="{{ route('news.show', [$article->categorySlug, $article->id]) }}">
+                                <a href="{{ route('news.show', $article) }}">
                                     {{ $article->title }}
                                 </a>
                             </div>
                         @empty
                             Нет новостей
                         @endforelse
+                        <div class="d-flex">
+                            {{ $news->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

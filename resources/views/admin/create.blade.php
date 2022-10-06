@@ -11,21 +11,21 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-center">Добавить новость</div>
+                    <div class="card-header text-center">@if(!isset($article->id))Добавить@elseИзменить@endif новость</div>
                     <div class="card-body">
-                        <form enctype="multipart/form-data" method="post" action="{{ route('admin.create') }}">
+                        <form enctype="multipart/form-data" method="post" action="@if(!isset($article->id)){{ route('admin.create') }}@else{{ route('admin.update', $article) }}@endif">
                             @csrf
                             <input type="hidden" name="createArticle" value="createArticle">
                             <div class="mb-3">
                                 <label for="newsTitle" class="form-label">Заголовок новости:</label>
-                                <input type="text" name="title" class="form-control" id="newsTitle" value="{{ old('title') }}">
+                                <input type="text" name="title" class="form-control" id="newsTitle" value="{{ $article->title ?? old('title') }}">
                             </div>
                             <div class="mb-3 col-md-4">
                                 <label for="newsCategory" class="form-label">Категория новости:</label>
-                                <select name="categoryId" class="form-select" id="newsCategory">
+                                <select name="category_id" class="form-select" id="newsCategory">
                                     @forelse($categories as $category)
                                         <option
-                                            {{ old('categoryId') == $category->id ? 'selected' : '' }}
+                                            {{ old('category_id') == $category->id || $category->id == $article->category_id ? 'selected' : '' }}
                                             value="{{ $category->id }}"
                                         >
                                             {{ $category->title }}
@@ -37,7 +37,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="articleText">Текст новости:</label>
-                                <textarea class="form-control" id="articleText" name="text">{{ old('text') }}</textarea>
+                                <textarea class="form-control" id="articleText" name="text" rows="10">{{ $article->text ??  old('text') }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="image" class="form-label">Картинка:</label>
@@ -48,14 +48,16 @@
                                     type="checkbox"
                                     class="form-check-input"
                                     id="articlePrivate"
-                                    name="isPrivate"
-                                    value="checked"
-                                    {{ old('isPrivate')?:'' }}
+                                    name="is_private"
+                                    value="1"
+                                    @if ($article->is_private == 1 || old('is_private') == 1) checked @endif
                                 >
                                 <label class="form-check-label" for="articlePrivate">Новость private?</label>
                             </div>
                             <div class="mb-3">
-                                <input type="submit" class="btn btn-outline-primary" id="addArticle" value="Добавить новость">
+                                <button type="submit" class="btn btn-outline-primary">
+                                    @if(isset($article->id))Изменить@elseДобавить@endif
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -69,7 +71,7 @@
                             <input type="hidden" name="createCategory" value="createCategory">
                             <div class="mb-3 col-md-4">
                                 <label for="title" class="form-label">Название категории:</label>
-                                <input type="text" name="title" class="form-control" id="title" value="">
+                                <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}">
                             </div>
                             <div class="mb-3">
                                 <input type="submit" class="btn btn-outline-primary" id="addCategory" value="Добавить категорию">

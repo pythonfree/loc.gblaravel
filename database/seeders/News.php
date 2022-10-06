@@ -14,7 +14,7 @@ class News extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::table('news')->insert($this->getData());
     }
@@ -30,8 +30,8 @@ class News extends Seeder
             $data[] = [
                 'title' => '"' . $faker->company() . '"' . ' сообщает: ' . Str::limit($faker->realText(100), 95) . ' (Из базы)',
                 'text' => $faker->realText(rand(1000, 3000)),
-                'isPrivate' => (bool)rand(0,1),
-                'categoryId' => rand(1,3),
+                'is_private' => (bool)rand(0,1),
+                'category_id' => rand(1,3),
             ];
         }
         return  $data;

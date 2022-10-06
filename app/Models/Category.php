@@ -2,52 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category
+class Category extends Model
 {
-    private Collection $categories;
-    private int $lastId;
-    private string $tableName = 'categories';
+    use HasFactory;
 
-    public function __construct()
-    {
-        $this->categories = DB::table($this->tableName)->get();
-    }
+    protected $fillable = [
+        'title',
+        'slug',
+    ];
 
     /**
-     * @return Collection
+     * @return HasMany
      */
-    public function getCategories(): Collection
+    public function news(): HasMany
     {
-        return $this->categories;
+        return $this->hasMany(News::class);
     }
-
-    /**
-     * @param $slug
-     * @return mixed|null
-     */
-    public function getBySlug($slug): mixed
-    {
-        return $this->getCategories()->firstWhere('slug', $slug);
-    }
-
-    /**
-     * @param array $requestData
-     * @return bool
-     */
-    public function save(array $requestData): bool
-    {
-        return (bool)$this->lastId = DB::table($this->tableName)->insertGetId($requestData);
-    }
-
-    /**
-     * @return int
-     */
-    public function getLastId(): int
-    {
-        return $this->lastId;
-    }
-
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Article;
+use App\Models\News;
 use App\Models\Category;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -17,10 +17,10 @@ class CreateRequest
     /**
      * @param Request $request
      * @param Category $category
-     * @param Article $article
+     * @param News $article
      * @return Application|Factory|View|RedirectResponse
      */
-    public function create(Request $request, Category $category, Article $article): Application|Factory|View|RedirectResponse
+    public function create(Request $request, Category $category, News $article): Application|Factory|View|RedirectResponse
     {
         if ($request->isMethod('post')) {
             if ($request->createArticle) {

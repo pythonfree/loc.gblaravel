@@ -11,19 +11,16 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('title');
             $table->text('text');
-            $table->boolean('isPrivate')->default(false);
-            $table->integer('categoryId')->unsigned();
+            $table->boolean('is_private')->default(false);
+            $table->bigInteger('category_id')->unsigned();
             $table->string('image')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
-//            $table->id();
-//            $table->timestamps();
+            $table->timestamps();
         });
     }
 
@@ -32,7 +29,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('news');
     }

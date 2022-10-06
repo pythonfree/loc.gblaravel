@@ -14,7 +14,7 @@ class Categories extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::table('categories')->insert($this->getData());
     }

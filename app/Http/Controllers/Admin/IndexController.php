@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Article;
+use App\Models\News;
 use App\Models\Category;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -34,10 +34,10 @@ class IndexController extends Controller
     /**
      * @param Request $request
      * @param Category $category
-     * @param Article $article
+     * @param News $article
      * @return Application|Factory|View|RedirectResponse
      */
-    public function create(Request $request, Category $category, Article $article): Application|Factory|View|RedirectResponse
+    public function create(Request $request, Category $category, News $article): Application|Factory|View|RedirectResponse
     {
         return $this->createRequest->create($request, $category, $article);
     }
@@ -52,11 +52,11 @@ class IndexController extends Controller
 
     /**
      * @param Request $request
-     * @param Article $article
+     * @param News $article
      * @param Category $category
      * @return Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
      */
-    public function download(Request $request, Article $article, Category $category): Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
+    public function download(Request $request, News $article, Category $category): Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
     {
         if ($request->isMethod('post')) {
             $request->flash();
@@ -69,10 +69,10 @@ class IndexController extends Controller
 
     /**
      * @param Request $request
-     * @param Article $article
+     * @param News $article
      * @return mixed|null
      */
-    public function exportFile(Request $request, Article $article): mixed
+    public function exportFile(Request $request, News $article): mixed
     {
         $requestData = $request->all([
             'category_id',

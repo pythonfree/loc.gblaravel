@@ -13,16 +13,19 @@
                 <div class="card">
                     <div class="card-header">Новости категории - {{ $category->title }}:</div>
                     <div class="card-body">
-                        @forelse($news as $article)
-                            <div class="card-img" style="background-image: url(
-                                {{ $article->image ?? asset('assets/img/default-news.png') }}
-                            )">
+                        @forelse($news as $key => $article)
+                            <div class="d-flex flex-row align-items-center">
+                                {{ ++$key }}
+                                <div class="card-img" style="background-image: url(
+                                    {{ $article->image ?? asset('assets/img/default-news.png') }}
+                                )">
+                                </div>
+                                <p>
+                                    <a href="{{ route('news.show', $article->id) }}">
+                                        {{ $article->title }}
+                                    </a>
+                                </p>
                             </div>
-                            <p>
-                                <a href="{{ route('news.show', [$article->categorySlug, $article->id]) }}">
-                                    {{ $article->title }}
-                                </a>
-                            </p>
                         @empty
                             Нет новостей
                         @endforelse
