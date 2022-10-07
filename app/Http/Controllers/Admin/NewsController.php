@@ -11,7 +11,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -71,31 +70,20 @@ class NewsController extends Controller
     /**
      * @param Request $request
      * @param News $article
+     * @param Category $category
      * @return Application|Factory|View|RedirectResponse
      */
     public function create(Request $request, News $article, Category $category): Application|Factory|View|RedirectResponse
     {
         if ($request->isMethod('post')) {
-            if ($request->createArticle) {
-                $request->flash();
-                $requestData = $this->validateArticle($request);
-                if ($article->fill($requestData)->save()) {
-                    return redirect()->route('admin.create')
-                        ->with('success', "Новость успешно добавлена (ID = {$article->getKey()}).");
-                }
-                return redirect()->route('admin.create')
-                    ->with('error', "Ошибка добавления новости!");
-            }
-        }
-        if ($request->createCategory) {
             $request->flash();
-            $requestData = $this->validateCategory($request);
-            if ($category->fill($requestData)->save()) {
+            $requestData = $this->validateArticle($request);
+            if ($article->fill($requestData)->save()) {
                 return redirect()->route('admin.create')
-                    ->with('success', "Категория \"{$requestData['title']}\" успешно добавлена (ID = {$category->getKey()}).");
+                    ->with('success', "Новость успешно добавлена (ID = {$article->getKey()}).");
             }
             return redirect()->route('admin.create')
-                ->with('error', "Ошибка добавления категории!");
+                ->with('error', "Ошибка добавления новости!");
         }
 
         return view('admin.create', [
@@ -108,25 +96,9 @@ class NewsController extends Controller
      * @param Request $request
      * @return array
      */
-    private function validateCategory(Request $request): array
-    {
-        return [
-            'title' => $request->title ?: 'Default category',
-            'slug' => Str::slug($request->title),
-        ];
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
     private function validateArticle(Request $request): array
     {
-        $img = $request->image ?: null;
-        if ($img) {
-            $path = Storage::putFile('public/images', $img);
-            $request->image = Storage::url($path);
-        }
+        $this->validateImage($request);
 
         return [
             'title' => $request->title ?: 'Default article title',
@@ -135,5 +107,18 @@ class NewsController extends Controller
             'is_private' => (bool)$request->is_private,
             'image' => $request->image,
         ];
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     */
+    public function validateImage(Request $request): void
+    {
+        $img = $request->image ?: null;
+        if ($img) {
+            $path = Storage::putFile('public/images', $img);
+            $request->image = Storage::url($path);
+        }
     }
 }

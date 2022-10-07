@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contract\IExportFile;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Category;
@@ -16,30 +17,12 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class IndexController extends Controller
 {
-    private CreateRequest $createRequest;
-
-    public function __construct()
-    {
-        $this->createRequest = new CreateRequest();
-    }
-
     /**
      * @return Factory|View|Application
      */
     public function index(): Factory|View|Application
     {
         return view('admin.index');
-    }
-
-    /**
-     * @param Request $request
-     * @param Category $category
-     * @param News $article
-     * @return Application|Factory|View|RedirectResponse
-     */
-    public function create(Request $request, Category $category, News $article): Application|Factory|View|RedirectResponse
-    {
-        return $this->createRequest->create($request, $category, $article);
     }
 
     /**
@@ -56,39 +39,37 @@ class IndexController extends Controller
      * @param Category $category
      * @return Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
      */
-    public function download(Request $request, News $article, Category $category): Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
+    public function download(Request $request, Category $category): Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
     {
         if ($request->isMethod('post')) {
             $request->flash();
-            return $this->exportFile($request, $article);
+            return $this->exportFile($request, $category);
         }
         return view('admin.download')->with(
-            'categories', $category->getCategories()
+            'categories', $category::query()->get(),
         );
     }
 
     /**
      * @param Request $request
-     * @param News $article
-     * @return mixed|null
+     * @param Category $category
+     * @return mixed
      */
-    public function exportFile(Request $request, News $article): mixed
+    public function exportFile(Request $request, Category $category): mixed
     {
-        $requestData = $request->all([
-            'category_id',
-            'file_format',
-        ]);
         $exportEntities = [
             'json' => JsonFile::class,
             'excel' => ExcelFile::class,
             'pdf' => PdfFile::class,
         ];
-        $fileFormat = (string)$requestData['file_format'];
+        $fileFormat = (string)$request->file_format;
         if (array_key_exists($fileFormat, $exportEntities)) {
+            /** @var IExportFile $exportEntity */
             $exportEntity = new $exportEntities[$fileFormat];
-            return $exportEntity->export(
-                $article->getByCategoryId((int)$requestData['category_id'])
-            );
+            /** @var Category $category */
+            $category = Category::query()->where('id', $request->category_id)->get()->first();
+//            $news = $category->news()->get();
+            return $exportEntity->export($category);
         }
 
         return null;

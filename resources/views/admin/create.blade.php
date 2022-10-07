@@ -15,7 +15,6 @@
                     <div class="card-body">
                         <form enctype="multipart/form-data" method="post" action="@if(!isset($article->id)){{ route('admin.create') }}@else{{ route('admin.update', $article) }}@endif">
                             @csrf
-                            <input type="hidden" name="createArticle" value="createArticle">
                             <div class="mb-3">
                                 <label for="newsTitle" class="form-label">Заголовок новости:</label>
                                 <input type="text" name="title" class="form-control" id="newsTitle" value="{{ $article->title ?? old('title') }}">
@@ -58,23 +57,6 @@
                                 <button type="submit" class="btn btn-outline-primary">
                                     @if(isset($article->id))Изменить@elseДобавить@endif
                                 </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="mb-1"></div>
-                <div class="card">
-                    <div class="card-header  text-center">Добавить категорию</div>
-                    <div class="card-body">
-                        <form enctype="multipart/form-data" method="post" action="{{ route('admin.create') }}">
-                            @csrf
-                            <input type="hidden" name="createCategory" value="createCategory">
-                            <div class="mb-3 col-md-4">
-                                <label for="title" class="form-label">Название категории:</label>
-                                <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}">
-                            </div>
-                            <div class="mb-3">
-                                <input type="submit" class="btn btn-outline-primary" id="addCategory" value="Добавить категорию">
                             </div>
                         </form>
                     </div>

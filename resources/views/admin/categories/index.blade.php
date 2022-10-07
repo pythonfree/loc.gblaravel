@@ -9,7 +9,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header  text-center">@if($category->id)Изменить@elseДобавить@endif категорию</div>
                     <div class="card-body">
@@ -21,7 +21,7 @@
                                 <label for="title" class="form-label">Название категории:</label>
                                 <input type="text" name="title" class="form-control" id="title" value="{{ $category->title ?? old('title') }}">
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3  col-md-4">
                                 <input type="submit" class="btn btn-outline-primary" id="addCategory"
                                        value="@if($category->id)Изменить@elseДобавить@endif категорию">
                             </div>

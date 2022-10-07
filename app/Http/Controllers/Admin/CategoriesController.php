@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -11,7 +14,11 @@ use Illuminate\Support\Str;
 class CategoriesController extends Controller
 {
 
-    public function index(Category $category)
+    /**
+     * @param Category $category
+     * @return Application|Factory|View
+     */
+    public function index(Category $category): View|Factory|Application
     {
         $categories = Category::query()->get();
         return view('admin.categories.index')
@@ -34,7 +41,7 @@ class CategoriesController extends Controller
      * @param Category $category
      * @return RedirectResponse
      */
-    public function store(Request $request, Category $category)
+    public function store(Request $request, Category $category): RedirectResponse
     {
         $request->flash();
         $requestData = $this->validateCategory($request);
@@ -70,15 +77,23 @@ class CategoriesController extends Controller
     }
 
 
-    public function edit(Category $category)
+    /**
+     * @param Category $category
+     * @return Application|Factory|View
+     */
+    public function edit(Category $category): View|Factory|Application
     {
         return view('admin.categories.index')
             ->with('categories', Category::query()->get())
             ->with('category', $category);
     }
 
-
-    public function update(Request $request, Category $category)
+    /**
+     * @param Request $request
+     * @param Category $category
+     * @return RedirectResponse
+     */
+    public function update(Request $request, Category $category): RedirectResponse
     {
         $requestData = $this->validateCategory($request);
         if ($category->fill($requestData)->save()) {
