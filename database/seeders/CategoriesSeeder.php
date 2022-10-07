@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Faker\Factory as FakerFactory;
 use Illuminate\Support\Str;
 
-class Categories extends Seeder
+class CategoriesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
