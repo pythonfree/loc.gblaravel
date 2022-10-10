@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\News;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -49,9 +48,7 @@ class CategoriesController extends Controller
         $request->flash();
         $this->validate($request, Category::rules(), [], Category::attributesName());
         $requestData = $this->validateCategory($request);
-        $result = $category
-            ->fill($requestData)
-            ->save();
+        $result = $category->fill($requestData)->save();
         if ($result) {
             return redirect()->route('admin.categories.index')
                 ->with('success', "Категория \"{$requestData['title']}\" успешно добавлена (ID = {$category->getKey()}).");
@@ -99,11 +96,15 @@ class CategoriesController extends Controller
      * @param Request $request
      * @param Category $category
      * @return RedirectResponse
+     * @throws ValidationException
      */
     public function update(Request $request, Category $category): RedirectResponse
     {
+        $request->flash();
+        $this->validate($request, Category::rules(), [], Category::attributesName());
         $requestData = $this->validateCategory($request);
-        if ($category->fill($requestData)->save()) {
+        $result = $category->fill($requestData)->save();
+        if ($result) {
             return redirect()->route('admin.categories.index')
                 ->with('success', "Категория \"{$category->title}\" c ID = {$category->getKey()} успешно изменена.")
                 ->with('categories', Category::query()->get())

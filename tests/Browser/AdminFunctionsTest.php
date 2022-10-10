@@ -9,6 +9,8 @@ use Throwable;
 
 class AdminFunctionsTest extends DuskTestCase
 {
+    use DatabaseMigrations;
+
     /**
      * @return void
      * @throws Throwable
