@@ -21,9 +21,9 @@ class NewsController extends Controller
     public function index(): View|Factory|Application
     {
         $news = News::query()
-                ->paginate(5);
+            ->paginate(5);
         return view('admin.index')
-                ->with('news', $news);
+            ->with('news', $news);
     }
 
     /**
@@ -33,8 +33,8 @@ class NewsController extends Controller
     public function edit(News $article): View|Factory|Application
     {
         return view('admin.create')
-                ->with('categories', Category::query()->get())
-                ->with('article', $article);
+            ->with('categories', Category::query()->get())
+            ->with('article', $article);
     }
 
 
@@ -50,11 +50,13 @@ class NewsController extends Controller
         $requestData = $this->validateArticle($request);
         $result = $article->fill($requestData)->save();
         if ($result) {
-            return redirect()->route('admin.index')
-                    ->with('success', "Новость c ID = {$article->getKey()} успешно изменена.");
+            return redirect()
+                ->route('admin.index')
+                ->with('success', "Новость c ID = {$article->getKey()} успешно изменена.");
         }
-        return redirect()->route('admin.index')
-                ->with('error', "Ошибка изменения новости с ID = {$article->getKey()}!");
+        return redirect()
+            ->route('admin.index')
+            ->with('error', "Ошибка изменения новости с ID = {$article->getKey()}!");
     }
 
     /**
@@ -64,11 +66,13 @@ class NewsController extends Controller
     public function destroy(News $article): RedirectResponse
     {
         if ($article->delete()) {
-            return redirect()->route('admin.index')
-                    ->with('success', "Новость с ID = {$article->getKey()} успешно  удалена.");
+            return redirect()
+                ->route('admin.index')
+                ->with('success', "Новость с ID = {$article->getKey()} успешно  удалена.");
         }
-        return redirect()->route('admin.index')
-                ->with('error', "Ошибка удаления новости с ID = {$article->getKey()})!");
+        return redirect()
+            ->route('admin.index')
+            ->with('error', "Ошибка удаления новости с ID = {$article->getKey()})!");
     }
 
 
@@ -84,19 +88,25 @@ class NewsController extends Controller
             $request->flash();
             $this->validate($request, News::rules(), [], News::attributesName());
             $requestData = $this->validateArticle($request);
-            $result = $article->fill($requestData)->save();
+            $result = $article
+                ->fill($requestData)
+                ->save();
             if ($result) {
-                return redirect()->route('admin.create')
-                        ->with('success', "Новость успешно добавлена (ID = {$article->getKey()}).");
+                return redirect()
+                    ->route('admin.create')
+                    ->with('success', "Новость успешно добавлена (ID = {$article->getKey()}).");
             }
-            return redirect()->route('admin.create')
-                    ->with('error', "Ошибка добавления новости!");
+            return redirect()
+                ->route('admin.create')
+                ->with('error', "Ошибка добавления новости!");
         }
 
-        return view('admin.create', [
-            'categories' => Category::query()->get(),
-            'article' => $article,
-        ]);
+        return view('admin.create',
+            [
+                'categories' => Category::query()->get(),
+                'article' => $article,
+            ]
+        );
     }
 
     /**

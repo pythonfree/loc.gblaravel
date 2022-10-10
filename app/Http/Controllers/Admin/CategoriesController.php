@@ -48,12 +48,16 @@ class CategoriesController extends Controller
         $request->flash();
         $this->validate($request, Category::rules(), [], Category::attributesName());
         $requestData = $this->validateCategory($request);
-        $result = $category->fill($requestData)->save();
+        $result = $category
+            ->fill($requestData)
+            ->save();
         if ($result) {
-            return redirect()->route('admin.categories.index')
+            return redirect()
+                ->route('admin.categories.index')
                 ->with('success', "Категория \"{$requestData['title']}\" успешно добавлена (ID = {$category->getKey()}).");
         }
-        return redirect()->route('admin.categories.index')
+        return redirect()
+            ->route('admin.categories.index')
             ->with('error', "Ошибка добавления категории!");
     }
 
@@ -72,7 +76,7 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -103,14 +107,18 @@ class CategoriesController extends Controller
         $request->flash();
         $this->validate($request, Category::rules(), [], Category::attributesName());
         $requestData = $this->validateCategory($request);
-        $result = $category->fill($requestData)->save();
+        $result = $category
+            ->fill($requestData)
+            ->save();
         if ($result) {
-            return redirect()->route('admin.categories.index')
+            return redirect()
+                ->route('admin.categories.index')
                 ->with('success', "Категория \"{$category->title}\" c ID = {$category->getKey()} успешно изменена.")
                 ->with('categories', Category::query()->get())
                 ->with('category', $category);
         }
-        return redirect()->route('admin.index')
+        return redirect()
+            ->route('admin.index')
             ->with('error', "Ошибка изменения категории с ID = {$category->getKey()}!")
             ->with('categories', Category::query()->get())
             ->with('category', $category);
@@ -124,10 +132,12 @@ class CategoriesController extends Controller
     public function destroy(Category $category): RedirectResponse
     {
         if ($category->delete()) {
-            return redirect()->route('admin.categories.index')
+            return redirect()
+                ->route('admin.categories.index')
                 ->with('success', "Категория \"{$category->title}\" с ID = {$category->getKey()} успешно  удалена.");
         }
-        return redirect()->route('admin.categories.index')
+        return redirect()
+            ->route('admin.categories.index')
             ->with('error', "Ошибка удаления категории \"{$category->title}\" с ID = {$category->getKey()})!");
     }
 }

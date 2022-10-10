@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class ExcelFile implements IExportFile
 {
     /**
-     * @param array $news
+     * @param Category $category
      * @return BinaryFileResponse
      */
     public function export(Category $category): BinaryFileResponse

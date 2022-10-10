@@ -33,7 +33,10 @@ class IndexController extends Controller
         if (!$article) {
             return redirect()->route('news.index');
         }
-        $category = $article->category()->get()->first();
+        $category = $article
+            ->category()
+            ->get()
+            ->first();
         return view('news.show')
             ->with('article', $article)
             ->with('category', $category);

@@ -28,7 +28,7 @@ class Category extends Model
      */
     public static function rules(): array
     {
-        $categoryTableName  = (new Category())->getTable();
+        $categoryTableName = (new Category())->getTable();
         return [
             'title' => "required|min:5||unique:{$categoryTableName},title",
         ];

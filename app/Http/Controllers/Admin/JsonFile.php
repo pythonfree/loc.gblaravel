@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 class JsonFile implements IExportFile
 {
     /**
-     * @param array $news
+     * @param Category $category
      * @return JsonResponse
      */
     public function export(Category $category): JsonResponse

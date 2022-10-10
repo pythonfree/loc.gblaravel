@@ -11,6 +11,12 @@ class AdminFunctionsTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->artisan('config:clear');
+    }
+
     /**
      * @return void
      * @throws Throwable

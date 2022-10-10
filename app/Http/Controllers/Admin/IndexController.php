@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contract\IExportFile;
 use App\Http\Controllers\Controller;
-use App\Models\News;
 use App\Models\Category;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -35,7 +33,6 @@ class IndexController extends Controller
 
     /**
      * @param Request $request
-     * @param News $article
      * @param Category $category
      * @return Factory|View|Response|BinaryFileResponse|JsonResponse|Application|null
      */
@@ -52,10 +49,9 @@ class IndexController extends Controller
 
     /**
      * @param Request $request
-     * @param Category $category
      * @return mixed
      */
-    public function exportFile(Request $request, Category $category): mixed
+    public function exportFile(Request $request): mixed
     {
         $exportEntities = [
             'json' => JsonFile::class,
@@ -67,8 +63,10 @@ class IndexController extends Controller
             /** @var IExportFile $exportEntity */
             $exportEntity = new $exportEntities[$fileFormat];
             /** @var Category $category */
-            $category = Category::query()->where('id', $request->category_id)->get()->first();
-//            $news = $category->news()->get();
+            $category = Category::query()
+                ->where('id', $request->category_id)
+                ->get()
+                ->first();
             return $exportEntity->export($category);
         }
 
