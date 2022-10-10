@@ -22,4 +22,25 @@ class Category extends Model
     {
         return $this->hasMany(News::class);
     }
+
+    /**
+     * @return string[]
+     */
+    public static function rules(): array
+    {
+        $categoryTableName  = (new Category())->getTable();
+        return [
+            'title' => "required|min:5||unique:{$categoryTableName},title",
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function attributesName(): array
+    {
+        return [
+            'title' => '"Название категории"',
+        ];
+    }
 }

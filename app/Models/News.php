@@ -26,7 +26,10 @@ class News extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public static function rules()
+    /**
+     * @return string[]
+     */
+    public static function rules(): array
     {
         $categoryTableName  = (new Category())->getTable();
         return [
@@ -38,7 +41,10 @@ class News extends Model
         ];
     }
 
-    public static function attributesName()
+    /**
+     * @return string[]
+     */
+    public static function attributesName(): array
     {
         return [
             'title' => '"Заголовок новости"',

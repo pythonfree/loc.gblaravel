@@ -17,8 +17,15 @@
                               action="@if(!$category->id){{ route('admin.categories.store') }}@else{{ route('admin.categories.update', $category->id) }}@endif">
                             @csrf
                             <input type="hidden" name="createCategory" value="createCategory">
-                            <div class="mb-3 col-md-4">
+                            <div class="mb-3 col-md-8">
                                 <label for="title" class="form-label">Название категории:</label>
+                                @if($errors->has('title'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach($errors->get('title') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <input type="text" name="title" class="form-control" id="title" value="{{ $category->title ?? old('title') }}">
                             </div>
                             <div class="mb-3  col-md-4">

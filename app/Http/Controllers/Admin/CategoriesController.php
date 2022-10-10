@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\News;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class CategoriesController extends Controller
 {
@@ -40,12 +42,17 @@ class CategoriesController extends Controller
      * @param Request $request
      * @param Category $category
      * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(Request $request, Category $category): RedirectResponse
     {
         $request->flash();
+        $this->validate($request, Category::rules(), [], Category::attributesName());
         $requestData = $this->validateCategory($request);
-        if ($category->fill($requestData)->save()) {
+        $result = $category
+            ->fill($requestData)
+            ->save();
+        if ($result) {
             return redirect()->route('admin.categories.index')
                 ->with('success', "Категория \"{$requestData['title']}\" успешно добавлена (ID = {$category->getKey()}).");
         }
@@ -61,7 +68,7 @@ class CategoriesController extends Controller
     {
         return [
             'title' => $request->title ?: 'Default category',
-            'slug' => Str::slug($request->title),
+            'slug' => $request->title ? Str::slug($request->title) : 'def-category',
         ];
     }
 

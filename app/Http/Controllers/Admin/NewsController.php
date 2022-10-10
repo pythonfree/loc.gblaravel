@@ -70,12 +70,16 @@ class NewsController extends Controller
     }
 
 
-    public function create(Request $request, News $article)
+    /**
+     * @param Request $request
+     * @param News $article
+     * @return Application|Factory|View|RedirectResponse
+     * @throws ValidationException
+     */
+    public function create(Request $request, News $article): View|Factory|RedirectResponse|Application
     {
         if ($request->isMethod('post')) {
             $request->flash();
-//            $requestData = $this->validateArticle($request);
-//            $result = $article->fill($requestData)->save();
             $result = $article
                 ->fill($this
                     ->validate($request, News::rules(), [], News::attributesName()))
