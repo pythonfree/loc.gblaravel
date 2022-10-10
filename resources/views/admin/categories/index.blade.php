@@ -29,7 +29,7 @@
                                 <input type="text" name="title" class="form-control" id="title" value="{{ $category->title ?? old('title') }}">
                             </div>
                             <div class="mb-3  col-md-4">
-                                <input type="submit" class="btn btn-outline-primary" id="addCategory"
+                                <input type="submit" class="btn btn-outline-primary" id="addCategory" dusk="create-category"
                                        value="@if($category->id)Изменить@elseДобавить@endif категорию">
                             </div>
                         </form>

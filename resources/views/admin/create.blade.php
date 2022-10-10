@@ -90,7 +90,7 @@
                                 @endif
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-outline-primary">
+                                <button type="submit" class="btn btn-outline-primary" dusk="create-article">
                                     @if(isset($article->id)){{ __('Изменить') }}@else{{ __('Добавить') }}@endif
                                 </button>
                             </div>
