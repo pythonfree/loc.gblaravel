@@ -17,11 +17,26 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="newsTitle" class="form-label">Заголовок новости:</label>
+                                @if($errors->has('title'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach($errors->get('title') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <input type="text" name="title" class="form-control" id="newsTitle" value="{{ $article->title ?? old('title') }}">
                             </div>
-                            <div class="mb-3 col-md-4">
+                            <div class="mb-3 col-md-8">
                                 <label for="newsCategory" class="form-label">Категория новости:</label>
+                                @if($errors->has('category_id'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach($errors->get('category_id') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <select name="category_id" class="form-select" id="newsCategory">
+                                    <option value="999">Не верная категория</option>
                                     @forelse($categories as $category)
                                         <option
                                             {{ old('category_id') == $category->id || $category->id == $article->category_id ? 'selected' : '' }}
@@ -36,10 +51,24 @@
                             </div>
                             <div class="mb-3">
                                 <label for="articleText">Текст новости:</label>
+                                @if($errors->has('text'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach($errors->get('text') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <textarea class="form-control" id="articleText" name="text" rows="10">{{ $article->text ??  old('text') }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="image" class="form-label">Картинка:</label>
+                                @if($errors->has('image'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach($errors->get('image') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <input type="file" name="image" class="form-control" id="image">
                             </div>
                             <div class="mb-3 form-check">
@@ -52,10 +81,17 @@
                                     @if ($article->is_private == 1 || old('is_private') == 1) checked @endif
                                 >
                                 <label class="form-check-label" for="articlePrivate">Новость private?</label>
+                                @if($errors->has('is_private'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach($errors->get('is_private') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-outline-primary">
-                                    @if(isset($article->id))Изменить@elseДобавить@endif
+                                    @if(isset($article->id)){{ __('Изменить') }}@else{{ __('Добавить') }}@endif
                                 </button>
                             </div>
                         </form>

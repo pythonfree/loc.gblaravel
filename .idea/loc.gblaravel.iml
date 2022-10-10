@@ -123,6 +123,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dompdf/dompdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/maximebf/debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-debugbar" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dragon-code/contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dragon-code/support" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dragon-code/pretty-array" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-lang/attributes" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-lang/publisher" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-lang/lang" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/archtechx/enums" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

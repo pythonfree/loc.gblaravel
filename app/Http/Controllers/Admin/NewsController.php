@@ -11,6 +11,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\ViewErrorBag;
 
 class NewsController extends Controller
 {
@@ -67,18 +69,18 @@ class NewsController extends Controller
             ->with('error', "Ошибка удаления новости с ID = {$article->getKey()})!");
     }
 
-    /**
-     * @param Request $request
-     * @param News $article
-     * @param Category $category
-     * @return Application|Factory|View|RedirectResponse
-     */
-    public function create(Request $request, News $article, Category $category): Application|Factory|View|RedirectResponse
+
+    public function create(Request $request, News $article)
     {
         if ($request->isMethod('post')) {
             $request->flash();
-            $requestData = $this->validateArticle($request);
-            if ($article->fill($requestData)->save()) {
+//            $requestData = $this->validateArticle($request);
+//            $result = $article->fill($requestData)->save();
+            $result = $article
+                ->fill($this
+                    ->validate($request, News::rules(), [], News::attributesName()))
+                ->save();
+            if ($result) {
                 return redirect()->route('admin.create')
                     ->with('success', "Новость успешно добавлена (ID = {$article->getKey()}).");
             }
