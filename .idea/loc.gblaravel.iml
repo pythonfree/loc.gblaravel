@@ -131,6 +131,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-lang/lang" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/archtechx/enums" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-lang/http-statuses" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-webdriver/webdriver" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
