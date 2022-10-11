@@ -7,8 +7,6 @@
 @endsection
 
 @section('content')
-    @dump(old())
-    @dump($article->text)
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
