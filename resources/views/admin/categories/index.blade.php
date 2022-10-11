@@ -16,6 +16,7 @@
                         <form enctype="multipart/form-data" method="post"
                               action="@if(!$category->id){{ route('admin.categories.store') }}@else{{ route('admin.categories.update', $category->id) }}@endif">
                             @csrf
+                            @if($category->id) @method('PATCH') @endif
                             <input type="hidden" name="createCategory" value="createCategory">
                             <div class="mb-3 col-md-8">
                                 <label for="title" class="form-label">Название категории:</label>
@@ -30,7 +31,7 @@
                             </div>
                             <div class="mb-3  col-md-4">
                                 <input type="submit" class="btn btn-outline-primary" id="addCategory" dusk="create-category"
-                                       value="@if($category->id)Изменить@elseДобавить@endif категорию">
+                                       value="@if($category->id) Изменить @else Добавить @endif категорию">
                             </div>
                         </form>
                         @forelse($categories as $key => $category)
@@ -40,9 +41,11 @@
                                     <a href="{{ route('admin.categories.edit', $category) }}">
                                         <button class="btn btn-success mr10 mb10">Edit</button>
                                     </a>
-                                    <a href="{{ route('admin.categories.destroy', $category) }}">
+                                    <form method="post" action="{{ route('admin.categories.destroy', $category) }}">
+                                        @csrf
+                                        @method('DELETE')
                                         <button class="btn btn-danger mr10 mb10">Delete</button>
-                                    </a>
+                                    </form>
                                 </div>
                             </div>
                         @empty

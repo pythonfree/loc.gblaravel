@@ -28,16 +28,6 @@ class AdminCategoriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * @param Request $request
      * @param Category $category
      * @return RedirectResponse
@@ -73,16 +63,10 @@ class AdminCategoriesController extends Controller
         ];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+
+    public function create($id){}
+
+    public function show($id){}
 
 
     /**

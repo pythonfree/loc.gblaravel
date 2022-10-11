@@ -47,15 +47,7 @@ Route::prefix('admin')
         Route::get('/image', [AdminIndexController::class, 'imageDownload'])->name('image');
         Route::match(['get', 'post'], '/download', [AdminIndexController::class, 'download'])->name('download');
         Route::resource('/news', AdminNewsController::class);
-
-
-        Route::resources([
-            '/categories' => AdminCategoriesController::class,
-        ]);
-        Route::resource('/categories', AdminCategoriesController::class)->only('index', 'store');
-        Route::get('categories/edit/{category}', [AdminCategoriesController::class, 'edit'])->name('categories.edit');
-        Route::get('categories/destroy/{category}', [AdminCategoriesController::class, 'destroy'])->name('categories.destroy');
-        Route::post('categories/update/{category}', [AdminCategoriesController::class, 'update'])->name('categories.update');
+        Route::resource('/categories', AdminCategoriesController::class);
     });
 
 Auth::routes();
