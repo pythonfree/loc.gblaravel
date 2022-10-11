@@ -19,7 +19,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link {{ request()->routeIs('admin.index')?'active':'' }}" href="{{ route('admin.index') }}">
+    <a class="nav-link {{ request()->routeIs('admin.news.index')?'active':'' }}" href="{{ route('admin.news.index') }}">
         Админка
     </a>
 </li>

@@ -17,9 +17,9 @@ use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\CategoriesController as AdminCategoriesController;
-use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\News\CategoriesController as NewsCategoriesController;
-use App\Http\Controllers\News\IndexController  as NewsIndexController;
+use App\Http\Controllers\News\IndexController as NewsIndexController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -41,18 +41,12 @@ Route::name('news.')
     });
 
 
-Route::name('admin.')
-    ->prefix('admin')
+Route::prefix('admin')
+    ->name('admin.')
     ->group(function () {
-
-        Route::get('/', [AdminNewsController::class, 'index'])->name('index');
-        Route::match(['get', 'post'], '/create', [AdminNewsController::class, 'create'])->name('create');
-        Route::get('news/edit/{article}', [AdminNewsController::class, 'edit'])->name('edit');
-        Route::get('news/destroy/{article}', [AdminNewsController::class, 'destroy'])->name('destroy');
-        Route::post( 'news/update/{article}', [AdminNewsController::class, 'update'])->name('update');
-
         Route::get('/image', [AdminIndexController::class, 'imageDownload'])->name('image');
-        Route::match(['get', 'post'],'/download', [AdminIndexController::class, 'download'])->name('download');
+        Route::match(['get', 'post'], '/download', [AdminIndexController::class, 'download'])->name('download');
+        Route::resource('/news', NewsController::class);
 
 
         Route::resources([

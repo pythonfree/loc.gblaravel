@@ -15,16 +15,18 @@
                     <div class="card-body">
                         @forelse($news as $key => $article)
                             <div class="d-flex flex-column">
-                                <a href="{{ route('news.show', $article) }}">
+                                <a href="{{ route('admin.news.show', $article) }}">
                                     ID = {{ $article->id }}, Новость: {{ $article->title }}
                                 </a>
                                 <div class="d-flex">
-                                    <a href="{{ route('admin.edit', $article) }}">
+                                    <a href="{{ route('admin.news.edit', $article) }}">
                                         <button class="btn btn-success mr10 mb10">Edit</button>
                                     </a>
-                                    <a href="{{ route('admin.destroy', $article) }}">
-                                        <button class="btn btn-danger mr10 mb10">Delete</button>
-                                    </a>
+                                    <form method="post" action="{{ route('admin.news.destroy', $article) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger mr10 mb10">Delete</button>
+                                    </form>
                                 </div>
                             </div>
                         @empty

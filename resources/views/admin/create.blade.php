@@ -13,8 +13,10 @@
                 <div class="card">
                     <div class="card-header text-center">@if(!isset($article->id))Добавить@elseИзменить@endif новость</div>
                     <div class="card-body">
-                        <form enctype="multipart/form-data" method="post" action="@if(!isset($article->id)){{ route('admin.create') }}@else{{ route('admin.update', $article) }}@endif">
+                        <form enctype="multipart/form-data" method="post"
+                              action="@if(!isset($article->id)){{ route('admin.news.store') }}@else{{ route('admin.news.update', $article) }}@endif">
                             @csrf
+                            @if($article->id) @method('PATCH') @endif
                             <div class="mb-3">
                                 <label for="newsTitle" class="form-label">Заголовок новости:</label>
                                 @if($errors->has('title'))
