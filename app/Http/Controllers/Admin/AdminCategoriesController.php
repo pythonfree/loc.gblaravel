@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class CategoriesController extends Controller
+class AdminCategoriesController extends Controller
 {
 
     /**

@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
-class NewsController extends Controller
+class AdminNewsController extends Controller
 {
     /**
      * @return Application|Factory|View

@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
-use App\Http\Controllers\Admin\IndexController as AdminIndexController;
-use App\Http\Controllers\Admin\CategoriesController as AdminCategoriesController;
-use App\Http\Controllers\Admin\NewsController;
-use App\Http\Controllers\News\CategoriesController as NewsCategoriesController;
-use App\Http\Controllers\News\IndexController as NewsIndexController;
+use App\Http\Controllers\Admin\AdminIndexController;
+use App\Http\Controllers\Admin\AdminCategoriesController;
+use App\Http\Controllers\Admin\AdminNewsController;
+use App\Http\Controllers\News\NewsCategoriesController;
+use App\Http\Controllers\News\NewsIndexController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -46,7 +46,7 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('/image', [AdminIndexController::class, 'imageDownload'])->name('image');
         Route::match(['get', 'post'], '/download', [AdminIndexController::class, 'download'])->name('download');
-        Route::resource('/news', NewsController::class);
+        Route::resource('/news', AdminNewsController::class);
 
 
         Route::resources([

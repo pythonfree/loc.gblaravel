@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class IndexController extends Controller
+class NewsIndexController extends Controller
 {
     /**
      * @return Factory|View|Application

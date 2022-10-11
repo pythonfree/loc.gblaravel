@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class IndexController extends Controller
+class AdminIndexController extends Controller
 {
     /**
      * @return Factory|View|Application
