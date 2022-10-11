@@ -7,6 +7,8 @@
 @endsection
 
 @section('content')
+    @dump(old())
+    @dump($article->text)
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -24,7 +26,7 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                <input type="text" name="title" class="form-control" id="newsTitle" value="{{ $article->title ?? old('title') }}">
+                                <input type="text" name="title" class="form-control" id="newsTitle" value="{{ old('title') ?? $article->title }}">
                             </div>
                             <div class="mb-3 col-md-8">
                                 <label for="newsCategory" class="form-label">Категория новости:</label>
@@ -36,7 +38,6 @@
                                     </div>
                                 @endif
                                 <select name="category_id" class="form-select" id="newsCategory">
-                                    <option value="999">Не верная категория</option>
                                     @forelse($categories as $category)
                                         <option
                                             {{ old('category_id') == $category->id || $category->id == $article->category_id ? 'selected' : '' }}
@@ -47,6 +48,7 @@
                                     @empty
                                         <option value="0" selected>Нет категории</option>
                                     @endforelse
+                                    <option value="999" @if($errors->has('category_id')) selected @endif>Не верная категория</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -58,7 +60,7 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                <textarea class="form-control" id="articleText" name="text" rows="10">{{ $article->text ??  old('text') }}</textarea>
+                                <textarea class="form-control" id="articleText" name="text" rows="10">{{ empty(old()) ? $article->text : old('text') }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="image" class="form-label">Картинка:</label>

@@ -26,7 +26,7 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                <input type="text" name="title" class="form-control" id="title" value="{{ $category->title ?? old('title') }}">
+                                <input type="text" name="title" class="form-control" id="title" value="{{ old('title') ?? $category->title }}">
                             </div>
                             <div class="mb-3  col-md-4">
                                 <input type="submit" class="btn btn-outline-primary" id="addCategory" dusk="create-category"
