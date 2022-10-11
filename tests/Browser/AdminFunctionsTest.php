@@ -32,7 +32,7 @@ class AdminFunctionsTest extends DuskTestCase
         });
 
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/create')
+            $browser->visit('/admin/news/create')
                 ->type('title', 'Заголовок новости для теста Dusk.')
                 ->select('category_id', '1')
                 ->type('text', 'Текст новости для теста Dusk.')
