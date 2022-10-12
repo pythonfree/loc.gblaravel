@@ -52,10 +52,4 @@ Route::middleware(['auth', 'isAdmin'])
         Route::resource('/categories', AdminCategoriesController::class);
     });
 
-//Auth::routes();
-Auth::routes(['register' => false]);
-//Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
-//Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
-//Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-//Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
-
+Auth::routes();
