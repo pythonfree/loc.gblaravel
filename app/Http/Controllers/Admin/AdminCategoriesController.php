@@ -35,16 +35,11 @@ class AdminCategoriesController extends Controller
      */
     public function store(Request $request, Category $category): RedirectResponse
     {
-        $request->flash();
-        $this->validate($request, Category::rules(), [], Category::attributesName());
-        $requestData = $this->validateCategory($request);
-        $result = $category
-            ->fill($requestData)
-            ->save();
+        $result = $this->saveData($request, $category);
         if ($result) {
             return redirect()
                 ->route('admin.categories.index')
-                ->with('success', "Категория \"{$requestData['title']}\" успешно добавлена (ID = {$category->getKey()}).");
+                ->with('success', "Категория успешно добавлена (ID = {$category->getKey()}).");
         }
         return redirect()
             ->route('admin.categories.index')
@@ -63,11 +58,8 @@ class AdminCategoriesController extends Controller
         ];
     }
 
-
     public function create($id){}
-
     public function show($id){}
-
 
     /**
      * @param Category $category
@@ -88,12 +80,7 @@ class AdminCategoriesController extends Controller
      */
     public function update(Request $request, Category $category): RedirectResponse
     {
-        $request->flash();
-        $this->validate($request, Category::rules(), [], Category::attributesName());
-        $requestData = $this->validateCategory($request);
-        $result = $category
-            ->fill($requestData)
-            ->save();
+        $result = $this->saveData($request, $category);
         if ($result) {
             return redirect()
                 ->route('admin.categories.index')
@@ -123,5 +110,21 @@ class AdminCategoriesController extends Controller
         return redirect()
             ->route('admin.categories.index')
             ->with('error', "Ошибка удаления категории \"{$category->title}\" с ID = {$category->getKey()})!");
+    }
+
+    /**
+     * @param Request $request
+     * @param Category $category
+     * @return bool
+     * @throws ValidationException
+     */
+    public function saveData(Request $request, Category $category): bool
+    {
+        $request->flash();
+        $this->validate($request, Category::rules(), [], Category::attributesName());
+        $requestData = $this->validateCategory($request);
+        return $category
+            ->fill($requestData)
+            ->save();
     }
 }

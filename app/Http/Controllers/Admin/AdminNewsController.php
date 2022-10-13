@@ -56,12 +56,7 @@ class AdminNewsController extends Controller
      */
     public function update(Request $request, News $news): RedirectResponse
     {
-        $request->flash();
-        $this->validate($request, News::rules(), [], News::attributesName());
-        $requestData = $this->validateArticle($request);
-        $result = $news
-            ->fill($requestData)
-            ->save();
+        $result = $this->saveData($request, $news);
         if ($result) {
             return redirect()
                 ->route('admin.news.index')
@@ -110,12 +105,7 @@ class AdminNewsController extends Controller
      */
     public function store(Request $request, News $news): RedirectResponse
     {
-        $request->flash();
-        $this->validate($request, News::rules(), [], News::attributesName());
-        $requestData = $this->validateArticle($request);
-        $result = $news
-            ->fill($requestData)
-            ->save();
+        $result = $this->saveData($request, $news);
         if ($result) {
             return redirect()
                 ->route('admin.news.create')
@@ -153,5 +143,21 @@ class AdminNewsController extends Controller
             $path = Storage::putFile('public/images', $img);
             $request->image = Storage::url($path);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param News $news
+     * @return bool
+     * @throws ValidationException
+     */
+    public function saveData(Request $request, News $news): bool
+    {
+        $request->flash();
+        $this->validate($request, News::rules(), [], News::attributesName());
+        $requestData = $this->validateArticle($request);
+        return $news
+            ->fill($requestData)
+            ->save();
     }
 }
