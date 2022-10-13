@@ -91,10 +91,17 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="mb-3">
-                                <button type="submit" class="btn btn-outline-primary" dusk="create-article">
-                                    @if(isset($article->id)){{ __('Изменить') }}@else{{ __('Добавить') }}@endif
-                                </button>
+                            <div class="d-flex flex-row justify-content-between">
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-outline-success" dusk="create-article">
+                                        @if(isset($article->id)){{ __('Изменить') }}@else{{ __('Добавить') }}@endif
+                                    </button>
+                                </div>
+                                <div class="mb-3">
+                                    <a href="{{ route('admin.news.index') }}" class="btn btn-outline-primary">
+                                        Отменить
+                                    </a>
+                                </div>
                             </div>
                         </form>
                     </div>
