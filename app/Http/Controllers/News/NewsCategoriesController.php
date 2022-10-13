@@ -29,7 +29,7 @@ class NewsCategoriesController extends Controller
     public function show(string $slug): \Illuminate\Contracts\View\View|Factory|Application
     {
         /** @var Category $category */
-        $category = Category::query()->where('slug', $slug)->get()->first();
+        $category = Category::query()->where('slug', $slug)->firstOrFail();
         $news = $category->news()->get();
         return view('categories.show')
             ->with('news', $news)
