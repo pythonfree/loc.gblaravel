@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header  text-center">@if($category->id)Изменить@elseДобавить@endif категорию</div>
+                    <div class="card-header  text-center">@if($category->id){{'Изменить'}}@else{{'Добавить'}}@endif{{'категорию'}}</div>
                     <div class="card-body">
                         <form enctype="multipart/form-data" method="post"
                               action="@if(!$category->id){{ route('admin.categories.store') }}@else{{ route('admin.categories.update', $category->id) }}@endif">
@@ -31,7 +31,7 @@
                             </div>
                             <div class="mb-3  col-md-4">
                                 <input type="submit" class="btn btn-outline-primary" id="addCategory" dusk="create-category"
-                                       value="@if($category->id) Изменить @else Добавить @endif категорию">
+                                       value="@if($category->id){{'Изменить'}}@else{{'Добавить'}}@endif{{'категорию'}}">
                             </div>
                         </form>
                         @forelse($categories as $key => $category)

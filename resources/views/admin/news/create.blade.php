@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-center">@if(!isset($article->id))Добавить@elseИзменить@endif новость</div>
+                    <div class="card-header text-center">@if(!isset($article->id)){{'Добавить'}}@else{{'Изменить'}}@endif{{'новость'}}</div>
                     <div class="card-body">
                         <form enctype="multipart/form-data" method="post"
                               action="@if(!isset($article->id)){{ route('admin.news.store') }}@else{{ route('admin.news.update', $article) }}@endif">
@@ -48,7 +48,7 @@
                                     @empty
                                         <option value="0" selected>Нет категории</option>
                                     @endforelse
-                                    <option value="999" @if($errors->has('category_id')) selected @endif>Не верная категория</option>
+                                    <option value="999" @if($errors->has('category_id')){{'selected'}}@endif>Не верная категория</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -80,7 +80,7 @@
                                     id="articlePrivate"
                                     name="is_private"
                                     value="1"
-                                    @if ($article->is_private == 1 || old('is_private') == 1) checked @endif
+                                    @if($article->is_private == 1 || old('is_private') == 1){{'checked'}}@endif
                                 >
                                 <label class="form-check-label" for="articlePrivate">Новость private?</label>
                                 @if($errors->has('is_private'))
