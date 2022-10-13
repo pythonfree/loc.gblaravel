@@ -56,6 +56,7 @@ class AdminNewsController extends Controller
      */
     public function update(Request $request, News $news): RedirectResponse
     {
+        $request->flash();
         $this->validate($request, News::rules(), [], News::attributesName());
         $requestData = $this->validateArticle($request);
         $result = $news->fill($requestData)->save();
@@ -107,7 +108,7 @@ class AdminNewsController extends Controller
      */
     public function store(Request $request, News $article): View|Factory|RedirectResponse|Application
     {
-//        $request->flash();
+        $request->flash();
         $this->validate($request, News::rules(), [], News::attributesName());
         $requestData = $this->validateArticle($request);
         $result = $article
@@ -130,7 +131,6 @@ class AdminNewsController extends Controller
     private function validateArticle(Request $request): array
     {
         $this->validateImage($request);
-
         return [
             'title' => $request->title ?: 'Default article title',
             'category_id' => $request->category_id ?: 1,
