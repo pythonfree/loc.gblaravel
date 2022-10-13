@@ -20,10 +20,8 @@ class AdminNewsController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        $news = News::query()
-            ->paginate(5);
-        return view('admin.index')
-            ->with('news', $news);
+        $news = News::query()->paginate(5);
+        return view('admin.index')->with('news', $news);
     }
 
     /**
@@ -80,7 +78,7 @@ class AdminNewsController extends Controller
         if ($news->delete()) {
             return redirect()
                 ->route('admin.news.index')
-                ->with('success', "Новость с ID = {$news->getKey()} успешно  удалена.");
+                ->with('success', "Новость с ID = {$news->getKey()} успешно удалена.");
         }
         return redirect()
             ->route('admin.news.index')

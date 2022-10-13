@@ -11,24 +11,36 @@
 |
 */
 
-use App\Http\Controllers\Admin\AdminProfileController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-
-use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminCategoriesController;
+use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminNewsController;
+use App\Http\Controllers\Admin\AdminUsersController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\News\NewsCategoriesController;
 use App\Http\Controllers\News\NewsIndexController;
+use App\Http\Controllers\Users\ProfileController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/about', 'about')->name('about');
 Route::view('/auth', 'auth')->name('auth');
 Route::view('/vue', 'vue')->name('vue');
-//Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/profile', [ProfileController::class, 'update'])->name('profile');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+// Profile for users and administrators
+Route::get('/profile', [ProfileController::class, 'update'])
+    ->name('profile')
+    ->middleware('auth');
+Route::post('/profile', [ProfileController::class, 'update'])
+    ->name('profile')
+    ->middleware('auth')
+    ->middleware('validator:App\Models\Users');
+
+// News
 Route::prefix('news')
     ->name('news.')
     ->group(function () {
@@ -41,15 +53,17 @@ Route::prefix('news')
             });
     });
 
+// Admin functions
 Route::middleware(['auth', 'isAdmin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
         Route::get('/image', [AdminIndexController::class, 'imageDownload'])->name('image');
         Route::match(['get', 'post'], '/download', [AdminIndexController::class, 'download'])->name('download');
-        Route::match(['get', 'post'], '/profile', [AdminProfileController::class, 'update'])->name('updateProfile');
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/categories', AdminCategoriesController::class);
+        Route::resource('/users', AdminUsersController::class);
     });
 
+// Auth functions
 Auth::routes();

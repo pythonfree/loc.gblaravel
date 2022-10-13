@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Users extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
     ];
 
     /**
@@ -41,4 +42,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return string[]
+     */
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|regex:/(^[a-zA-Z0-9 ]+$)+/|min:3',
+            'email' => 'required|email:rfc,dns|min:5',
+            'currentPassword' => 'required|min:3',
+            'newPassword' => 'nullable|min:3',
+            'confirmPassword' => 'nullable|min:3',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function attributesName(): array
+    {
+        return [
+            'name' => '"Имя"',
+            'email' => '"Email"',
+            'currentPassword' => '"Пароль"',
+            'newPassword' => '"Пароль"',
+            'confirmPassword' => '"Пароль"',
+        ];
+    }
+
 }

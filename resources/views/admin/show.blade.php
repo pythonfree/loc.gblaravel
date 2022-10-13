@@ -2,7 +2,7 @@
 @section('title', "Новость из категории - $category->title")
 
 @section('menu')
-    @include('menu')
+    @include('admin.menu')
 @endsection
 
 @section('content')

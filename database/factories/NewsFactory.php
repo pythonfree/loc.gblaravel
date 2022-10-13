@@ -18,10 +18,10 @@ class NewsFactory extends Factory
     public function definition()
     {
         return [
-            'title' => fake('ru_RU')->company() . '"' . ' сообщает: ' . Str::limit(fake('ru_RU')->realText(100), 95) . ' (Из базы)',
+            'title' => '"' . fake('ru_RU')->company() . '"' . ' сообщает: ' . Str::limit(fake('ru_RU')->realText(100), 95) . ' (Из базы)',
             'text' => fake('ru_RU')->realText(rand(1000, 3000)),
             'is_private' => false,
-            'category_id' => rand(1,3),
+            'category_id' => rand(1, 3),
         ];
     }
 }

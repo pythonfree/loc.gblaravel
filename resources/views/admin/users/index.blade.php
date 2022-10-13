@@ -12,21 +12,17 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <a class="nav-link" href="{{ route('admin.news.create') }}">
-                            <button class="btn btn-success mr10 mb10">Добавить новость</button>
-                        </a>
+                        Пользователи (не админы):
                     </div>
                     <div class="card-body">
-                        @forelse($news as $key => $article)
+                        @forelse($users as $key => $user)
                             <div class="d-flex flex-column">
-                                <a href="{{ route('admin.news.show', $article) }}">
-                                    ID = {{ $article->id }}, Новость: {{ $article->title }}
-                                </a>
+                                Пользователь: "{{ $user->name }}" (ID = {{ $user->id }}), email: {{ $user->email }}
                                 <div class="d-flex">
-                                    <a href="{{ route('admin.news.edit', $article) }}">
+                                    <a href="{{ route('admin.users.edit', $user) }}">
                                         <button class="btn btn-success mr10 mb10">Edit</button>
                                     </a>
-                                    <form method="post" action="{{ route('admin.news.destroy', $article) }}">
+                                    <form method="post" action="{{ route('admin.users.destroy', $user) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger mr10 mb10">Delete</button>
@@ -34,10 +30,10 @@
                                 </div>
                             </div>
                         @empty
-                            Нет новостей
+                            Нет пользователей
                         @endforelse
                         <div class="d-flex">
-                            {{ $news->links() }}
+                            {{ $users->links() }}
                         </div>
                     </div>
                 </div>

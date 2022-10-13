@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
+
+    /** @var string  */
+    public const INDEX = '/';
+
     /**
      * The path to the "home" route for your application.
      *

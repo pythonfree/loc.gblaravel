@@ -36,7 +36,7 @@ class News extends Model
             'title' => 'required|min:5',
             'text' => 'required|min:5',
             'category_id' => "required|exists:{$categoryTableName},id",
-            'is_private' => 'in:0,1',
+            'is_private' => 'sometimes|in:1',
             'image' => 'image|max:1000',
         ];
     }

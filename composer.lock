@@ -1099,16 +1099,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.34.0",
+            "version": "v9.35.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b7af7ff35497eb1c4e61652f522a862164dbba5a"
+                "reference": "79aed20f54b6ab75f926bf7d0dd7a5043ceb774a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b7af7ff35497eb1c4e61652f522a862164dbba5a",
-                "reference": "b7af7ff35497eb1c4e61652f522a862164dbba5a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/79aed20f54b6ab75f926bf7d0dd7a5043ceb774a",
+                "reference": "79aed20f54b6ab75f926bf7d0dd7a5043ceb774a",
                 "shasum": ""
             },
             "require": {
@@ -1281,7 +1281,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-10-04T13:33:43+00:00"
+            "time": "2022-10-11T17:30:47+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -6546,16 +6546,16 @@
         },
         {
             "name": "dragon-code/contracts",
-            "version": "v2.18.0",
+            "version": "v2.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TheDragonCode/contracts.git",
-                "reference": "27e5a9f27b3e6e5f1c184e55076b26101f3e5652"
+                "reference": "b50ceb575da285c68615bf759d2bb3288aaa4b25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TheDragonCode/contracts/zipball/27e5a9f27b3e6e5f1c184e55076b26101f3e5652",
-                "reference": "27e5a9f27b3e6e5f1c184e55076b26101f3e5652",
+                "url": "https://api.github.com/repos/TheDragonCode/contracts/zipball/b50ceb575da285c68615bf759d2bb3288aaa4b25",
+                "reference": "b50ceb575da285c68615bf759d2bb3288aaa4b25",
                 "shasum": ""
             },
             "require": {
@@ -6584,7 +6584,8 @@
             "authors": [
                 {
                     "name": "Andrey Helldar",
-                    "email": "helldar@ai-rus.com"
+                    "email": "helldar@dragon-code.pro",
+                    "homepage": "https://github.com/andrey-helldar"
                 }
             ],
             "description": "A set of contracts for any project",
@@ -6597,23 +6598,23 @@
             },
             "funding": [
                 {
-                    "url": "https://paypal.me/helldar",
-                    "type": "custom"
+                    "url": "https://boosty.to/dragon-code",
+                    "type": "boosty"
                 },
                 {
-                    "url": "https://yoomoney.ru/to/410012608840929",
-                    "type": "custom"
+                    "url": "https://github.com/sponsors/TheDragonCode",
+                    "type": "github"
                 },
                 {
                     "url": "https://opencollective.com/dragon-code",
                     "type": "open_collective"
                 },
                 {
-                    "url": "https://www.patreon.com/andrey_helldar",
-                    "type": "patreon"
+                    "url": "https://yoomoney.ru/to/410012608840929",
+                    "type": "yoomoney"
                 }
             ],
-            "time": "2022-03-01T13:27:09+00:00"
+            "time": "2022-10-10T22:02:52+00:00"
         },
         {
             "name": "dragon-code/pretty-array",
@@ -7917,16 +7918,16 @@
         },
         {
             "name": "php-webdriver/webdriver",
-            "version": "1.13.0",
+            "version": "1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-webdriver/php-webdriver.git",
-                "reference": "aad77b446a302985693fb339d40185be07c8f42d"
+                "reference": "6dfe5f814b796c1b5748850aa19f781b9274c36c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-webdriver/php-webdriver/zipball/aad77b446a302985693fb339d40185be07c8f42d",
-                "reference": "aad77b446a302985693fb339d40185be07c8f42d",
+                "url": "https://api.github.com/repos/php-webdriver/php-webdriver/zipball/6dfe5f814b796c1b5748850aa19f781b9274c36c",
+                "reference": "6dfe5f814b796c1b5748850aa19f781b9274c36c",
                 "shasum": ""
             },
             "require": {
@@ -7976,9 +7977,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-webdriver/php-webdriver/issues",
-                "source": "https://github.com/php-webdriver/php-webdriver/tree/1.13.0"
+                "source": "https://github.com/php-webdriver/php-webdriver/tree/1.13.1"
             },
-            "time": "2022-10-03T11:40:29+00:00"
+            "time": "2022-10-11T11:49:44+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
