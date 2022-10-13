@@ -31,7 +31,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/profile', [ProfileController::class, 'update'])->name('profile');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-// Profile for users and administrators
+// Profile
 Route::get('/profile', [ProfileController::class, 'update'])
     ->name('profile')
     ->middleware('auth');
@@ -53,7 +53,7 @@ Route::prefix('news')
             });
     });
 
-// Admin functions
+// Admin
 Route::middleware(['auth', 'isAdmin'])
     ->prefix('admin')
     ->name('admin.')
@@ -65,5 +65,10 @@ Route::middleware(['auth', 'isAdmin'])
         Route::resource('/users', AdminUsersController::class);
     });
 
-// Auth functions
+// Export
+Route::prefix('admin')
+    ->name('admin.')
+    ->match(['get', 'post'], '/download', [AdminIndexController::class, 'download'])->name('download');
+
+// Auth
 Auth::routes();

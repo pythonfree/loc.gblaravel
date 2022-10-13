@@ -21,7 +21,7 @@ class AdminNewsController extends Controller
     public function index(): View|Factory|Application
     {
         $news = News::query()->paginate(5);
-        return view('admin.index')->with('news', $news);
+        return view('admin.news.index')->with('news', $news);
     }
 
     /**
@@ -31,7 +31,7 @@ class AdminNewsController extends Controller
     public function show(News $news): View|Factory|Application
     {
         $category = $news->category()->get()->first();
-        return view('admin.show')
+        return view('admin.news.show')
             ->with('article', $news)
             ->with('category', $category);
     }
@@ -42,7 +42,7 @@ class AdminNewsController extends Controller
      */
     public function edit(News $news): View|Factory|Application
     {
-        return view('admin.create')
+        return view('admin.news.create')
             ->with('categories', Category::query()->get())
             ->with('article', $news);
     }
@@ -92,7 +92,7 @@ class AdminNewsController extends Controller
      */
     public function create(News $article): View|Factory|Application
     {
-        return view('admin.create',
+        return view('admin.news.create',
             [
                 'categories' => Category::query()->get(),
                 'article' => $article,

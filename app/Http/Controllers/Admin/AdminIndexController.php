@@ -40,9 +40,9 @@ class AdminIndexController extends Controller
     {
         if ($request->isMethod('post')) {
             $request->flash();
-            return $this->exportFile($request, $category);
+            return $this->exportFile($request);
         }
-        return view('admin.download')->with(
+        return view('admin.export.download')->with(
             'categories', $category::query()->get(),
         );
     }

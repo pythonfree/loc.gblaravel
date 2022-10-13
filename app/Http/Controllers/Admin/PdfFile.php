@@ -18,7 +18,7 @@ class PdfFile implements IExportFile
         $news = $category->news()->get()->toArray();
         $title = $category->title;
         $slug = $category->slug;
-        $pdf = Pdf::loadView('categories.pdf', [
+        $pdf = Pdf::loadView('admin.export.pdf', [
             'news' => $news,
             'title' => $title,
             'slug' => $slug,
