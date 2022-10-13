@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-center">@if(!isset($article->id)){{'Добавить'}}@else{{'Изменить'}}@endif{{'новость'}}</div>
+                    <div class="card-header text-center">@if(!isset($article->id)){{'Добавить'}}@else{{'Изменить'}}@endif{{' новость'}}</div>
                     <div class="card-body">
                         <form enctype="multipart/form-data" method="post"
                               action="@if(!isset($article->id)){{ route('admin.news.store') }}@else{{ route('admin.news.update', $article) }}@endif">
