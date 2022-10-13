@@ -13,9 +13,9 @@ use Illuminate\View\View;
 class NewsCategoriesController extends Controller
 {
     /**
-     * @return Factory|View|Application
+     * @return Application|Factory|\Illuminate\Contracts\View\View
      */
-    public function index(): Factory|View|Application
+    public function index(): \Illuminate\Contracts\View\View|Factory|Application
     {
         $categories = Category::query()->get();
         return view('categories.index')
@@ -24,9 +24,9 @@ class NewsCategoriesController extends Controller
 
     /**
      * @param string $slug
-     * @return Factory|View|Application|RedirectResponse
+     * @return Application|Factory|\Illuminate\Contracts\View\View
      */
-    public function show(string $slug): Factory|View|Application|RedirectResponse
+    public function show(string $slug): \Illuminate\Contracts\View\View|Factory|Application
     {
         /** @var Category $category */
         $category = Category::query()->where('slug', $slug)->get()->first();
@@ -34,6 +34,5 @@ class NewsCategoriesController extends Controller
         return view('categories.show')
             ->with('news', $news)
             ->with('category', $category);
-
     }
 }
