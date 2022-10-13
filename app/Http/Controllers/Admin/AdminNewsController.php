@@ -59,7 +59,9 @@ class AdminNewsController extends Controller
         $request->flash();
         $this->validate($request, News::rules(), [], News::attributesName());
         $requestData = $this->validateArticle($request);
-        $result = $news->fill($requestData)->save();
+        $result = $news
+            ->fill($requestData)
+            ->save();
         if ($result) {
             return redirect()
                 ->route('admin.news.index')
@@ -102,22 +104,22 @@ class AdminNewsController extends Controller
 
     /**
      * @param Request $request
-     * @param News $article
-     * @return Application|Factory|View|RedirectResponse
+     * @param News $news
+     * @return RedirectResponse
      * @throws ValidationException
      */
-    public function store(Request $request, News $article): View|Factory|RedirectResponse|Application
+    public function store(Request $request, News $news): RedirectResponse
     {
         $request->flash();
         $this->validate($request, News::rules(), [], News::attributesName());
         $requestData = $this->validateArticle($request);
-        $result = $article
+        $result = $news
             ->fill($requestData)
             ->save();
         if ($result) {
             return redirect()
                 ->route('admin.news.create')
-                ->with('success', "Новость успешно добавлена (ID = {$article->getKey()}).");
+                ->with('success', "Новость успешно добавлена (ID = {$news->getKey()}).");
         }
         return redirect()
             ->route('admin.news.create')
