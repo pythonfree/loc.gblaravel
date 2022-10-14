@@ -49,7 +49,7 @@ class User extends Authenticatable
     public static function rules(): array
     {
         return [
-            'name' => 'required|string|max:20',
+            'name' => 'required|string|max:50',
             'email' => 'required|email:rfc',
             'currentPassword' => 'required|min:3',
             'newPassword' => 'nullable|min:3',
