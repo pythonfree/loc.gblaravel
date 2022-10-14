@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -11,11 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        $now = now();
         $user = new User();
         $user->fill([
             'name' => 'admin',
             'email' => 'admin@admin.ru',
             'password' => Hash::make('123'),
+            'email_verified_at' => $now,
+            'remember_token' => Str::random(10),
         ])->save();
     }
 
