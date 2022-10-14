@@ -21,6 +21,7 @@ use App\Http\Controllers\News\NewsIndexController;
 use App\Http\Controllers\Users\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -38,7 +39,7 @@ Route::get('/profile', [ProfileController::class, 'update'])
 Route::post('/profile', [ProfileController::class, 'update'])
     ->name('profile')
     ->middleware('auth')
-    ->middleware('validator:App\Models\User');
+    ->middleware('validator:' . User::class);
 
 // News
 Route::prefix('news')
