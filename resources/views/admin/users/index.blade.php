@@ -17,7 +17,16 @@
                     <div class="card-body">
                         @forelse($users as $key => $user)
                             <div class="d-flex flex-column">
-                                Пользователь: "{{ $user->name }}" (ID = {{ $user->id }}), email: {{ $user->email }}
+                                <div class="d-flex flex-row">
+                                        <span>
+                                            Пользователь: "{{ $user->name }}" (ID = {{ $user->id }}), email: {{ $user->email }}
+                                        </span>
+                                    @if($user->is_admin)
+                                        <span class="text-danger">
+                                            {{ '(Админ)' }}
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="d-flex">
                                     <a href="{{ route('admin.users.edit', $user) }}">
                                         <button class="btn btn-success mr10 mb10">Edit</button>

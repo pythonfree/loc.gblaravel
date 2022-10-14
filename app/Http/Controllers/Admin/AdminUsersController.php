@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUsersController extends Controller
 {
@@ -19,7 +20,7 @@ class AdminUsersController extends Controller
     public function index(): View|Factory|Application
     {
         $users = Users::query()
-            ->where('is_admin', '=', false)
+            ->where('id', '!=', Auth::id())
             ->paginate(10);
         return view('admin.users.index')->with('users', $users);
     }
