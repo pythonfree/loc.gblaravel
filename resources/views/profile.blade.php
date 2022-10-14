@@ -19,7 +19,7 @@
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                            class="form-control @error('name') is-invalid @enderror" name="name"
-                                           value="{{ old('name') ?? $user->name }}" required autocomplete="name"
+                                           value="{{ old('name') ?? $user->name }}"  autocomplete="name"
                                            autofocus>
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
                                 <div class="col-md-6">
                                     <input id="email" type="email"
                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                           value="{{ old('email') ?? $user->email }}" required autocomplete="email">
+                                           value="{{ old('email') ?? $user->email }}"  autocomplete="email">
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -52,7 +52,7 @@
                                            name="currentPassword"
                                            autocomplete="new-password"
                                            placeholder="Введите пароль для изменения профиля"
-                                           required
+
                                            @if(Auth::user()->is_admin && Route::current()->getName() == 'admin.users.edit'){{ 'disabled' }}@endif
                                            value="@if(Auth::user()->is_admin && Route::current()->getName() == 'admin.users.edit'){{ '********' }}@endif"
                                     >
@@ -91,7 +91,6 @@
                                                 let inputs = [inputNewPassword, inputConfirmPassword];
                                                 for (let input of inputs) {
                                                   input.toggleAttribute('disabled');
-                                                  input.toggleAttribute('required');
                                                 }
                                             "
                                         >

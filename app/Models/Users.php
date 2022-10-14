@@ -49,8 +49,8 @@ class Users extends Authenticatable
     public static function rules(): array
     {
         return [
-            'name' => 'required|regex:/(^[a-zA-Z0-9 ]+$)+/|min:3',
-            'email' => 'required|email:rfc,dns|min:5',
+            'name' => 'required|string|max:20',
+            'email' => 'required|email:rfc',
             'currentPassword' => 'required|min:3',
             'newPassword' => 'nullable|min:3',
             'confirmPassword' => 'nullable|min:3',
