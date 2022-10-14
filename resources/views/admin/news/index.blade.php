@@ -9,7 +9,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
                         <a class="nav-link" href="{{ route('admin.news.create') }}">
@@ -21,7 +21,12 @@
                             <div class="d-flex flex-column">
                                 <a href="{{ route('admin.news.show', $article) }}">
                                     ID = {{ $article->id }}, Новость: {{ $article->title }}
+                                    @if($article->is_private)
+                                        <span class="text-danger">
+                                            {{ '(Приватная)' }}
+                                        </span>
                                 </a>
+                                    @endif
                                 <div class="d-flex">
                                     <a href="{{ route('admin.news.edit', $article) }}">
                                         <button class="btn btn-success mr10 mb10">Edit</button>

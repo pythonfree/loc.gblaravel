@@ -11,7 +11,15 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Новость из категории - {{ $category->title }}:</div>
+                    <div class="card-header">
+                        Новость из категории
+                        @if($article->is_private)
+                            <span class="text-danger">
+                                {{ '(Приватная)' }}
+                            </span>
+                        @endif
+                        - {{ $category->title }}:
+                    </div>
                     <div class="card-body">
                         @if($article)
                             @if(!$article->isPrivate)

@@ -33,11 +33,9 @@ Route::get('/profile', [ProfileController::class, 'update'])->name('profile');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Profile
-Route::get('/profile', [ProfileController::class, 'update'])
-    ->name('profile')
+Route::get('/profile', [ProfileController::class, 'update'])->name('profile')
     ->middleware('auth');
-Route::post('/profile', [ProfileController::class, 'update'])
-    ->name('profile')
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile')
     ->middleware('auth')
     ->middleware('validator:' . User::class);
 
@@ -46,7 +44,8 @@ Route::prefix('news')
     ->name('news.')
     ->group(function () {
         Route::get('/', [NewsIndexController::class, 'index'])->name('index');
-        Route::get('/one/{news}', [NewsIndexController::class, 'show'])->name('show');
+        Route::get('/one/{news}', [NewsIndexController::class, 'show'])->name('show')
+            ->middleware('auth');
         Route::name('categories.')
             ->group(function () {
                 Route::get('/categories', [NewsCategoriesController::class, 'index'])->name('index');

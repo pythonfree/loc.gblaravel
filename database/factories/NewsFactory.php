@@ -20,7 +20,7 @@ class NewsFactory extends Factory
         return [
             'title' => '"' . fake('ru_RU')->company() . '"' . ' сообщает: ' . Str::limit(fake('ru_RU')->realText(100), 95) . ' (Из базы)',
             'text' => fake('ru_RU')->realText(rand(1000, 3000)),
-            'is_private' => false,
+            'is_private' => rand(0, 1),
             'category_id' => rand(1, 3),
         ];
     }

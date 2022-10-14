@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 @extends('layouts.main')
 
 @section('title', "Новости")
@@ -8,21 +9,34 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">Новости:</div>
                     <div class="card-body">
                         @forelse($news as $key => $article)
-                            <div class="d-flex flex-row align-items-center">
+                            <div class="d-flex flex-row align-items-center justify-content-center">
                                 {{ ++$key }}
                                 <div class="card-img" style="background-image: url(
-                                    {{ $article->image ?? asset('assets/img/default-news.png') }}
-                                )">
-                                </div>
-                                <a href="{{ route('news.show', $article) }}">
+                                            {{ $article->image ?? asset('assets/img/default-news.png') }}
+                                        )"></div>
+                                <div class="col-md-8">
                                     {{ $article->title }}
-                                </a>
+                                    @if($article->is_private)
+                                        <span class="text-danger">
+                                                {{ '(Приватная)' }}
+                                            </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-2" style="text-align: center">
+                                    @if(!$article->is_private || Auth::id())
+                                        <a href="{{ route('news.show', $article) }}">
+                                            Подробнее >>>
+                                        </a>
+                                    @else
+                                        (Чтение только для зарегистрированных)
+                                    @endif
+                                </div>
                             </div>
                         @empty
                             Нет новостей
