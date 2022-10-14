@@ -72,7 +72,8 @@
                                     @enderror
                                 </div>
                             </div>
-                            <fieldset class="border mb-3 border-danger">
+                            @if(!(Auth::user()->is_admin && Route::current()->getName() == 'admin.users.edit'))
+                                <fieldset class="border mb-3 border-danger">
                                 <legend class="text-center text-black-50">Изменение пароля</legend>
                                 <div class="row mb-3">
                                     <label class="col-md-4 form-check-label col-form-label text-md-end"
@@ -133,6 +134,7 @@
                                     </div>
                                 </div>
                             </fieldset>
+                            @endif
                             @if(Auth::user()->is_admin && Route::current()->getName() == 'admin.users.edit')
                                 <fieldset class="border mb-3 border-danger">
                                     <legend class="text-center text-black-50">Администратор</legend>

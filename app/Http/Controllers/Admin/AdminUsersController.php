@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,7 +19,7 @@ class AdminUsersController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        $users = Users::query()
+        $users = User::query()
             ->where('id', '!=', Auth::id())
             ->paginate(10);
         return view('admin.users.index')->with('users', $users);
@@ -38,10 +38,10 @@ class AdminUsersController extends Controller
     }
 
     /**
-     * @param Users $user
+     * @param User $user
      * @return Application|Factory|View
      */
-    public function edit(Users $user): View|Factory|Application
+    public function edit(User $user): View|Factory|Application
     {
         return view('profile')->with('user', $user);
     }
@@ -51,10 +51,10 @@ class AdminUsersController extends Controller
     }
 
     /**
-     * @param Users $user
+     * @param User $user
      * @return RedirectResponse
      */
-    public function destroy(Users $user): RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
         if ($user->delete()) {
             return redirect()

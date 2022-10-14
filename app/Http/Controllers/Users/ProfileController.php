@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -26,10 +26,10 @@ class ProfileController extends Controller
 
     /**
      * @param Request $request
-     * @param Users $user
+     * @param User $user
      * @return bool
      */
-    private function checkUserAndRequestCurrentPasswords(Request $request, Users $user): bool
+    private function checkUserAndRequestCurrentPasswords(Request $request, User $user): bool
     {
         return Hash::check($request->post('currentPassword'), $user->getAuthPassword());
     }
@@ -45,10 +45,10 @@ class ProfileController extends Controller
 
     /**
      * @param Request $request
-     * @param Users $user
+     * @param User $user
      * @return array
      */
-    private function getRequestPasswordErrors(Request $request, Users $user): array
+    private function getRequestPasswordErrors(Request $request, User $user): array
     {
         $errors = [];
         if (!$this->checkUserAndRequestCurrentPasswords($request, $user)) {
@@ -71,11 +71,11 @@ class ProfileController extends Controller
      */
     public function update(Request $request): View|Factory|RedirectResponse|Application
     {
-        /** @var Users $user */
+        /** @var User $user */
         $user = Auth::user();
         if ($request->isMethod('post')) {
-            if ($request->userEdit) {
-                $user = Users::query()
+            if ($request->userEdit && ($request->id != Auth::id())) {
+                $user = User::query()
                     ->where('id', '=', $request->id)
                     ->get()
                     ->first();
@@ -117,10 +117,10 @@ class ProfileController extends Controller
 
     /**
      * @param Request $request
-     * @param Users $user
+     * @param User $user
      * @return array|string[]
      */
-    private function validateUser(Request $request, Users $user): array
+    private function validateUser(Request $request, User $user): array
     {
         $passwordErrors = $request->post('is_change_password') ? $this->getRequestPasswordErrors($request, $user) : [];
         $userPasswordErrors = $this->checkUserAndRequestCurrentPasswords($request, $user) ? [] : ['currentPassword' => 'Текущий пароль введен неверно.'];

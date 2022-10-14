@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Users;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        /** @var Users $user */
+        /** @var User $user */
         $user = Auth::user();
         if(!$user->is_admin) {
             return redirect()

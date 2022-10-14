@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $user = new Users();
+        $user = new User();
         $user->fill([
             'name' => 'admin',
             'email' => 'admin@admin.ru',
@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $id = (int)Users::query()->select(['id'])->where('name', '=', 'admin')->get()->first()->id;
-        Users::query()->where('id', '=', $id)->delete();
+        $id = (int)User::query()->select(['id'])->where('name', '=', 'admin')->get()->first()->id;
+        User::query()->where('id', '=', $id)->delete();
     }
 };

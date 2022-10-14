@@ -38,7 +38,7 @@ Route::get('/profile', [ProfileController::class, 'update'])
 Route::post('/profile', [ProfileController::class, 'update'])
     ->name('profile')
     ->middleware('auth')
-    ->middleware('validator:App\Models\Users');
+    ->middleware('validator:App\Models\User');
 
 // News
 Route::prefix('news')
