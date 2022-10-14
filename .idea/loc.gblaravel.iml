@@ -136,6 +136,12 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/orchestra/parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tightenco/collect" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravie/parser" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/public/build" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/93" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/f2" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/laravel-excel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

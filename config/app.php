@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Orchestra\Parser\XmlServiceProvider;
 
 return [
 
@@ -156,7 +157,7 @@ return [
     */
 
     'providers' => [
-
+        XmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
@@ -212,6 +213,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'XmlParser' => Orchestra\Parser\Xml\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
