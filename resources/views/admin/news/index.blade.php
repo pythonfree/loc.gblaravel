@@ -25,8 +25,8 @@
                                         <span class="text-danger">
                                             {{ '(Приватная)' }}
                                         </span>
-                                </a>
                                     @endif
+                                </a>
                                 <div class="d-flex">
                                     <a href="{{ route('admin.news.edit', $article) }}">
                                         <button class="btn btn-success mr10 mb10">Edit</button>

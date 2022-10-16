@@ -14,6 +14,7 @@
 use App\Http\Controllers\Admin\AdminCategoriesController;
 use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminNewsController;
+use App\Http\Controllers\Admin\AdminParserController;
 use App\Http\Controllers\Admin\AdminUsersController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\News\NewsCategoriesController;
@@ -60,6 +61,7 @@ Route::middleware(['auth', 'isAdmin'])
     ->group(function () {
         Route::get('/image', [AdminIndexController::class, 'imageDownload'])->name('image');
         Route::match(['get', 'post'], '/download', [AdminIndexController::class, 'download'])->name('download');
+        Route::get('/parser', [AdminParserController::class, 'index'])->name('parser');
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/categories', AdminCategoriesController::class);
         Route::resource('/users', AdminUsersController::class);
