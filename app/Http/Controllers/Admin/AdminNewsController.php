@@ -20,7 +20,7 @@ class AdminNewsController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        $news = News::query()->paginate(5);
+        $news = News::query()->paginate(10);
         return view('admin.news.index')->with('news', $news);
     }
 

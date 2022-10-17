@@ -10,12 +10,15 @@ class News extends Model
 {
     use HasFactory;
 
+    const TABLE_NAME = 'news';
+
     protected $fillable = [
         'title',
         'text',
         'is_private',
         'category_id',
-        'image'
+        'image',
+        'link',
     ];
 
     /**

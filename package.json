@@ -15,5 +15,9 @@
         "sass": "^1.32.11",
         "vite": "^3.0.0",
         "vue": "^3.2.37"
+    },
+    "dependencies": {
+        "@ladjs/bootstrap-social": "github:niftylettuce/bootstrap-social#gh-pages",
+        "font-awesome": "^4.7.0"
     }
 }

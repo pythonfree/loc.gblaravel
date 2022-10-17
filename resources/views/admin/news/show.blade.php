@@ -20,7 +20,10 @@
                                     )">
                                     </div>
                                     <h2>{{ $article->title }}</h2>
-                                    <p>{{ $article->text }}</p>
+                                    <p>
+                                        {{ $article->title }}.
+                                        <a href="{{ $article->link }}" target="_blank">(весь текст новость доступен по ссылке >>>)</a>
+                                    </p>
                                 </div>
                             @else
                                 Новость приватная...

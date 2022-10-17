@@ -157,6 +157,7 @@ return [
     */
 
     'providers' => [
+        \SocialiteProviders\Manager\ServiceProvider::class,
         XmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 

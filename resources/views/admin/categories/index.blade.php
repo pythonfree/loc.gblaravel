@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header  text-center">@if($category->id){{'Изменить'}}@else{{'Добавить'}}@endif{{'категорию'}}</div>
+                    <div class="card-header  text-center">@if($category->id){{'Изменить'}}@else{{'Добавить'}}@endif{{' категорию'}}</div>
                     <div class="card-body">
                         <form enctype="multipart/form-data" method="post"
                               action="@if(!$category->id){{ route('admin.categories.store') }}@else{{ route('admin.categories.update', $category->id) }}@endif">

@@ -10,6 +10,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    const TABLE_NAME = 'categories';
+
     protected $fillable = [
         'title',
         'slug',

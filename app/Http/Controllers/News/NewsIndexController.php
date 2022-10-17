@@ -17,7 +17,7 @@ class NewsIndexController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        $news = News::query()->paginate(5);
+        $news = News::query()->paginate(10);
         return view('news.index')->with('news', $news);
     }
 

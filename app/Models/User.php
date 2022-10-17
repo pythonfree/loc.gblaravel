@@ -12,6 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const TABLE_NAME = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,6 +26,9 @@ class User extends Authenticatable
         'is_admin',
         'email_verified_at',
         'remember_token',
+        'social_id',
+        'type_auth',
+        'avatar',
     ];
 
     /**
@@ -51,7 +56,7 @@ class User extends Authenticatable
     public static function rules(): array
     {
         return [
-            'name' => 'required|string|max:50',
+            'name' => 'required|string|min:5',
             'email' => 'required|email:rfc',
             'currentPassword' => 'required|min:3',
             'newPassword' => 'nullable|min:3',

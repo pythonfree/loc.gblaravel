@@ -15,7 +15,7 @@
                     <div class="card-header">Новости:</div>
                     <div class="card-body">
                         @forelse($news as $key => $article)
-                            <div class="d-flex flex-row align-items-center justify-content-center">
+                            <div class="d-flex flex-row align-items-center justify-content-center mb-1">
                                 {{ ++$key }}
                                 <div class="card-img" style="background-image: url(
                                             {{ $article->image ?? asset('assets/img/default-news.png') }}

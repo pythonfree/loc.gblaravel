@@ -3,7 +3,11 @@
 @section('title', "Редактирование профиля - $user->name (ID = $user->id)")
 
 @section('menu')
-    @include('admin.menu')
+    @if(Auth::user()->is_admin)
+        @include('admin.menu')
+    @else
+        @include('menu')
+    @endif
 @endsection
 @section('content')
     <div class="container">
@@ -43,8 +47,13 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="password" class="col-md-4 col-form-label text-md-end">Текущий
-                                    пароль:</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-end">
+                                    @if(Hash::check($user->social_id . $user->type_auth, $user->password))
+                                        Первичный пароль: ({{ $user->social_id . $user->type_auth }})
+                                    @else
+                                        Текущий пароль:
+                                    @endif
+                                </label>
                                 <div class="col-md-6">
                                     <input id="currentPassword"
                                            type="password"

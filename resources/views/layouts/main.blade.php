@@ -49,6 +49,10 @@
                         </li>
                     @endif
                 @else
+                    @if(Auth::check())
+                        <img src="{{ Auth::user()->avatar ?: asset('assets/img/default-user.png') }}" class="rounded-circle" style="width: 40px;"
+                             alt="{{ Auth::user()->name }}" />
+                    @endif
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
