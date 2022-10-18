@@ -37,11 +37,14 @@ Route::get('/profile', [ProfileController::class, 'update'])->name('profile');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Profile
-Route::get('/profile', [ProfileController::class, 'update'])->name('profile')
-    ->middleware('auth');
-Route::post('/profile', [ProfileController::class, 'update'])->name('profile')
-    ->middleware('auth')
-    ->middleware('validator:' . User::class);
+Route::name('profile')
+    ->group(function () {
+        Route::get('/profile', [ProfileController::class, 'update'])
+            ->middleware('auth');
+        Route::post('/profile', [ProfileController::class, 'update'])
+            ->middleware('auth')
+            ->middleware('validator:' . User::class);
+    });
 
 // News
 Route::prefix('news')
@@ -91,5 +94,5 @@ Route::group([
     Lfm::routes();
 });
 
-// Auth IN END ALWAYS!!!
+// Auth IN END !!!ALWAYS!!!
 Auth::routes();

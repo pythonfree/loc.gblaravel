@@ -111,7 +111,7 @@ class ProfileController extends Controller
                 ->withErrors($errors);
         }
 
-        return view('profile')
+        return view('users.profile')
             ->with('user', $user);
     }
 

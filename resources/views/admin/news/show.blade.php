@@ -14,7 +14,7 @@
                     <div class="card-body">
                         @if($article)
                             @if(!$article->isPrivate)
-                                <div class="d-flex flex-column align-items-center">
+                                <div class="d-flex flex-column align-items-center" style="text-align: center;">
                                     <div class="card-img-show" style="background-image: url(
                                         {{ $article->image ?? asset('assets/img/default-news.png') }}
                                     )">
@@ -22,11 +22,9 @@
                                     <h2>{{ $article->title }}</h2>
                                     <p>
                                         {!! $article->text !!}
-                                        <i>Опубликовано: {{ (new DateTime($article->created_at))->format('j F, Y') }}
-                                            .</i>
-                                        Весь текст новости доступен <a style="display:contents"
-                                                                       href="{{ $article->link }}" target="_blank"> по
-                                            ссылке >>></a>
+                                        <i>Опубликовано: {{ (new DateTime($article->created_at))->format('j F, Y') }}.</i>
+                                        Весь текст новости доступен <a style="display:contents" href="{{ $article->link }}" target="_blank"> по ссылке
+                                            >>></a>
                                     </p>
                                 </div>
                             @else
