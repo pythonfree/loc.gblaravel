@@ -18,3 +18,5 @@ yarn-error.log
 !/composer.lock
 !/.gitignore
 make_env.sh
+/.env
+
