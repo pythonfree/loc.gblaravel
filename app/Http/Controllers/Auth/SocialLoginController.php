@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
@@ -39,7 +40,12 @@ abstract class SocialLoginController extends Controller
         if (Auth::check()) {
             return redirect()->route('home');
         }
-        $user = Socialite::driver(static::$socialNetwork)->user();
+        try {
+            $user = Socialite::driver(static::$socialNetwork)->user();
+        } catch (InvalidStateException $e) {
+            return redirect()
+                ->route('home');
+        }
         if (LoginController::checkUserByEmail($user, static::$type_auth)) {
             return redirect()
                 ->route('login')

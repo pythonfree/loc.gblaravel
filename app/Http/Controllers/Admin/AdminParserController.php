@@ -90,6 +90,7 @@ class AdminParserController extends Controller
                     'category_id' => $categoriesKeyed[$item['category']]['id'],
                     'image' => $item['enclosure::url'],
                     'link' => $item['link'],
+                    'created_at' => (new \DateTime($item['pubDate']))->format('Y-m-d H:i:s'),
                 ];
             })
             ->all();

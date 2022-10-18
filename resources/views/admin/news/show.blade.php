@@ -21,8 +21,10 @@
                                     </div>
                                     <h2>{{ $article->title }}</h2>
                                     <p>
-                                        {{ $article->title }}.
-                                        <a href="{{ $article->link }}" target="_blank">(весь текст новость доступен по ссылке >>>)</a>
+                                        {{ $article->text }}
+                                        ({{ (new DateTime($article->created_at))->format('j F, Y') }}).
+                                        Весь текст новости доступен <a href="{{ $article->link }}" target="_blank">по
+                                            ссылке >>></a>
                                     </p>
                                 </div>
                             @else
