@@ -14,8 +14,7 @@ use Orchestra\Parser\Xml\Facade as XmlParser;
 
 class AdminParserController extends Controller
 {
-
-    const RSS_LINK = 'https://www.vedomosti.ru/rss/news';
+    const RSS_LINK = 'https://lenta.ru/rss/news';
 
     /**
      * @return Factory|View|Application
@@ -30,7 +29,7 @@ class AdminParserController extends Controller
             'image' => ['uses' => 'channel.image.url'],
         ]);
         $news = $xml->parse([
-            'news' => ['uses' => 'channel.item[title,link,category,pubDate,enclosure::url]'],
+            'news' => ['uses' => 'channel.item[title,link,category,pubDate,enclosure::url,description]'],
         ])['news'];
 
         $this->importNewsToDB($news);
@@ -85,7 +84,7 @@ class AdminParserController extends Controller
             ->map(function ($item, $key) use ($categoriesKeyed) {
                 return [
                     'title' => $item['title'],
-                    'text' => $item['title'],
+                    'text' => $item['description'],
                     'is_private' => false,
                     'category_id' => $categoriesKeyed[$item['category']]['id'],
                     'image' => $item['enclosure::url'],

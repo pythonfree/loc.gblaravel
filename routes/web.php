@@ -17,7 +17,6 @@ use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminParserController;
 use App\Http\Controllers\Admin\AdminUsersController;
 use App\Http\Controllers\Auth\GithubLoginController;
-use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\Auth\VKLoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\News\NewsCategoriesController;
@@ -26,6 +25,7 @@ use App\Http\Controllers\Users\ProfileController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Lfm;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -75,13 +75,21 @@ Route::prefix('admin')
     ->name('admin.')
     ->match(['get', 'post'], '/download', [AdminIndexController::class, 'download'])->name('download');
 
-// Socialite OAuth2 LoginVK
+// Socialite LoginVK
 Route::get('/auth/vk/redirect', [VKLoginController::class, 'redirect'])->name('LoginVK');
 Route::get('/auth/vk/callback', [VKLoginController::class, 'callback'])->name('LoginVKResponse');
 
-// Socialite OAuth2 LoginGithub
+// Socialite LoginGithub
 Route::get('/auth/github/redirect', [GithubLoginController::class, 'redirect'])->name('LoginGithub');
 Route::get('/auth/github/callback', [GithubLoginController::class, 'callback'])->name('LoginGithubResponse');
 
-// Auth
+// Laravel-filemanager
+Route::group([
+    'prefix' => 'laravel-filemanager',
+    'middleware' => ['web', 'auth']
+], function () {
+    Lfm::routes();
+});
+
+// Auth IN END ALWAYS!!!
 Auth::routes();

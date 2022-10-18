@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/apiTest', function (Request $request) {
+    return response()->json([
+        'status' => 'ok',
+        'id' => $request->id,
+    ], JSON_UNESCAPED_UNICODE);
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
