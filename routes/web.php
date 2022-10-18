@@ -16,16 +16,16 @@ use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminParserController;
 use App\Http\Controllers\Admin\AdminUsersController;
+use App\Http\Controllers\Auth\GithubLoginController;
+use App\Http\Controllers\Auth\SocialLoginController;
+use App\Http\Controllers\Auth\VKLoginController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\VKLoginController;
-use App\Http\Controllers\GithubLoginController;
 use App\Http\Controllers\News\NewsCategoriesController;
 use App\Http\Controllers\News\NewsIndexController;
 use App\Http\Controllers\Users\ProfileController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use Laravel\Socialite\Facades\Socialite;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -76,12 +76,12 @@ Route::prefix('admin')
     ->match(['get', 'post'], '/download', [AdminIndexController::class, 'download'])->name('download');
 
 // Socialite OAuth2 LoginVK
-Route::get('/auth/vk/redirect', [VKLoginController::class, 'redirectVK'])->name('LoginVK');
-Route::get('/auth/vk/callback', [VKLoginController::class, 'callbackVK'])->name('LoginVKResponse');
+Route::get('/auth/vk/redirect', [VKLoginController::class, 'redirect'])->name('LoginVK');
+Route::get('/auth/vk/callback', [VKLoginController::class, 'callback'])->name('LoginVKResponse');
 
 // Socialite OAuth2 LoginGithub
-Route::get('/auth/github/redirect', [GithubLoginController::class, 'redirectGithub'])->name('LoginGithub');
-Route::get('/auth/github/callback', [GithubLoginController::class, 'callbackGithub'])->name('LoginGithubResponse');
+Route::get('/auth/github/redirect', [GithubLoginController::class, 'redirect'])->name('LoginGithub');
+Route::get('/auth/github/callback', [GithubLoginController::class, 'callback'])->name('LoginGithubResponse');
 
 // Auth
 Auth::routes();
