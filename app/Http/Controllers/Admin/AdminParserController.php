@@ -28,10 +28,36 @@ class AdminParserController extends Controller
         ]);
         $news = $xml->parse([
             'news' => ['uses' => 'channel.item[title,link,category,pubDate,enclosure::url]'],
-        ]);
-        $news = $news['news'];
-        $newsForView = $news;
+        ])['news'];
 
+        $this->importNewsToDB($news);
+
+        return view('admin.parser.index')
+            ->with('mainTitle', $mainTitle)
+            ->with('news', $news);
+    }
+
+    /**
+     * @return int
+     */
+    private function getLastCategoryId(): int
+    {
+        $lastCategoryId = new Category();
+        $lastCategoryId
+            ->fill([
+                'title' => 'test title',
+                'slug' => 'test slug',
+            ])
+            ->save();
+        return (int)$lastCategoryId->getKey() ?: 1;
+    }
+
+    /**
+     * @param mixed $news
+     * @return void
+     */
+    public function importNewsToDB(mixed $news): void
+    {
         $categories = collect($news)
             ->keyBy('category')
             ->keys()
@@ -42,7 +68,8 @@ class AdminParserController extends Controller
                 ];
             })
             ->all();
-        $lastCategoryId = DB::table(Category::TABLE_NAME)->orderBy('id', 'desc')->first()->id ?: 1;
+
+        $lastCategoryId = $this->getLastCategoryId();
         $categoriesKeyed = collect($categories)
             ->map(function ($item, $key) use ($lastCategoryId) {
                 return [
@@ -67,9 +94,5 @@ class AdminParserController extends Controller
         DB::table(Category::TABLE_NAME)->insert($categories);
         News::query()->delete();
         DB::table(News::TABLE_NAME)->insert($news);
-
-        return view('admin.parser.index')
-            ->with('mainTitle', $mainTitle)
-            ->with('news', $newsForView);
     }
 }
