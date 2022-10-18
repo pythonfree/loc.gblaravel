@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Adaptors\Adaptor;
 use App\Helpers\LoginController;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-use SocialiteProviders\Manager\OAuth2\User as UserOAuth;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class VKLoginController extends Controller
 {
-    public function redirectVK()
+    /**
+     * @return \Illuminate\Http\RedirectResponse|RedirectResponse
+     */
+    public function redirectVK(): RedirectResponse|\Illuminate\Http\RedirectResponse
     {
         if (Auth::check()) {
             return redirect()->route('home');
@@ -22,7 +22,11 @@ class VKLoginController extends Controller
         return Socialite::driver('vkontakte')->redirect();
     }
 
-    public function callbackVK(Adaptor $userAdaptor, Request $request)
+    /**
+     * @param Adaptor $userAdaptor
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function callbackVK(Adaptor $userAdaptor): \Illuminate\Http\RedirectResponse
     {
         if (Auth::check()) {
             return redirect()->route('home');

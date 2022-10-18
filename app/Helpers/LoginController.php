@@ -4,12 +4,16 @@ namespace App\Helpers;
 
 use App\Adaptors\Adaptor;
 use App\Models\User;
-use SocialiteProviders\Manager\OAuth2\User as UserOAuth;
 
 class LoginController
 {
 
-    public static function checkUserByEmail($user, string $socName)
+    /**
+     * @param $user
+     * @param string $socName
+     * @return bool
+     */
+    public static function checkUserByEmail($user, string $socName): bool
     {
         $email = Adaptor::getEmail($user);
         if ($email) {

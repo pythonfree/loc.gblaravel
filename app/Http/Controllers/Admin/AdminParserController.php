@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\News;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 
@@ -17,7 +17,10 @@ class AdminParserController extends Controller
 
     const RSS_LINK = 'https://www.vedomosti.ru/rss/news';
 
-    public function index()
+    /**
+     * @return Factory|View|Application
+     */
+    public function index(): Factory|View|Application
     {
         $xml = XmlParser::load(static::RSS_LINK);
         $mainTitle = $xml->parse([

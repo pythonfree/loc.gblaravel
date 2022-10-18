@@ -4,18 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Adaptors\Adaptor;
 use App\Helpers\LoginController;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-use SocialiteProviders\Manager\OAuth2\User as UserOAuth;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Laravel\Socialite\Two\User as LaravelSoc2User;
 
 
 class GithubLoginController extends Controller
 {
-    public function redirectGithub()
+    /**
+     * @return \Illuminate\Http\RedirectResponse|RedirectResponse
+     */
+    public function redirectGithub(): RedirectResponse|\Illuminate\Http\RedirectResponse
     {
         if (Auth::check()) {
             return redirect()->route('home');
@@ -23,7 +22,11 @@ class GithubLoginController extends Controller
         return Socialite::driver('github')->redirect();
     }
 
-    public function callbackGithub(Adaptor $userAdaptor, Request $request)
+    /**
+     * @param Adaptor $userAdaptor
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function callbackGithub(Adaptor $userAdaptor): \Illuminate\Http\RedirectResponse
     {
         if (Auth::check()) {
             return redirect()->route('home');

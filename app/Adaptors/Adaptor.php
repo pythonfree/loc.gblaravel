@@ -3,12 +3,18 @@
 namespace App\Adaptors;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
-use SocialiteProviders\Manager\OAuth2\User as UserOAuth;
 
 class Adaptor
 {
-    public function getUserBySocId($user, string $socName)
+    /**
+     * @param $user
+     * @param string $socName
+     * @return Model|Builder|User|null
+     */
+    public function getUserBySocId($user, string $socName): Model|Builder|User|null
     {
         $email = static::getEmail($user);
         $userInSystem = User::query()
@@ -33,6 +39,10 @@ class Adaptor
         return $userInSystem;
     }
 
+    /**
+     * @param $user
+     * @return mixed
+     */
     public static function getEmail($user): mixed
     {
         return $user->getEmail() ?: $user->accessTokenResponseBody['email'];
