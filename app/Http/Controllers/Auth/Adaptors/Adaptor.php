@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Adaptors;
+namespace App\Http\Controllers\Auth\Adaptors;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;

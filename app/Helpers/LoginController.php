@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Adaptors\Adaptor;
+use App\Http\Controllers\Auth\Adaptors\Adaptor;
 use App\Models\User;
 
 class LoginController

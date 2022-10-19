@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth\Contract;
 
-use App\Adaptors\Adaptor;
 use App\Helpers\LoginController;
+use App\Http\Controllers\Auth\Adaptors\Adaptor;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
