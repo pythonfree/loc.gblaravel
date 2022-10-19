@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\Contract;
 
 use App\Adaptors\Adaptor;
 use App\Helpers\LoginController;
@@ -14,8 +14,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 abstract class SocialLoginController extends Controller
 {
-    protected static string $socialNetwork = '';
-    protected static string $type_auth = '';
+    protected string $socialNetwork = '';
+    protected string $type_auth = '';
 
     /**
      * @return RedirectResponse|\Illuminate\Http\RedirectResponse
@@ -28,7 +28,7 @@ abstract class SocialLoginController extends Controller
                 ->route('home')
                 ->with('error', 'Пользователь "' . $userName . '" уже авторизован.');
         }
-        return Socialite::driver(static::$socialNetwork)->redirect();
+        return Socialite::driver($this->socialNetwork)->redirect();
     }
 
     /**
@@ -41,27 +41,27 @@ abstract class SocialLoginController extends Controller
             return redirect()->route('home');
         }
         try {
-            $user = Socialite::driver(static::$socialNetwork)->user();
+            $user = Socialite::driver($this->socialNetwork)->user();
         } catch (InvalidStateException $e) {
             return redirect()
                 ->route('home');
         }
-        if (LoginController::checkUserByEmail($user, static::$type_auth)) {
+        if (LoginController::checkUserByEmail($user, $this->type_auth)) {
             return redirect()
                 ->route('login')
                 ->with('error', 'Пользователь с таким email уже зарегистрирован.');
         }
-        $userInSystem = $userAdaptor->getUserBySocId($user, static::$type_auth);
+        $userInSystem = $userAdaptor->getUserBySocId($user, $this->type_auth);
         if ($userInSystem) {
             Auth::login($userInSystem, true);
             if (Auth::check()) {
                 return redirect()
                     ->route('home')
-                    ->with('success', 'Успешная авторизация через "' . static::$socialNetwork . '"!');
+                    ->with('success', 'Успешная авторизация через "' . $this->socialNetwork . '"!');
             }
         }
         return redirect()
             ->route('home')
-            ->with('error', 'Ошибка авторизации через "' . static::$socialNetwork . '"!');
+            ->with('error', 'Ошибка авторизации через "' . $this->socialNetwork . '"!');
     }
 }

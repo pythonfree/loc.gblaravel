@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 
+use App\Http\Controllers\Auth\Contract\SocialLoginController;
+
 class VKLoginController extends SocialLoginController
 {
-    protected static string $socialNetwork = 'vkontakte';
-    protected static string $type_auth = 'vk';
+    protected string $socialNetwork = 'vkontakte';
+    protected string $type_auth = 'vk';
 }

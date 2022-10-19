@@ -43,9 +43,9 @@
 
                         <div class="d-flex flex-row-reverse mb-1">
                             <div class="col-md-8">
-                                @if(env('VKONTAKTE_CLIENT_ID', '') == '')
+                                @if(env('VKONTAKTE_CLIENT_ID', '') == '' || env('VKONTAKTE_CLIENT_SECRET', '') == '')
                                     <a class="btn btn-block btn-social btn-vk" href="#" style="color: white">
-                                        <span class="fa fa-vk"></span> Add CLIENT_ID for VK in ".env"
+                                        <span class="fa fa-vk"></span> Add CREDENTIALS for VK in ".env"
                                     </a>
                                 @else
                                     <a class="btn btn-block btn-social btn-vk" href="{{ route('LoginVK') }}"
@@ -58,9 +58,9 @@
 
                         <div class="d-flex flex-row-reverse mb-1">
                             <div class="col-md-8">
-                                @if(env('GITHUB_CLIENT_ID', '') == '')
+                                @if(env('GITHUB_CLIENT_ID', '') == '' || env('GITHUB_CLIENT_SECRET', '') == '')
                                     <a class="btn btn-block btn-social btn-github" href="#" style="color: white">
-                                        <span class="fa fa-vk"></span> Add CLIENT_ID for Github in ".env"
+                                        <span class="fa fa-vk"></span> Add CREDENTIALS for Github in ".env"
                                     </a>
                                 @else
                                     <a class="btn btn-block btn-social btn-github" href="{{ route('LoginGithub') }}">

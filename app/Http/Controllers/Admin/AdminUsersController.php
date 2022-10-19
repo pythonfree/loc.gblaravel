@@ -43,7 +43,7 @@ class AdminUsersController extends Controller
      */
     public function edit(User $user): View|Factory|Application
     {
-        return view('profile')->with('user', $user);
+        return view('users.profile')->with('user', $user);
     }
 
     public function update(Request $request, $id)
