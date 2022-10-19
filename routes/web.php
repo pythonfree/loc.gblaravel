@@ -89,7 +89,7 @@ Route::get('/auth/github/callback', [GithubLoginController::class, 'callback'])-
 // Laravel-filemanager
 Route::group([
     'prefix' => 'laravel-filemanager',
-    'middleware' => ['web', 'auth']
+    'middleware' => ['web', 'auth', 'isAdmin']
 ], function () {
     Lfm::routes();
 });

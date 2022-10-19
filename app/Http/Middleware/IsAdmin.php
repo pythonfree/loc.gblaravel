@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
 
 class IsAdmin
 {
@@ -16,13 +17,13 @@ class IsAdmin
      *
      * @param Request $request
      * @param Closure(Request): (Response|RedirectResponse) $next
-     * @return Response|RedirectResponse
+     * @return Response|RedirectResponse|JsonResponse
      */
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+    public function handle(Request $request, Closure $next): Response|JsonResponse|RedirectResponse
     {
         /** @var User $user */
         $user = Auth::user();
-        if(!$user->is_admin) {
+        if (!$user->is_admin) {
             return redirect()
                 ->route('home')
                 ->with('error', 'Только для Администратора.');
