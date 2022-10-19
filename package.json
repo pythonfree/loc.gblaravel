@@ -17,6 +17,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^35.2.1",
         "@ladjs/bootstrap-social": "github:niftylettuce/bootstrap-social#gh-pages",
         "font-awesome": "^4.7.0"
     }
