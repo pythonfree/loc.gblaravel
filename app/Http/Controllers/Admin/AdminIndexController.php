@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contract\IExportFile;
-use App\Http\Controllers\Admin\Export\ExcelFile;
-use App\Http\Controllers\Admin\Export\JsonFile;
-use App\Http\Controllers\Admin\Export\PdfFile;
+use App\Http\Controllers\Admin\ExportEntity\ExcelFile;
+use App\Http\Controllers\Admin\ExportEntity\JsonFile;
+use App\Http\Controllers\Admin\ExportEntity\PdfFile;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Contracts\Foundation\Application;
