@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Export;
 
 use App\Contract\IExportFile;
 use App\Exports\NewsExport;
