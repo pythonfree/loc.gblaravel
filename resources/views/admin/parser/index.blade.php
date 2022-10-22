@@ -44,24 +44,6 @@
         button.addEventListener('click', () => {
             let success = document.querySelector('.alert-success');
             let danger = document.querySelector('.alert-danger');
-            // let is_admin = button.getAttribute('data-is_admin');
-            // (async () => {
-            //     const response = await fetch("/api/parseAction");
-            //     const answer = await response.json();
-            //     console.log(answer);
-            //     if (answer.status === 'ok') {
-            //         success.classList.toggle("d-none");
-            //         setTimeout(() => {
-            //             success.classList.toggle("d-none");
-            //         }, "4000");
-            //     }
-            //     if (answer.status === 'false') {
-            //         danger.classList.toggle("d-none");
-            //         setTimeout(() => {
-            //             danger.classList.toggle("d-none");
-            //         }, "4000");
-            //     }
-            // })();
             axios.get('/api/parseAction')
                 .then(response => {
                     const answer = response.data;
@@ -84,10 +66,10 @@
         <div class="row justify-content-center mt-1">
             <div class="col-md-6">
                 <div class="alert alert-success d-none" role="alert">
-                    Успешно поставлено в очередь.
+                    Все ресурсы успешно отработаны!
                 </div>
                 <div class="alert alert-danger d-none" role="alert">
-                    Ошибка постановки в очередь!
+                    Не все ресурсы были отработаны, смотри отчет в <a class="errorMessage" href="/horizon">Horizon</a>
                 </div>
             </div>
         </div>
