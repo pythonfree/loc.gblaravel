@@ -20,6 +20,7 @@
         "@ckeditor/ckeditor5-build-classic": "^35.2.1",
         "@ladjs/bootstrap-social": "github:niftylettuce/bootstrap-social#gh-pages",
         "ckeditor": "^4.12.1",
-        "font-awesome": "^4.7.0"
+        "font-awesome": "^4.7.0",
+        "jquery": "^3.6.1"
     }
 }

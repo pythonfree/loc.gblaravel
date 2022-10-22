@@ -21,8 +21,8 @@
                                     </div>
                                     <h2>{{ $article->title }}</h2>
                                     <p>
-                                        {!! $article->text !!}
-                                        <i>Опубликовано: {{ (new DateTime($article->created_at))->format('j F, Y') }}.</i>
+                                        {!! $article->text !!}.
+                                        (<i>Опубликовано: {{ (new DateTime($article->created_at))->format('j F, Y') }})</i>
                                         Весь текст новости доступен <a style="display:contents" href="{{ $article->link }}" target="_blank"> по ссылке >>></a>
                                     </p>
                                 </div>

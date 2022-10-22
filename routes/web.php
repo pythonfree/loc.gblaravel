@@ -13,8 +13,10 @@
 
 use App\Http\Controllers\Admin\AdminCategoriesController;
 use App\Http\Controllers\Admin\AdminIndexController;
+use App\Http\Controllers\Admin\AdminMyTestPageController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminParserController;
+use App\Http\Controllers\Admin\AdminResourcesController;
 use App\Http\Controllers\Admin\AdminUsersController;
 use App\Http\Controllers\Auth\GithubLoginController;
 use App\Http\Controllers\Auth\VKLoginController;
@@ -71,6 +73,8 @@ Route::middleware(['auth', 'isAdmin'])
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/categories', AdminCategoriesController::class);
         Route::resource('/users', AdminUsersController::class);
+        Route::resource('/resources', AdminResourcesController::class);
+        Route::match(['get', 'post'], '/mytestpage', [AdminMyTestPageController::class, 'index'])->name('mytestpage');
     });
 
 // Export

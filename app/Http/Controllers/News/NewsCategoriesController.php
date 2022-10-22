@@ -7,15 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 class NewsCategoriesController extends Controller
 {
     /**
-     * @return Application|Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
-    public function index(): \Illuminate\Contracts\View\View|Factory|Application
+    public function index(): View|Factory|Application
     {
         $categories = Category::query()->get();
         return view('categories.index')
@@ -24,13 +23,13 @@ class NewsCategoriesController extends Controller
 
     /**
      * @param string $slug
-     * @return Application|Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
-    public function show(string $slug): \Illuminate\Contracts\View\View|Factory|Application
+    public function show(string $slug): View|Factory|Application
     {
         /** @var Category $category */
         $category = Category::query()->where('slug', $slug)->firstOrFail();
-        $news = $category->news()->get();
+        $news = $category->news()->paginate(10);
         return view('categories.show')
             ->with('news', $news)
             ->with('category', $category);

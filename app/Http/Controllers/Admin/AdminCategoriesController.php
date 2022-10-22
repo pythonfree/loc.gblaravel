@@ -89,7 +89,7 @@ class AdminCategoriesController extends Controller
                 ->with('category', $category);
         }
         return redirect()
-            ->route('admin.index')
+            ->route('admin.categories.index')
             ->with('error', "Ошибка изменения категории с ID = {$category->getKey()}!")
             ->with('categories', Category::query()->get())
             ->with('category', $category);

@@ -36,9 +36,6 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger mr10 mb10">Delete</button>
                                     </form>
-                                    <button class="btn btn-secondary mr10 mb10 testApi" data-id="{{ $user->id }}">test
-                                        Api
-                                    </button>
                                 </div>
                             </div>
                         @empty
@@ -52,17 +49,4 @@
             </div>
         </div>
     </div>
-    <script>
-        let buttons = document.querySelectorAll('.testApi');
-        buttons.forEach((elem) => {
-            elem.addEventListener('click', () => {
-                let id = elem.getAttribute('data-id');
-                (async () => {
-                    const response = await fetch('/api/apiTest?id=' + id);
-                    const answer = await response.json();
-                    console.log(answer);
-                })();
-            })
-        })
-    </script>
 @endsection

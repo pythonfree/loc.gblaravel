@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique('inx_slug');
             $table->timestamps();
         });
     }

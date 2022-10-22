@@ -2,6 +2,9 @@
 <li class="nav-item"><a class="nav-link" href="{{ route('admin.news.index') }}">Новости</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ route('admin.categories.index') }}">Категории</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ route('admin.users.index') }}">Пользователи</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ route('admin.parser') }}">Парсить RSS</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ route('admin.image') }}">Скачать изображение</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ route('admin.download') }}">Скачать новости</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ route('admin.parser') }}">RSS</a></li>
+{{--<li class="nav-item"><a class="nav-link" href="{{ route('admin.resources.index') }}">Ресурсы RSS</a></li>--}}
+<li class="nav-item"><a class="nav-link" href="/horizon">Horizon</a></li>
+{{--<li class="nav-item"><a class="nav-link" href="{{ route('admin.image') }}">Скачать изображение</a></li>--}}
+{{--<li class="nav-item"><a class="nav-link" href="{{ route('admin.download') }}">Скачать новости</a></li>--}}
+<li class="nav-item"><a class="nav-link" href="{{ route('admin.mytestpage') }}">MyTestPage</a></li>

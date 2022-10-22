@@ -21,7 +21,8 @@
                                             {{ $article->image ?? asset('assets/img/default-news.png') }}
                                         )"></div>
                                 <div class="col-md-8">
-                                    {{ $article->title }}
+                                    {!! $article->title !!}.
+                                    <i>(Опубликовано: {{ Carbon\Carbon::instance(new DateTime($article->created_at))->translatedFormat('j F, Y') }})</i>
                                     @if($article->is_private)
                                         <span class="text-danger">
                                                 {{ '(Приватная)' }}

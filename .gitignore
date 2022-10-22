@@ -19,4 +19,5 @@ yarn-error.log
 !/.gitignore
 make_env.sh
 /.env
-
+/horizon.log
+/logs

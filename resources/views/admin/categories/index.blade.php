@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Админка')
+@section('title', 'Редактирование категорий')
 
 @section('menu')
     @include('admin.menu')
@@ -31,7 +31,7 @@
                             </div>
                             <div class="mb-3  col-md-4">
                                 <input type="submit" class="btn btn-outline-primary" id="addCategory" dusk="create-category"
-                                       value="@if($category->id){{'Изменить'}}@else{{'Добавить'}}@endif{{'категорию'}}">
+                                       value="@if($category->id){{'Изменить'}}@else{{'Добавить'}}@endif{{' категорию'}}">
                             </div>
                         </form>
                         @forelse($categories as $key => $category)
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         @empty
-                            Нет новостей
+                            Нет категорий
                         @endforelse
                     </div>
                 </div>

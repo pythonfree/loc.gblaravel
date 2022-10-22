@@ -43,7 +43,7 @@
 
                         <div class="d-flex flex-row-reverse mb-1">
                             <div class="col-md-8">
-                                @if(env('VKONTAKTE_CLIENT_ID', '') == '' || env('VKONTAKTE_CLIENT_SECRET', '') == '')
+                                @if(getenv('VKONTAKTE_CLIENT_ID') || getenv('VKONTAKTE_CLIENT_SECRET'))
                                     <a class="btn btn-block btn-social btn-vk" href="#" style="color: white">
                                         <span class="fa fa-vk"></span> Add CREDENTIALS for VK in ".env"
                                     </a>
@@ -58,7 +58,7 @@
 
                         <div class="d-flex flex-row-reverse mb-1">
                             <div class="col-md-8">
-                                @if(env('GITHUB_CLIENT_ID', '') == '' || env('GITHUB_CLIENT_SECRET', '') == '')
+                                @if(getenv('GITHUB_CLIENT_ID') || getenv('GITHUB_CLIENT_SECRET'))
                                     <a class="btn btn-block btn-social btn-github" href="#" style="color: white">
                                         <span class="fa fa-vk"></span> Add CREDENTIALS for Github in ".env"
                                     </a>

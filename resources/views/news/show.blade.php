@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', "Новость из категории - $category->title")
+@section('title', "Новость из категории - \"$category->title\"")
 
 @section('menu')
     @include('menu')
@@ -18,7 +18,7 @@
                                 {{ '(Приватная)' }}
                             </span>
                         @endif
-                        - {{ $category->title }}:
+                        - "{{ $category->title }}":
                     </div>
                     <div class="card-body">
                         @if($article)
@@ -30,8 +30,8 @@
                                     </div>
                                     <h2>{{ $article->title }}</h2>
                                     <p>
-                                        {!! $article->text !!}
-                                        <i>Опубликовано: {{ (new DateTime($article->created_at))->format('j F, Y') }}.</i>
+                                        {!! $article->text !!}.
+                                        <i>(Опубликовано: {{ Carbon\Carbon::instance(new DateTime($article->created_at))->translatedFormat('j F, Y') }})</i>
                                         Весь текст новости доступен <a style="display:contents" href="{{ $article->link }}" target="_blank"> по ссылке >>></a>
                                     </p>
                                 </div>
