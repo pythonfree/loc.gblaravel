@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Добавить: новость | категорию')
+@section('title', 'Добавить\Изменить: новость | категорию')
 
 @section('menu')
     @include('admin.menu')
@@ -112,12 +112,14 @@
     </div>
     <script src="{{ asset('assets/js/ckeditor/ckeditor.js') }}"></script>
     <script>
-        var options = {
-            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-            filebrowserImageUploadUrl: "/laravel-filemanager/upload?type=Images&_token={{ csrf_token() }}",
-            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-            filebrowserUploadUrl: "/laravel-filemanager/upload?type=Files&_token={{ csrf_token() }}",
-        };
-        CKEDITOR.replace('articleText', options);
+        window.addEventListener('DOMContentLoaded', (event) => {
+            var options = {
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                filebrowserImageUploadUrl: "/laravel-filemanager/upload?type=Images&_token={{ csrf_token() }}",
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+                filebrowserUploadUrl: "/laravel-filemanager/upload?type=Files&_token={{ csrf_token() }}",
+            };
+            CKEDITOR.replace('articleText', options);
+        });
     </script>
 @endsection

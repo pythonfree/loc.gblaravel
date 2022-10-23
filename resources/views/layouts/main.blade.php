@@ -12,11 +12,14 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-    {{--  My Style  --}}
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <!-- Scripts and Styles -->
+    @vite(
+        [
+            'resources/sass/app.scss',
+            'resources/css/app.css',
+            'resources/js/app.js',
+        ]
+    )
 
     <title>@yield('title')</title>
 </head>

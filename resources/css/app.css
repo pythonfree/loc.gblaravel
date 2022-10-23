@@ -1,0 +1,23 @@
+.card-img {
+    height: 100px;
+    width: 100px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.card-img-show {
+    height: 200px;
+    width: 200px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}

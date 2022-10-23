@@ -10,6 +10,9 @@ import jQuery from 'jquery';
 
 window.$ = jQuery;
 
+import './myjs';
+// import 'ckeditor4'
+
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
