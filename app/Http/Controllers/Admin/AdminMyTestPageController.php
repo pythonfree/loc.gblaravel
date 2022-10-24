@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\CategoryHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 
