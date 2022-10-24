@@ -10,7 +10,7 @@ import jQuery from 'jquery';
 
 window.$ = jQuery;
 
-import './myjs';
+// import './myjs';
 // import 'ckeditor4'
 
 /**

@@ -39,6 +39,12 @@
             </div>
         </div>
     </div>
+    <!-- Scripts and Styles -->
+    @vite(
+        [
+            'resources/js/myjs.js',
+        ]
+    )
     <div class="container">
         <div class="row justify-content-center align-items-center mt-1">
             <div class="col-md-6">

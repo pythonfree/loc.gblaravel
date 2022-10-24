@@ -28,6 +28,7 @@ class ExcelFile implements IExportFile
                 'Картинка',
                 'Дата создания',
                 'Дата редактирования',
+                'Ссылка на новость',
             ],
             $news,
         ]);

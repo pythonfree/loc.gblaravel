@@ -13,13 +13,11 @@ use Illuminate\Http\JsonResponse;
 class IsAdmin
 {
     /**
-     * Handle an incoming request.
-     *
      * @param Request $request
-     * @param Closure(Request): (Response|RedirectResponse) $next
-     * @return Response|RedirectResponse|JsonResponse
+     * @param Closure $next
+     * @return RedirectResponse|mixed
      */
-    public function handle(Request $request, Closure $next): Response|JsonResponse|RedirectResponse
+    public function handle(Request $request, Closure $next)
     {
         /** @var User $user */
         $user = Auth::user();
