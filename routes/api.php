@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')
     ->get('/parseAction', function (Request $request, AdminParserController $adminParserController) {
         $resourcesDone = $adminParserController->runParse();
         $resources = Resources::query()->get()->all();
-        $status = $resourcesDone == $resources && count($resourcesDone) > 1 && count($resources) > 1;
+        $status = $resourcesDone == $resources && count($resourcesDone) >= 1 && count($resources) >= 1;
         if ($status) {
             return response()->json(
                 [
@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')
         }
         return response()->json(
             [
-                'status' => 'error',
+                'status' => 'false',
             ],
             JSON_UNESCAPED_UNICODE
         );

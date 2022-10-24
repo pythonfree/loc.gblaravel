@@ -25,14 +25,6 @@ class XMLParserService
     }
 
     /**
-     * @return int
-     */
-    private function getLastCategoryId(): int
-    {
-        return DB::getPdo()->lastInsertId();
-    }
-
-    /**
      * @param array $news
      * @return void
      */
@@ -48,24 +40,13 @@ class XMLParserService
                 ];
             })
             ->all();
-        if (empty($categories)) {
-            $categories[] = [
-                'title' => 'Empty category',
-                'slug' => Str::slug('Пустая категория'),
-            ];
-        }
+        $categories[] = [
+            'title' => 'Empty category',
+            'slug' => Str::slug('Пустая категория'),
+        ];
         DB::table(Category::TABLE_NAME)->insertOrIgnore($categories);
-
-        $lastCategoryId = $this->getLastCategoryId();
-        $categoriesKeyedByTitle = collect($categories)
-            ->map(function ($item, $key) use ($lastCategoryId) {
-                return [
-                    'id' => $lastCategoryId + ++$key,
-                    'title' => $item['title'],
-                ];
-            })
-            ->keyBy('title');
-
+        $categories = Category::query()->get()->toArray();
+        $categoriesKeyedByTitle = collect($categories)->keyBy('title')->all();
         $news = collect($news)
             ->map(function ($item, $key) use ($categoriesKeyedByTitle) {
                 return [
