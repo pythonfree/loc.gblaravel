@@ -54,13 +54,14 @@ class XMLParserService
                 'slug' => Str::slug('Пустая категория'),
             ];
         }
+        DB::table(Category::TABLE_NAME)->insertOrIgnore($categories);
 
         $lastCategoryId = $this->getLastCategoryId();
         $categoriesKeyedByTitle = collect($categories)
             ->map(function ($item, $key) use ($lastCategoryId) {
                 return [
                     'id' => $lastCategoryId + ++$key,
-                    'title' => $item['title'] ?: 'Empty category',
+                    'title' => $item['title'],
                 ];
             })
             ->keyBy('title');
@@ -71,15 +72,13 @@ class XMLParserService
                     'title' => $item['title'],
                     'text' => $item['description'],
                     'is_private' => false,
-                    'category_id' => $categoriesKeyedByTitle[$item['category'] ?: 'Empty category']['id'],
+                    'category_id' => $categoriesKeyedByTitle[$item['category'] ?? 'Empty category']['id'],
                     'image' => $item['enclosure::url'],
                     'link' => $item['link'],
                     'created_at' => (new \DateTime($item['pubDate']))->format('Y-m-d H:i:s'),
                 ];
             })
             ->all();
-
-        DB::table(Category::TABLE_NAME)->insertOrIgnore($categories);
         DB::table(News::TABLE_NAME)->insertOrIgnore($news);
     }
 }

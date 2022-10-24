@@ -5,6 +5,7 @@ namespace App\Http\Controllers\News;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\News;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,9 +15,11 @@ class NewsCategoriesController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index(News $news): View|Factory|Application
     {
-        $categories = Category::query()->get();
+        $categories = Category::query()
+            ->orWhereHas($news->getTable())
+            ->get();
         return view('categories.index')
             ->with('categories', $categories);
     }
