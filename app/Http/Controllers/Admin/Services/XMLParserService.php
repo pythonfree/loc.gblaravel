@@ -45,8 +45,12 @@ class XMLParserService
             'slug' => Str::slug('Пустая категория'),
         ];
         DB::table(Category::TABLE_NAME)->insertOrIgnore($categories);
-        $categories = Category::query()->get()->toArray();
-        $categoriesKeyedByTitle = collect($categories)->keyBy('title')->all();
+        $categories = Category::query()
+            ->get()
+            ->toArray();
+        $categoriesKeyedByTitle = collect($categories)
+            ->keyBy('title')
+            ->all();
         $news = collect($news)
             ->map(function ($item, $key) use ($categoriesKeyedByTitle) {
                 return [
