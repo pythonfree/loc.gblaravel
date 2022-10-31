@@ -15,7 +15,7 @@ class NewsParsing implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $resource;
+    public Resources $resource;
 
     /**
      * Create a new job instance.
@@ -28,8 +28,7 @@ class NewsParsing implements ShouldQueue
     }
 
     /**
-     * Execute the job.
-     *
+     * @param XMLParserService $parserService
      * @return void
      */
     public function handle(XMLParserService $parserService): void

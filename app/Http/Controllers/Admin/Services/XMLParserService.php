@@ -24,10 +24,8 @@ class XMLParserService
                     'uses' => 'channel.item[title,link,category,pubDate,enclosure::url,description]'
                 ],
             ])['news'];
-            file_put_contents(__FILE__ . '$news', print_r($news, 1));
             $this->importNewsToDB($news);
         } catch (\Exception $e) {
-//            file_put_contents(__FILE__ . '$e', print_r($e, 1));
         }
     }
 
