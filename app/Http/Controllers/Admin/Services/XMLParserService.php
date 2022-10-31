@@ -17,16 +17,13 @@ class XMLParserService
      */
     public function saveNewsWithCategories(Resources $resource): void
     {
-        try {
-            $xml = XmlParser::load($resource->link);
-            $news = $xml->parse([
-                'news' => [
-                    'uses' => 'channel.item[title,link,category,pubDate,enclosure::url,description]'
-                ],
-            ])['news'];
-            $this->importNewsToDB($news);
-        } catch (\Exception $e) {
-        }
+        $xml = XmlParser::load($resource->link);
+        $news = $xml->parse([
+            'news' => [
+                'uses' => 'channel.item[title,link,category,pubDate,enclosure::url,description]'
+            ],
+        ])['news'];
+        $this->importNewsToDB($news);
     }
 
     /**
