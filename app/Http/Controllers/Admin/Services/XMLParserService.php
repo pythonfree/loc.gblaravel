@@ -65,7 +65,6 @@ class XMLParserService
                     'text' => $item['description'],
                     'is_private' => false,
                     'category_id' => $categoriesKeyedByTitle[$item['category'] ?? 'Empty category']['id'],
-                    'category' => $item['category'] ?? 'Empty category',
                     'image' => $item['enclosure::url'],
                     'link' => $item['link'],
                     'created_at' => $item['pubDate'] ? (new \DateTime($item['pubDate']))->format('Y-m-d H:i:s') : (new \DateTime('1 years ago'))->format('Y-m-d H:i:s'),
