@@ -31,8 +31,13 @@ class NewsCategoriesController extends Controller
     public function show(string $slug): View|Factory|Application
     {
         /** @var Category $category */
-        $category = Category::query()->where('slug', $slug)->firstOrFail();
-        $news = $category->news()->paginate(10);
+        $category = Category::query()
+            ->where('slug', $slug)
+            ->firstOrFail();
+        $news = $category
+            ->news()
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
         return view('categories.show')
             ->with('news', $news)
             ->with('category', $category);
