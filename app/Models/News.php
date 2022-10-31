@@ -17,6 +17,7 @@ class News extends Model
         'text',
         'is_private',
         'category_id',
+        'category',
         'image',
         'link',
     ];

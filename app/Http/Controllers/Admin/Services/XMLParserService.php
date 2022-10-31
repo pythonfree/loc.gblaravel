@@ -17,11 +17,18 @@ class XMLParserService
      */
     public function saveNewsWithCategories(Resources $resource): void
     {
-        $xml = XmlParser::load($resource->link);
-        $news = $xml->parse([
-            'news' => ['uses' => 'channel.item[title,link,category,pubDate,enclosure::url,description]'],
-        ])['news'];
-        $this->importNewsToDB($news);
+        try {
+            $xml = XmlParser::load($resource->link);
+            $news = $xml->parse([
+                'news' => [
+                    'uses' => 'channel.item[title,link,category,pubDate,enclosure::url,description]'
+                ],
+            ])['news'];
+            file_put_contents(__FILE__ . '$news', print_r($news, 1));
+            $this->importNewsToDB($news);
+        } catch (\Exception $e) {
+//            file_put_contents(__FILE__ . '$e', print_r($e, 1));
+        }
     }
 
     /**
@@ -58,9 +65,10 @@ class XMLParserService
                     'text' => $item['description'],
                     'is_private' => false,
                     'category_id' => $categoriesKeyedByTitle[$item['category'] ?? 'Empty category']['id'],
+                    'category' => $item['category'] ?? 'Empty category',
                     'image' => $item['enclosure::url'],
                     'link' => $item['link'],
-                    'created_at' => (new \DateTime($item['pubDate']))->format('Y-m-d H:i:s'),
+                    'created_at' => $item['pubDate'] ? (new \DateTime($item['pubDate']))->format('Y-m-d H:i:s') : (new \DateTime('1 years ago'))->format('Y-m-d H:i:s'),
                 ];
             })
             ->all();
