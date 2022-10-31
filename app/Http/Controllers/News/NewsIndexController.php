@@ -19,7 +19,7 @@ class NewsIndexController extends Controller
     {
         $news = News::query()
             ->orderBy('created_at', 'DESC')
-            ->paginate(10);
+            ->paginate(50);
         return view('news.index')->with('news', $news);
     }
 
